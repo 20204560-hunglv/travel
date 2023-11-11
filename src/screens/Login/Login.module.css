@@ -1,0 +1,156 @@
+.main {
+  background-image: url(../../images/bg-01.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background-attachment: fixed; */
+  height: 100vh;
+  display: flex;
+}
+.contain {
+  color: rgb(94, 93, 93);
+  background-color: white;
+  width: 30%;
+  min-width: 330px;
+  height: 90%;
+  min-height: 500px;
+  margin: auto;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Login begin */
+
+/* Header */
+.loginHeader {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.loginHeader > h1 {
+  color: #333333;
+}
+fieldset {
+  border: none;
+}
+
+/* input */
+.loginInput {
+  display: flex;
+  flex-direction: column;
+  height: 180px;
+  justify-content: space-between;
+}
+.loginInputArea {
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+  margin: auto;
+  position: relative;
+}
+.loginInputArea > p {
+  font-size: 15px;
+  padding-left: 5px;
+}
+.loginInputArea > input {
+  height: 40px;
+  border: none;
+  border-bottom: 2px solid rgb(173, 173, 173);
+  padding-left: 35px;
+  outline: none;
+  font-size: 16px;
+  color: rgb(173, 173, 173);
+  margin-top: 5px;
+  transition: border-bottom-color 1s;
+}
+.loginInputArea > input:focus ~ i {
+  color: #3a7bd5;
+}
+.loginInputArea > input:focus {
+  border-bottom-color: #646363;
+}
+.loginInputArea > i {
+  position: absolute;
+  left: 10px;
+  top: 30px;
+  font-size: 18px;
+  color: rgb(173, 173, 173);
+  transition: color 0.5s;
+}
+
+/* submit */
+.loginSubmit {
+  position: relative;
+  width: 85%;
+  height: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.loginSubmit > p {
+  font-size: 13px;
+  color: rgb(134, 133, 133);
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.loginSubmit > p:hover {
+  color: #3a7bd5;
+}
+.loginSubmitButton {
+  padding: 10px 20px;
+  background-color: #00d2ff;
+  border-radius: 25px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.5s;
+  border: none;
+}
+.loginSubmitButton:hover {
+  background-color: #3a7bd5;
+}
+
+/* login other */
+.loginOther {
+  margin-top: 40px;
+}
+.loginOther > p {
+  text-align: center;
+  font-size: 14px;
+}
+.loginOtherIcon {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.loginOtherIcon > i {
+  font-size: 40px;
+  cursor: pointer;
+  transition: color 0.5s;
+}
+.loginOtherIcon > i:hover {
+  color: #333333;
+}
+.faFace {
+  margin-right: 20px;
+  color: rgb(59, 89, 152);
+}
+.faGoog {
+  color: rgb(234, 67, 53);
+}
+
+/* next to register */
+.loginRegister > p {
+  margin-top: 50px;
+  text-align: center;
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+  transition: color 0.5s;
+  color: #185a9d;
+}
+.loginRegister > p:hover {
+  color: #3a7bd5;
+}
