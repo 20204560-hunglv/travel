@@ -1,0 +1,38 @@
+.contain{
+    display: flex;
+    width: 90%;
+    margin: auto;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #7d8fab;
+}
+.contain > img{
+    width: 416px;
+    height: 242px;
+    border-radius: 16px;
+    cursor: pointer;
+}
+.content{
+    flex: 1;
+    margin-left: 12px;
+}
+.content > h1{
+    margin-bottom: 20px;
+    color: #2d4271;
+    cursor: pointer;
+}
+.content > h1:hover{
+    color: #4d4aef;
+}
+.content > p{
+    color: #2d4271;
+    line-height: 24px;
+}
+.title{
+    color: #fd5056;
+    font-size: 22px;
+    line-height: 50px;
+    margin-top: 0;
+    font-weight: 500;
+    text-align: center;
+}
