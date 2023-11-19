@@ -1,11 +1,14 @@
 import styles from './style.module.css'
 
 const Header = () => {
-  const handletoNews = () =>{
+  const handleToNews = () =>{
     window.location.href = "/news";
   }
-  const handletoHome = () =>{
+  const handleToHome = () =>{
     window.location.href = "/";
+  }
+  const handleToLogin = () =>{
+    window.location.href = "/login";
   }
   return (
     <header>
@@ -13,11 +16,11 @@ const Header = () => {
         <nav>
           <ul className={styles.headerNav}>
             <li className={styles.headerNavLi}>
-              <p onClick={handletoHome}>Du lịch</p>
+              <p onClick={handleToHome}>Du lịch</p>
               <hr />
             </li>
             <li className={styles.headerNavLi}>
-              <p onClick={handletoNews}>Tin tức</p>
+              <p onClick={handleToNews}>Tin tức</p>
               <hr />
             </li>
             <li className={styles.headerNavLi}>
@@ -30,7 +33,7 @@ const Header = () => {
             </li>
           </ul>
         </nav>
-        <i className={`fa-regular fa-circle-user ${styles.faCircleUser}`}></i>
+        <i onClick={handleToLogin} className={`fa-regular fa-circle-user ${styles.faCircleUser}`}></i>
       </div>
     </header>
   );

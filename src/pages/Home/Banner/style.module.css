@@ -7,8 +7,8 @@
 .searchPic {
   margin: auto;
   width: 100%;
-  height: 79%;
-  background-image: url("../../../images/Quảng_trường_Hồ_Chí_Minh.jpg");
+  height: 80%;
+  background-image: url("../../../assets/images/Quảng_trường_Hồ_Chí_Minh.jpg");
   background-repeat: no-repeat;
   background-position: 0 25%;
   border-radius: 60px 0;
@@ -20,25 +20,28 @@
   bottom: 0;
   left: 10%;
   right: 10%;
-  background-color: rgba(52, 54, 56, 0.6);
+  background-color: rgb(45 66 100 / 80%);
   border-radius: 15px;
   height: max-content;
   box-shadow: 0 0 10px #616d8a;
+  color: #4d4aef!important;
 }
 .searchChooseNav {
   list-style: none;
   color: white;
+  padding-left: 0;
 }
 .searchChooseNavLi {
   display: inline-block;
-  padding: 18px 15px;
+  padding: 40px 15px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   cursor: pointer;
+  color: white;
 }
 .searchChooseNavLiChoose {
   background-color: white;
-  color: black;
+  color: #4d4aef;
 }
 .searchChoose > div {
   background-color: white;
@@ -50,6 +53,10 @@
   padding: 10px 0 20px;
   font-size: 20px;
   font-weight: 600;
+}
+.searchChooseContent{
+  color: #2d4271!important;
+  padding: 20px 0;
 }
 .searchChooseFilter {
   display: flex;
@@ -63,19 +70,15 @@
   justify-content: center;
   padding: 5px 30px;
   min-width: 150px;
-  border: 1px solid black;
+  border: 5px solid #ffc709;
   border-radius: 16px 0;
   cursor: pointer;
   transition: background-color 0.5s, color 0.5s;
 }
-.searchChooseItem:hover {
-  background-color: rgb(29, 28, 28);
-  color: white;
-}
 .searchChooseItemDay {
   min-width: unset;
 }
-.fa-right-left {
+.faRightLeft {
   cursor: pointer;
 }
 .searchChooseItem > i {
@@ -88,15 +91,17 @@
   font-weight: bold;
   margin-top: 5px;
 }
-.fa-right-long {
-  padding: 12px 16px;
+.faRightLong {
+  padding: 16px 20px;
   border-radius: 8px;
-  border: 1px solid #000;
+  /* border: 1px solid #000; */
   color: #221f20;
+  color: white;
   cursor: pointer;
+  background-color: #ffc709;
   transition: background-color 0.5s, color 0.5s;
 }
-.fa-right-long:hover {
-  background-color: #000;
+.faRightLong:hover {
+  background-color: #d6a80f;
   color: white;
 }

@@ -5,7 +5,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: #2d4271;
 }
+
 nav {
   height: 100%;
 }
@@ -14,6 +16,7 @@ nav {
   height: 100%;
   display: flex;
   align-items: center;
+  padding-left: 0;
 }
 .headerNavLi {
   float: left;
@@ -37,7 +40,7 @@ nav {
 .headerNavLi > hr {
   height: 2px;
   border: none;
-  background-color: #2f3033;
+  background-color: #2d4271;
   position: absolute;
   bottom: 4%;
   width: 0;
@@ -48,6 +51,6 @@ nav {
 }
 .faCircleUser {
   font-size: 24px;
-  color: #2f3033;
+  color: #2d4271;
   cursor: pointer;
 }

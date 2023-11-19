@@ -2,6 +2,12 @@
     padding-top: 40px;
     width: 90%;
     margin: auto;
+    margin-bottom: 40px;
+}
+.contain > h3{
+    font-weight: 700;
+    font-size: 30px;
+    color: #2d4271;
 }
 .gallery{
     display: flex;
@@ -19,8 +25,12 @@
 .item > a {
     display: block;
     margin: 8px 0 8px 8px;
+    font-size: 17px;
+    font-weight: 700;
+    color: #2d4271;
 }
 .item > p{
     font-size: 13px;
     margin-left: 8px;
+    color: #2d4271;
 }

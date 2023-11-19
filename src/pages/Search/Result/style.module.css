@@ -1,0 +1,5 @@
+.contain > h1{
+    border-bottom: 0.5px solid #d5d5d5;
+    font-size: 32px;
+    text-align: center;
+}

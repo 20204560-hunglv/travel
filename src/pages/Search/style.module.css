@@ -1,0 +1,10 @@
+.contain{
+    display: flex;
+}
+.filter{
+    flex: 1;
+    background-color: #f8f9fa!important;
+}
+.result{
+    flex: 3;
+}

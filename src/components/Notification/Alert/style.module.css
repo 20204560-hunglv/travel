@@ -1,0 +1,27 @@
+.toast {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 16px 0;
+  border-left: 4px solid #47d864;
+  box-shadow: 0 4px 12px rgb(163, 163, 163);
+}
+.body {
+  margin: 0 16px;
+}
+.toastIcon {
+  margin: 0 16px;
+}
+.toastIcon > i {
+  padding: 4px;
+  color: #47d864;
+  font-size: 20px;
+}
+.toastClose {
+  margin: 0 16px;
+}
+.toastClose > i {
+  padding: 4px;
+  cursor: pointer;
+  font-size: 20px;
+}

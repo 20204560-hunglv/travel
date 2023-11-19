@@ -1,8 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from '../src/screens/Login/Login'
-import Register from '../src/screens/Register/Register'
-import Home from "./screens/Home/index";
-import News from "./screens/News";
+import Login from "../src/pages/Login/Login";
+import Register from "../src/pages/Register";
+import Home from "./pages/Home/index";
+import News from "./pages/News";
+import Booking from "./pages/Booking";
+import Search from "./pages/Search";
 
 const App = () => {
   const handleLogin = () => {
@@ -11,10 +13,12 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />}/>
-        <Route path="/login" element={<Login onclick={handleLogin}/>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login onclick={handleLogin} />} />
         <Route path="/register" element={<Register />} />
-        <Route path="news" element={<News />} />
+        <Route path="/news" element={<News />} />
+        <Route path="/booking" element={<Booking />} />
+        <Route path="/search" element={<Search />} />
       </Routes>
     </BrowserRouter>
   );

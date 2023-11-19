@@ -1,0 +1,70 @@
+.contain {
+  width: 90%;
+  margin: auto;
+  margin-bottom: 40px;
+}
+.filterResult {
+  font-weight: 700;
+  font-size: 22px;
+  margin-bottom: 28px;
+}
+.choose,
+.pick {
+  margin-bottom: 16px;
+}
+.choose,
+.pick > h5 {
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 16px;
+  margin-bottom: 15px;
+}
+.input {
+  border: none;
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #d8d8d8;
+  appearance: none;
+  outline: none;
+}
+.pickContain {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.pickItem {
+  width: 48%;
+  text-align: center;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.pickItem:hover {
+  background: #4d4aef;
+  color: #fff;
+}
+.arrivallink {
+  text-align: center;
+  margin-top: 25px;
+  cursor: pointer;
+}
+.arrivallinka {
+  display: block;
+  padding: 10px 20px;
+  border: 1px solid #2d4271;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #2d4271;
+  transition: background-color 0.5s, color 0.5s;
+  font-weight: 700 !important;
+}
+.arrivallinka:hover {
+  background-color: #27395f;
+  color: white;
+}

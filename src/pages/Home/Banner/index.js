@@ -1,6 +1,9 @@
 import styles from './style.module.css'
 
 const Banner = () => {
+  const handleToSearch=()=>{
+    window.location.href="/search"
+  }
   return (
     <div className={styles.search}>
         <div className={styles.searchPic}></div>
@@ -13,7 +16,6 @@ const Banner = () => {
                 Tour du lịch
               </li>
               <li className={styles.searchChooseNavLi}>Khách sạn</li>
-              <li className={styles.searchChooseNavLi}>Vé máy bay</li>
               <li className={styles.searchChooseNavLi}>Tra cứu booking</li>
             </ul>
           </nav>
@@ -27,12 +29,12 @@ const Banner = () => {
                   <p>TP. Hồ Chí Minh</p>
                 </div>
               </div>
-              <i className="fa-solid fa-right-left"></i>
+              <i className={`fa-solid fa-right-left ${styles.faRightLeft}`}></i>
               <div className={styles.searchChooseItem}>
                 <i className="fa-solid fa-location-dot"></i>
                 <div>
                   <span>Điểm đến</span>
-                  <p>Nghệ An</p>
+                  <p>Hà Nội</p>
                 </div>
               </div>
               <div className={styles.searchChooseItem}>
@@ -49,7 +51,7 @@ const Banner = () => {
                   <p>2</p>
                 </div>
               </div>
-              <i className="fa-solid fa-right-long"></i>
+              <i onClick={handleToSearch} className={`fa-solid fa-right-long ${styles.faRightLong}`}></i>
             </div>
           </div>
         </div>
