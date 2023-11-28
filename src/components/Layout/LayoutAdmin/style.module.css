@@ -1,0 +1,10 @@
+.sideBar{
+    height: 100vh;
+    flex: 1;
+}
+.main{
+    display: flex;
+}
+.content{
+    flex: 4;
+}

@@ -5,6 +5,7 @@ import Home from "./pages/Home/index";
 import News from "./pages/News";
 import Booking from "./pages/Booking";
 import Search from "./pages/Search";
+import CrudUser from './pages/Admin/CrudUser'
 
 const App = () => {
   const handleLogin = () => {
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/news" element={<News />} />
         <Route path="/booking" element={<Booking />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/crud-user" element={<CrudUser />} />
       </Routes>
     </BrowserRouter>
   );

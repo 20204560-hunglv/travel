@@ -1,7 +1,9 @@
 import styles from "./Login.module.css";
-const Login = ({onclick}) => {
+import DefaultLayout from "../../components/Layout/DefaultLayout";
+const Login = ({ onclick }) => {
   return (
-    <div className={styles.main}>
+    <DefaultLayout>
+      <div className={styles.main}>
       <div className={styles.contain}>
         <div className={styles.login}>
           <header className={styles.loginHeader}>
@@ -35,8 +37,7 @@ const Login = ({onclick}) => {
             </fieldset>
             <fieldset className={styles.loginSubmit}>
               <p>Quên mật khẩu?</p>
-              <button className={styles.loginSubmitButton}>
-                Đăng nhập</button>
+              <button className={styles.loginSubmitButton}>Đăng nhập</button>
             </fieldset>
           </form>
           <div className={styles.loginOther}>
@@ -52,6 +53,7 @@ const Login = ({onclick}) => {
         </div>
       </div>
     </div>
+    </DefaultLayout>
   );
 };
 
