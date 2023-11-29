@@ -1,0 +1,74 @@
+.input {
+  height: 40px;
+  border: 2px solid rgb(135, 135, 135);
+  border-radius: 12px;
+  padding-left: 35px;
+  outline: none;
+  font-size: 16px;
+  color: rgb(150, 150, 150);
+  width: 60%;
+  margin: auto;
+  margin-top: 20px;
+  display: block;
+}
+.imageInput {
+  padding-left: 16px;
+  font-size: 16px;
+  color: rgb(150, 150, 150);
+  width: 60%;
+  margin: auto;
+  margin-top: 20px;
+}
+.inputChild {
+  height: 40px;
+  border: 2px solid rgb(135, 135, 135);
+  border-radius: 12px;
+  padding-left: 35px;
+  outline: none;
+  font-size: 16px;
+  color: rgb(150, 150, 150);
+  width: 30%;
+  margin-left: 50%;
+  margin-top: 12px;
+  display: block;
+}
+.main {
+  margin-bottom: 40px;
+}
+.main::before {
+  content: "";
+  display: block;
+  width: 90%;
+  margin: auto;
+  height: 1px;
+  background-color: #d5d5d5;
+}
+.main > h2 {
+  margin: 32px 0;
+  text-align: center;
+}
+.info {
+  display: flex;
+  width: 80%;
+  margin: auto;
+}
+.infoItem {
+  flex: 1;
+}
+.registerBtn {
+  padding: 10px 20px;
+  background-color: #00d2ff;
+  border-radius: 25px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.5s;
+  border: none;
+  margin: auto;
+  width: max-content;
+  margin-top: 20px;
+  min-width: 110px;
+  text-align: center;
+}
+.registerBtn:hover {
+  background-color: #3a7bd5;
+}

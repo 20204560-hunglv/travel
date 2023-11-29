@@ -18,6 +18,10 @@
   cursor: pointer;
 }
 .main > ul > li:hover {
+  background-color: #5d5bc3;
+  color: #fff;
+}
+.active{
   background-color: #4d4aef;
   color: #fff;
 }
