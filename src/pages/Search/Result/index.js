@@ -9,7 +9,7 @@ const SearchItem = (props) => {
       <div className={styles.saledescribe}>
         <p className={styles.saleitemtimecreate}>28/10/2023</p>
         <p className={styles.saleitemcontent}>{props.address}</p>
-        <p className={styles.saleitemfrom}>Nơi khởi hành: TP. Hồ Chí Minh</p>
+        <p className={styles.saleitemfrom}>Nơi khởi hành: <span>TP. Hồ Chí Minh</span></p>
         <p className={styles.saleitemprice}>5.000.000đ</p>
         <p onClick={handleToBooking} className={styles.saleitemslot}>
           Đặt
@@ -23,15 +23,51 @@ const Result = () => {
   const links = [
     {
       link: "https://media.travel.com.vn/Combo/s_img_16082023_e1c5d1d6-cdb9-4c20-827d-a3adbca8a47a_B%C3%8AN%20NGO%C3%80I%20KS.webp",
-      address: "Quy Nhơn",
+      address: "Hà Nội",
     },
     {
       link: "https://media.travel.com.vn/Combo/s_img_30082023_1e30bd0f-d546-41d2-ad9d-cc7e0e474294_z4607971211874_cbc4aea01ae65ad0b8a3ced5a8864238.webp",
-      address: "Đà Nẵng",
+      address: "Hà Nội",
     },
     {
-      link: "https://media.travel.com.vn/destination/dg_230628_phu-quoc.webp",
-      address: "Phú Quốc",
+      link: "https://media.travel.com.vn/destination/tf_230613114832_386853_b%C3%A1i%20%C4%91%C3%ADnh.jpg",
+      address: "Hà Nội",
+    },
+    {
+      link: "https://media.travel.com.vn/Combo/s_img_16082023_e1c5d1d6-cdb9-4c20-827d-a3adbca8a47a_B%C3%8AN%20NGO%C3%80I%20KS.webp",
+      address: "Hà Nội",
+    },
+    {
+      link: "https://media.travel.com.vn/Combo/s_img_30082023_1e30bd0f-d546-41d2-ad9d-cc7e0e474294_z4607971211874_cbc4aea01ae65ad0b8a3ced5a8864238.webp",
+      address: "Hà Nội",
+    },
+    {
+      link: "https://media.travel.com.vn/destination/tf_230613114832_386853_b%C3%A1i%20%C4%91%C3%ADnh.jpg",
+      address: "Hà Nội",
+    },
+    {
+      link: "https://media.travel.com.vn/Combo/s_img_16082023_e1c5d1d6-cdb9-4c20-827d-a3adbca8a47a_B%C3%8AN%20NGO%C3%80I%20KS.webp",
+      address: "Hà Nội",
+    },
+    {
+      link: "https://media.travel.com.vn/Combo/s_img_30082023_1e30bd0f-d546-41d2-ad9d-cc7e0e474294_z4607971211874_cbc4aea01ae65ad0b8a3ced5a8864238.webp",
+      address: "Hà Nội",
+    },
+    {
+      link: "https://media.travel.com.vn/destination/tf_230613114832_386853_b%C3%A1i%20%C4%91%C3%ADnh.jpg",
+      address: "Hà Nội",
+    },
+    {
+      link: "https://media.travel.com.vn/Combo/s_img_16082023_e1c5d1d6-cdb9-4c20-827d-a3adbca8a47a_B%C3%8AN%20NGO%C3%80I%20KS.webp",
+      address: "Hà Nội",
+    },
+    {
+      link: "https://media.travel.com.vn/Combo/s_img_30082023_1e30bd0f-d546-41d2-ad9d-cc7e0e474294_z4607971211874_cbc4aea01ae65ad0b8a3ced5a8864238.webp",
+      address: "Hà Nội",
+    },
+    {
+      link: "https://media.travel.com.vn/destination/tf_230613114832_386853_b%C3%A1i%20%C4%91%C3%ADnh.jpg",
+      address: "Hà Nội",
     },
   ];
   return (

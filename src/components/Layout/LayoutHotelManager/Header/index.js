@@ -1,11 +1,11 @@
 import styles from './style.module.css'
 
 const Header = () => {
-  const handleToNews = () =>{
-    window.location.href = "/news";
+  const handleToListsHotel = () =>{
+    window.location.href = "/hotel-manager/edit-hotel";
   }
-  const handleToHome = () =>{
-    window.location.href = "/";
+  const handleToRegisterHotel = () =>{
+    window.location.href = "/hotel-manager/register-hotel";
   }
   const handleToLogin = () =>{
     window.location.href = "/login";
@@ -16,19 +16,11 @@ const Header = () => {
         <nav>
           <ul className={styles.headerNav}>
             <li className={styles.headerNavLi}>
-              <p onClick={handleToHome}>Trang chủ</p>
+              <p onClick={handleToRegisterHotel}>Đăng ký khách sạn</p>
               <hr />
             </li>
             <li className={styles.headerNavLi}>
-              <p onClick={handleToNews}>Tin tức</p>
-              <hr />
-            </li>
-            <li className={styles.headerNavLi}>
-              <p>Khuyến mãi</p>
-              <hr />
-            </li>
-            <li className={styles.headerNavLi}>
-              <p>Liên hệ</p>
+              <p onClick={handleToListsHotel}>Danh sách khách sạn</p>
               <hr />
             </li>
           </ul>

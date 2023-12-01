@@ -1,4 +1,4 @@
-import DefaultLayout from "../../../components/Layout/DefaultLayout";
+import LayoutHotelManager from "../../../components/Layout/LayoutHotelManager";
 import styles from "./style.module.css";
 const Input = (props) => {
   return (
@@ -11,7 +11,7 @@ const Input = (props) => {
 };
 const RegisterHotel = () => {
   return (
-    <DefaultLayout>
+    <LayoutHotelManager>
       <div className={styles.main}>
         <h2>Đăng ký khách sạn</h2>
         <div className={styles.info}>
@@ -45,7 +45,7 @@ const RegisterHotel = () => {
         </div>
         <div className={styles.registerBtn}>Đăng ký</div>
       </div>
-    </DefaultLayout>
+    </LayoutHotelManager>
   );
 };
 export default RegisterHotel;

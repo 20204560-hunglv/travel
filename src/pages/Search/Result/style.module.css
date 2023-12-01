@@ -1,5 +1,86 @@
-.contain > h1{
-    border-bottom: 0.5px solid #d5d5d5;
-    font-size: 32px;
-    text-align: center;
+.contain {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.contain > h1 {
+  border-bottom: 0.5px solid #d5d5d5;
+  font-size: 32px;
+  text-align: center;
+}
+.search {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+}
+.saleitem {
+  width: 30%;
+}
+.saleitem > img {
+  width: 100%;
+  height: 300px;
+  border-radius: 12px;
+}
+.saleitemtimecreate {
+  font-size: 13px;
+}
+.saleitemcontent {
+  font-weight: bold;
+}
+.saleitemfrom > span {
+  font-weight: bold;
+}
+.saleitem {
+  width: 24%;
+  height: max-content;
+  margin: 8px 8px;
+  /* border: 1px solid rgb(83, 82, 82); */
+  border-radius: 8px;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+}
+.saleitem:hover {
+  box-shadow: 0 0 5px black;
+}
+.saleitempic {
+  width: 100%;
+  height: 300px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.saledescribe {
+  padding: 4px 8px 8px;
+  color: #2d4271;
+}
+.saleitemtimecreate {
+  color: #2d4271;
+  font-size: 14px;
+}
+.saleitemcontent {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 4px 0 8px;
+}
+.saleitemfrom {
+  color: #2d4271;
+}
+.saleitemprice {
+  color: #fd5056;
+  font-weight: 600;
+  float: left;
+  margin-top: 12px;
+}
+.saleitemslot {
+  float: right;
+  background: #fd5056;
+  border-radius: 8px 0;
+  padding: 10px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  cursor: pointer;
+  margin-bottom: 4px;
 }

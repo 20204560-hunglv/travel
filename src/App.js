@@ -10,6 +10,7 @@ import CrudTour from './pages/Admin/CrudTour'
 import ResponHotel from "./pages/Admin/ResponHotel";
 import Order from "./pages/Admin/Order";
 import RegisterHotel from "./pages/HotelManager/RegisterHotel";
+import EditHotel from "./pages/HotelManager/EditHotel";
 
 const App = () => {
   const handleLogin = () => {
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/admin/hotel" element={<ResponHotel />} />
         <Route path="/admin/order" element={<Order />} />
         <Route path="/hotel-manager/register-hotel" element={<RegisterHotel />} />
+        <Route path="/hotel-manager/edit-hotel" element={<EditHotel />} />
       </Routes>
     </BrowserRouter>
   );
