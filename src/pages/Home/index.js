@@ -7,8 +7,9 @@ import Premium from "./Premium";
 const Home = () => {
   return (
     <DefaultLayout>
-      <main style={{overflowX: 'hidden'}}>
+      <main style={{ overflowX: "hidden" }}>
         <Banner />
+        <p className="text-3xl font-bold underline">Hello world!</p>
         <Premium />
         <Sale />
         <Favorite />

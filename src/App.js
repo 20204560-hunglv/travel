@@ -5,8 +5,8 @@ import Home from "./pages/Home/index";
 import News from "./pages/News";
 import Booking from "./pages/Booking";
 import Search from "./pages/Search";
-import CrudUser from './pages/Admin/CrudUser'
-import CrudTour from './pages/Admin/CrudTour'
+import CrudUser from "./pages/Admin/CrudUser";
+import CrudTour from "./pages/Admin/CrudTour";
 import ResponHotel from "./pages/Admin/ResponHotel";
 import Order from "./pages/Admin/Order";
 import RegisterHotel from "./pages/HotelManager/RegisterHotel";
@@ -19,8 +19,9 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login onclick={handleLogin} />} />
+        <Route path="/" element={<Home />} />
+
         <Route path="/register" element={<Register />} />
         <Route path="/news" element={<News />} />
         <Route path="/booking" element={<Booking />} />
@@ -29,7 +30,10 @@ const App = () => {
         <Route path="/admin/crud-tour" element={<CrudTour />} />
         <Route path="/admin/hotel" element={<ResponHotel />} />
         <Route path="/admin/order" element={<Order />} />
-        <Route path="/hotel-manager/register-hotel" element={<RegisterHotel />} />
+        <Route
+          path="/hotel-manager/register-hotel"
+          element={<RegisterHotel />}
+        />
         <Route path="/hotel-manager/edit-hotel" element={<EditHotel />} />
       </Routes>
     </BrowserRouter>
