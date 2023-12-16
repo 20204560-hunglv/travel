@@ -1,9 +1,9 @@
+const searchRouter = require("./search.js");
+
 const route = (app) => {
+  app.use("/search", searchRouter);
   app.get("/", (req, res) => {
     res.render("home");
-  });
-  app.get("/search", (req, res) => {
-    res.render("search");
   });
   app.post("/search", (req, res) => {
     console.log(req.body["user-name"]);
