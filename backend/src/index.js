@@ -4,7 +4,7 @@ const handlebars = require("express-handlebars");
 const path = require("path");
 const route = require("./routes");
 const app = express();
-const port = 3000;
+const port = 3003;
 const database = require("./config");
 
 app.use(morgan("combined"));
