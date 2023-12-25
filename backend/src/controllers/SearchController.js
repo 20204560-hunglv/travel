@@ -12,6 +12,7 @@ class SearchController {
     // res.render("search");
   }
   async slug(req, res) {
+    const {name, start_time, period, code, status} = req.body;
     const newUser = {
       username: "username 1",
       password: "password 1",

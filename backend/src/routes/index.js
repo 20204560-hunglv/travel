@@ -1,7 +1,9 @@
 const searchRouter = require("./search.js");
+const apiRouter = require("./api.js")
 
 const route = (app) => {
   app.use("/search", searchRouter);
+  app.use("/api/v1", apiRouter);
   app.get("/", (req, res) => {
     res.render("home");
   });
