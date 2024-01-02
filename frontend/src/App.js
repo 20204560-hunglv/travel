@@ -13,13 +13,10 @@ import RegisterHotel from "./pages/HotelManager/RegisterHotel";
 import EditHotel from "./pages/HotelManager/EditHotel";
 
 const App = () => {
-  const handleLogin = () => {
-    window.location.href = "/register";
-  };
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login onclick={handleLogin} />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />} />
 
         <Route path="/register" element={<Register />} />
