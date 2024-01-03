@@ -22,7 +22,7 @@ const Header = () => {
               <hr />
             </li>
             <li className={styles.headerNavLi}>
-              <p>Liên hệ</p>
+              <p>Lịch sử booking</p>
               <hr />
             </li>
           </ul>

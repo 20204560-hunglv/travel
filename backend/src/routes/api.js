@@ -7,5 +7,7 @@ router.post("/tours", apiRouter.createTour);
 router.get("/tours", apiRouter.getAllTours);
 router.put("/tours/:id", apiRouter.updateTour);
 router.delete("/tours/:id", apiRouter.deleteTour);
+router.post("/signup",apiRouter.signUp)
+router.post("/login",apiRouter.login)
 
 module.exports = router;

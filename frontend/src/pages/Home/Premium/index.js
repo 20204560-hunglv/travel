@@ -24,7 +24,7 @@ const Premium = () => {
   }, []);
   return (
     <div className={styles.contain}>
-      <h3>Ưu đãi</h3>
+      <h3 className="font-bold">Ưu đãi</h3>
       <div className={styles.gallery}>
         <div
           className={styles.slide}
