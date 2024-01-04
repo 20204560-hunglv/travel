@@ -2,45 +2,56 @@ import { useEffect, useState } from "react";
 import DefaultLayout from "../../components/Layout/DefaultLayout";
 import { useNavigate } from "react-router-dom";
 import axios from "../../utils/axios";
-import getUserLocal from '../../utils/getUserLocal'
+import getUserLocal from "../../utils/getUserLocal";
+import { ReactNotifications } from "react-notifications-component";
+import { handleNotify } from "../../components/Notification/index";
 
 const Profile = () => {
-  const storedUserDataString = getUserLocal()
+  const storedUserDataString = getUserLocal();
   const navigate = useNavigate();
   const handleToPass = () => {
     navigate("/change-pass");
   };
-  const [fullName, setFullName] = useState('')
-  const [email, setEmail] = useState('')
-  const [address,setAddress] = useState('')
-  const [gender, setGender] = useState('')
-  const handleFullName = (event)=>{
-    setFullName(event.target.value)
-  }
-  const handleEmail = (event)=>{
-    setEmail(event.target.value)
-  }
-  const handleAddress = (event)=>{
-    setAddress(event.target.value)
-  }
-  const handleGender = (event)=>{
-    setGender(event.target.value)
-  }
-  const [user,setUser] = useState({
-  });
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [gender, setGender] = useState("");
+  const handleFullName = (event) => {
+    setFullName(event.target.value);
+  };
+  const handleEmail = (event) => {
+    setEmail(event.target.value);
+  };
+  const handleAddress = (event) => {
+    setAddress(event.target.value);
+  };
+  const handleGender = (event) => {
+    setGender(event.target.value);
+  };
+  const [user, setUser] = useState({});
   const handleSave = () => {
-    console.log({fullName, email, address, gender})
-  }
+    axios
+      .put(`/api/v1/user/${storedUserDataString.username}`, {
+        fullname: fullName,
+        email: email,
+        address: address,
+        gender: gender,
+      })
+      .then(() => {
+        handleNotify("success", "Thành công", "Lưu thông tin thành công!");
+      })
+      .catch((err) => console.log(err));
+  };
   useEffect(() => {
     if (storedUserDataString) {
       axios
         .get(`/api/v1/user/${storedUserDataString.username}`)
         .then((response) => {
-          setUser(response.data)
-          if(response.data.fullname) setFullName(response.data.fullname)
-          if(response.data.email) setEmail(response.data.email)
-          if(response.data.address) setAddress(response.data.address)
-          if(response.data.gender) setGender(response.data.gender)
+          setUser(response.data);
+          if (response.data.fullname) setFullName(response.data.fullname);
+          if (response.data.email) setEmail(response.data.email);
+          if (response.data.address) setAddress(response.data.address);
+          if (response.data.gender) setGender(response.data.gender);
         })
         .catch((error) => {
           console.error(error);
@@ -49,10 +60,13 @@ const Profile = () => {
   }, []);
   return (
     <DefaultLayout>
+      <ReactNotifications />
       <div className="bg-gray-200 min-h-screen pt-2 font-mono">
         <div className="container mx-auto">
           <div className="inputs w-full max-w-2xl p-6 mx-auto">
-            <h2 className="text-2xl text-center text-gray-900">Thông tin tài khoản</h2>
+            <h2 className="text-2xl text-center text-gray-900">
+              Thông tin tài khoản
+            </h2>
             <div className="flex items-center justify-between mt-5">
               <p className="text-gray-900">{`Hello ${storedUserDataString.username}`}</p>
               <div>
@@ -127,7 +141,7 @@ const Profile = () => {
                         name="gender-radio"
                         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
                         onChange={handleGender}
-                        checked={gender === 'nam'}
+                        checked={gender === "nam"}
                       />
                       <label
                         htmlFor="gender-radio-1"
@@ -141,7 +155,7 @@ const Profile = () => {
                         id="gender-radio-2"
                         type="radio"
                         value="nu"
-                        checked={gender === 'nu'}
+                        checked={gender === "nu"}
                         onChange={handleGender}
                         name="gender-radio"
                         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
@@ -157,9 +171,10 @@ const Profile = () => {
                 </div>
                 <div className="personal w-full border-t border-gray-400 pt-4">
                   <div className="flex justify-end">
-                    <button 
-                    onClick={() => handleSave()}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                    <button
+                      onClick={() => handleSave()}
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                    >
                       Lưu
                     </button>
                   </div>

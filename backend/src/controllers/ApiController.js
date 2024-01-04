@@ -40,12 +40,12 @@ const getAllTours = async (req, res) => {
   }
 };
 const getUser = async (req, res) => {
-  const username = req.params.username
+  const username = req.params.username;
   if (!username) {
-    return res.status(400).json({ error: 'Username is required' });
+    return res.status(400).json({ error: "Username is required" });
   }
   try {
-    const user = await User.findOne({username: username});
+    const user = await User.findOne({ username: username });
     return res.status(200).json(user);
   } catch (err) {
     console.error(err);
@@ -56,6 +56,41 @@ const updateTour = async (req, res) => {
   const { code, newDate } = req.body;
   try {
     await Tour.updateOne({ code: code }, { start_time: newDate });
+    return res.status(200).json({
+      message: "update ok",
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send("Internal ServerError");
+  }
+};
+const updateUser = async (req, res) => {
+  const username = req.params.username;
+  const { fullName, email, address, gender } = req.body;
+  try {
+    await User.updateOne(
+      { username: username },
+      { fullname: fullName, email: email, address: address, gender: gender}
+    );
+    return res.status(200).json({
+      message: "update ok",
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send("Internal ServerError");
+  }
+};
+const updatePassword = async (req, res) => {
+  const username = req.params.username;
+  const {pass, newPass} = req.body;
+  try {
+    const isPass = await User.findOne({username: username, password: pass});
+    if(!isPass) 
+      return res.status(409).json({ error: "Password wrong" });
+    await User.updateOne(
+      { username: username },
+      { password: newPass}
+    );
     return res.status(200).json({
       message: "update ok",
     });
@@ -79,7 +114,9 @@ const deleteTour = async (req, res) => {
 const signUp = async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
-    return res.status(400).json({ error: 'Username and password are required' });
+    return res
+      .status(400)
+      .json({ error: "Username and password are required" });
   }
   try {
     const findUser = await User.findOne({ username: username });
@@ -99,7 +136,9 @@ const signUp = async (req, res) => {
 const login = async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
-    return res.status(400).json({ error: 'Username and password are required' });
+    return res
+      .status(400)
+      .json({ error: "Username and password are required" });
   }
   try {
     const user = await User.findOne({
@@ -122,5 +161,7 @@ module.exports = {
   deleteTour,
   signUp,
   login,
-  getUser
+  getUser,
+  updateUser,
+  updatePassword
 };
