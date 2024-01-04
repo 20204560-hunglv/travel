@@ -6,9 +6,10 @@ const route = require("./routes");
 const app = express();
 const port = 3003;
 const database = require("./config");
+const cors = require('cors');
 
 app.use(morgan("combined"));
-
+app.use(cors());
 app.use(
   express.urlencoded({
     extended: true,

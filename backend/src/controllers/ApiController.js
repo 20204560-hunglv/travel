@@ -39,6 +39,19 @@ const getAllTours = async (req, res) => {
     return res.status(500).send("Internal Server Error");
   }
 };
+const getUser = async (req, res) => {
+  const username = req.params.username
+  if (!username) {
+    return res.status(400).json({ error: 'Username is required' });
+  }
+  try {
+    const user = await User.findOne({username: username});
+    return res.status(200).json(user);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send("Internal Server Error");
+  }
+};
 const updateTour = async (req, res) => {
   const { code, newDate } = req.body;
   try {
@@ -65,6 +78,9 @@ const deleteTour = async (req, res) => {
 };
 const signUp = async (req, res) => {
   const { username, password } = req.body;
+  if (!username || !password) {
+    return res.status(400).json({ error: 'Username and password are required' });
+  }
   try {
     const findUser = await User.findOne({ username: username });
     if (findUser) {
@@ -86,17 +102,17 @@ const login = async (req, res) => {
     return res.status(400).json({ error: 'Username and password are required' });
   }
   try {
-    const findUser = await User.findOne({
+    const user = await User.findOne({
       username: username,
       password: password,
     });
-    if (findUser) {
-      return res.status(200).json({ message: "Login successful", findUser });
+    if (user) {
+      return res.status(200).json({ message: "Login successful", user });
     } else {
       return res.status(401).json({ error: "Account not found" });
     }
   } catch (error) {
-    return res.status(401).json({ error: error });
+    return res.status(400).json({ error: error });
   }
 };
 module.exports = {
@@ -105,5 +121,6 @@ module.exports = {
   updateTour,
   deleteTour,
   signUp,
-  login
+  login,
+  getUser
 };

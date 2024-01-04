@@ -11,6 +11,9 @@ import ResponHotel from "./pages/Admin/ResponHotel";
 import Order from "./pages/Admin/Order";
 import RegisterHotel from "./pages/HotelManager/RegisterHotel";
 import EditHotel from "./pages/HotelManager/EditHotel";
+import Profile from "./pages/Profile";
+import NotFound from "./components/NotFound/notFound";
+import ChangePass from "./pages/ChangePass";
 
 const App = () => {
   return (
@@ -32,6 +35,10 @@ const App = () => {
           element={<RegisterHotel />}
         />
         <Route path="/hotel-manager/edit-hotel" element={<EditHotel />} />
+        <Route path="/profile" element={<Profile />}/>
+        <Route path="/404" element={<NotFound />}/>
+        <Route path="/change-pass" element={<ChangePass />}/>
+        <Route path="*" element={<NotFound />}/>
       </Routes>
     </BrowserRouter>
   );

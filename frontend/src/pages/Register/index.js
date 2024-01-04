@@ -3,9 +3,10 @@ import DefaultLayout from "../../components/Layout/DefaultLayout";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { handleNotify } from "../../components/Notification/index";
-import { ReactNotifications } from 'react-notifications-component'
+import { ReactNotifications } from "react-notifications-component";
+import axios from "../../utils/axios";
 
-const LoginInputArea = ({ title, name, change }) => {
+const LoginInputArea = ({ title, name, change, value }) => {
   return (
     <div className={styles.loginInputArea}>
       <p>{title}</p>
@@ -16,15 +17,16 @@ const LoginInputArea = ({ title, name, change }) => {
         placeholder="Nhập mật khẩu"
         minLength="8"
         onChange={change}
+        value={value}
       />
       <i className="fa-solid fa-lock" />
     </div>
   );
 };
 const Register = () => {
-  const [name, setName] = useState();
-  const [pass, setPass] = useState();
-  const [newPass, setNewPass] = useState();
+  const [name, setName] = useState('');
+  const [pass, setPass] = useState('');
+  const [newPass, setNewPass] = useState('');
   const changeName = (event) => {
     setName(event.target.value);
   };
@@ -39,6 +41,23 @@ const Register = () => {
       handleNotify("Warning", "Warning", "Cần nhập đầy đủ thông tin");
     else if (pass != newPass)
       handleNotify("Warning", "Warning", "Mật khẩu không giống nhau");
+    else {
+      const exe = async () => {
+        try {
+          const res = await axios.post("/api/v1/signup", {
+            username: name,
+            password: pass,
+          });
+          setName("")
+          setPass("")
+          setNewPass("")
+          handleNotify('success','Thành công','Đăng ký thành công!')
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      exe();
+    }
   };
   return (
     <DefaultLayout>
@@ -59,6 +78,7 @@ const Register = () => {
                     id="username"
                     placeholder="Nhập tên tài khoản"
                     onChange={changeName}
+                    value={name}
                   />
                   <i className="fa-regular fa-user" />
                 </div>
@@ -66,11 +86,13 @@ const Register = () => {
                   title="Mật khẩu"
                   name="password"
                   change={changePass}
+                  value={pass}
                 />
                 <LoginInputArea
                   title="Xác nhận mật khẩu"
                   name="confirmPass"
                   change={changeNewPass}
+                  value={newPass}
                 />
               </fieldset>
               <fieldset className={styles.loginSubmit}>
