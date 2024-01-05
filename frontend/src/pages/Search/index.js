@@ -2,6 +2,7 @@ import DefaultLayout from "../../components/Layout/DefaultLayout";
 import Filter from "./Filter";
 import Result from "./Result";
 import styles from "./style.module.css";
+
 const Search = () => {
   return (
     <DefaultLayout>

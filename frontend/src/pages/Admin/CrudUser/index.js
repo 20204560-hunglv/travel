@@ -1,56 +1,142 @@
-import styles from "./style.module.css";
 import LayoutAdmin from "../../../components/Layout/LayoutAdmin";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-const CrudUser = () => {
-  const [data, setData] = useState(null);
+import { ReactNotifications } from "react-notifications-component";
+import { handleNotify } from "../../../components/Notification/index";
+import axios from "../../../utils/axios";
+import { Link } from "react-router-dom";
+import CrudUserModal from "../../../components/CRUDUserModal";
 
+const CrudUser = () => {
+  const [data, setData] = useState([]);
+  const [change, setChange] = useState(false);
+  const [dataEdit, setDataEdit] = useState({});
+  const handleChangeFalse = () => {
+    setChange(false);
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "https://63b3a2935901da0ab383d03e.mockapi.io/user?fbclid=IwAR08HoFdy8Zd4sWpAt7lf7j7sCEaoB3JaOkkXo3lUb3jwKjKFGmGzdj9KPg"
-        );
+        const response = await axios.get("/api/v1/users");
         setData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchData();
-  }, []);
-  // if (data === null || typeof data !== 'object' || !Array.isArray(data)) {
-  //   console.error('Invalid data:', data);
-  //   return <p>Error loading data</p>;
-  // }
+  }, [change]);
+  const handleDelete = (username) => {
+    axios
+      .delete(`/api/v1/users/${username}`)
+      .then(() => {
+        setData((prevData) =>
+          prevData.filter((user) => user.username !== username)
+        );
+        handleNotify("success", "Thành công", "Xóa thành công");
+      })
+      .catch((err) => console.log(err));
+  };
   return (
-    <LayoutAdmin>
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Tên</th>
-            <th>Mật khẩu</th>
-            <th>Số điện thoại</th>
-            <th>Ngày tạo</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {data &&
-            data.map((user) => (
-              <tr key={user.id}>
-                <td>{user.username}</td>
-                <td>{user.password}</td>
-                <td>{user.phone_number}</td>
-                <td>{user.create_date}</td>
-                <td className={styles.icons}>
-                  <i className="fa-solid fa-pen"></i>
-                  <i className="fa-solid fa-trash"></i>
-                </td>
+    <div>
+      <ReactNotifications />
+      {change ? (
+        <CrudUserModal data={dataEdit} handleChangeFalse={handleChangeFalse} />
+      ) : (
+        <LayoutAdmin>
+          <div className="flex items-center my-7">
+            <div className="flex-grow text-right px-4 py-2 m-2">
+              <div>
+                <button
+                  onClick={() => setChange(true)}
+                  className="bg-green-400 hover:bg-green-500 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="feather feather-plus-circle"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                  </svg>
+                  <span className="pl-2">Thêm</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead>
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Tên tài khoản
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Email
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Địa chỉ
+                </th>
+                <th className="pl-6 pr-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
               </tr>
-            ))}
-        </tbody>
-      </table>
-    </LayoutAdmin>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {data.map((item, index) => (
+                <tr key={index}>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {item.username}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">{item.email}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      {item.address}
+                    </span>
+                  </td>
+                  <td className="pl-6 pr-2 py-4 whitespace-nowrap">
+                    <button
+                      onClick={() => {
+                        setDataEdit({
+                          userName: item.username,
+                          password: item.password,
+                          fullName: item.fullname,
+                          email: item.email,
+                          address: item.address,
+                          gender: item.gender,
+                        });
+                        setChange(true);
+                      }}
+                      className="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:shadow-outline-blue active:bg-blue-600 transition duration-150 ease-in-out"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() =>{
+                        setDataEdit({
+                          userName: "",
+                          password: "",
+                          fullName: "",
+                          email: "",
+                          address: "",
+                          gender: "",
+                        });
+                        handleDelete(item.username)}}
+                      className="ml-2 px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </LayoutAdmin>
+      )}
+    </div>
   );
 };
 export default CrudUser;

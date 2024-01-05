@@ -5,12 +5,18 @@ const apiRouter = require("../controllers/ApiController");
 
 router.post("/tours", apiRouter.createTour);
 router.get("/tours", apiRouter.getAllTours);
-router.get("/user/:username", apiRouter.getUser);
-router.put("/user/:username", apiRouter.updateUser);
-router.put("/change_password/:username", apiRouter.updatePassword);
 router.put("/tours/:id", apiRouter.updateTour);
 router.delete("/tours/:id", apiRouter.deleteTour);
+
+router.get("/users", apiRouter.getAllUsers);
+router.get("/user/:username", apiRouter.getUser);
+router.put("/user_crud/:username", apiRouter.updateUser);
+router.put("/user_crud", apiRouter.updateUserByAdmin);
+router.delete("/users/:username", apiRouter.deleteUser);
+
+router.put("/change_password/:username", apiRouter.updatePassword);
 router.post("/signup",apiRouter.signUp)
 router.post("/login",apiRouter.login)
+router.post("/login_admin",apiRouter.loginAdmin)
 
 module.exports = router;

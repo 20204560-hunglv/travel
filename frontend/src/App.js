@@ -14,6 +14,7 @@ import EditHotel from "./pages/HotelManager/EditHotel";
 import Profile from "./pages/Profile";
 import NotFound from "./components/NotFound/notFound";
 import ChangePass from "./pages/ChangePass";
+import LoginAdmin from "./pages/Admin/LoginAdmin";
 
 const App = () => {
   return (
@@ -21,7 +22,6 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />} />
-
         <Route path="/register" element={<Register />} />
         <Route path="/news" element={<News />} />
         <Route path="/booking" element={<Booking />} />
@@ -30,15 +30,16 @@ const App = () => {
         <Route path="/admin/crud-tour" element={<CrudTour />} />
         <Route path="/admin/hotel" element={<ResponHotel />} />
         <Route path="/admin/order" element={<Order />} />
+        <Route path="/admin" element={<LoginAdmin />} />
         <Route
           path="/hotel-manager/register-hotel"
           element={<RegisterHotel />}
         />
         <Route path="/hotel-manager/edit-hotel" element={<EditHotel />} />
-        <Route path="/profile" element={<Profile />}/>
-        <Route path="/404" element={<NotFound />}/>
-        <Route path="/change-pass" element={<ChangePass />}/>
-        <Route path="*" element={<NotFound />}/>
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/404" element={<NotFound />} />
+        <Route path="/change-pass" element={<ChangePass />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

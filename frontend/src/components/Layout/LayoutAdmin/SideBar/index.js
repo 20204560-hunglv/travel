@@ -1,35 +1,37 @@
 import { useState } from "react";
 import styles from "./style.module.css";
-const SideBar = () => {
-  // const [selectedItem, setSelectedItem] = useState(null);
+import { useNavigate } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
-  // const handleItemClick = (item) => {
-  //   // Cập nhật giá trị của biến trạng thái khi một mục được chọn
-  //   setSelectedItem(item);
-  // };
+const SideBar = () => {
+  let location = useLocation();
   const list = [
-    "Thông tin tài khoản",
-    "CRUD người dùng",
-    "CRUD tour",
-    "CRUD khuyến mãi",
-    "Duyệt khách sạn",
-    "Duyệt order",
+    {pathName:"/admin/crud-user",label: "CRUD người dùng"},
+    {pathName:"/admin/crud-tour",label: "CRUD tour"},
+    // {pathName:"/admin/crud-user",label: "CRUD khuyến mãi"},
+    {pathName:"/admin/hotel",label: "Duyệt khách sạn"},
+    {pathName:"/admin/order",label: "Duyệt order"},
   ];
+  const navigate = useNavigate();
+  const handleClick = () => {
+    localStorage.removeItem("adminData");
+    navigate("/admin");
+  };
+  console.log(location.pathname == "/admin/crud-tour")
   return (
     <div className={styles.main}>
       <h3>Quản lý dữ liệu Admin</h3>
       <ul>
         {list.map((item, index) => (
           <li
-            // onClick={handleItemClick(index)}
+            className={`${location.pathname == item.pathName ? "bg-3a7bd5" : "bg-gray-300"}`}
             key={index}
-            // className={selectedItem === index ? styles.active : ""}
           >
-            {item}
+            {item.label}
           </li>
         ))}
       </ul>
-      <p>Đăng xuất</p>
+      <p onClick={handleClick}>Đăng xuất</p>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 const Tour = require("../models/tour");
 const User = require("../models/users");
+const AdminSchema = require("../models/admins");
 
 const createTour = async (req, res) => {
   const { name, start_time, period, main_image_url, code, status } = req.body;
@@ -39,6 +40,15 @@ const getAllTours = async (req, res) => {
     return res.status(500).send("Internal Server Error");
   }
 };
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({});
+    return res.status(200).json(users);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send("Internal Server Error");
+  }
+};
 const getUser = async (req, res) => {
   const username = req.params.username;
   if (!username) {
@@ -70,7 +80,7 @@ const updateUser = async (req, res) => {
   try {
     await User.updateOne(
       { username: username },
-      { fullname: fullName, email: email, address: address, gender: gender}
+      { fullname: fullName, email: email, address: address, gender: gender }
     );
     return res.status(200).json({
       message: "update ok",
@@ -80,17 +90,52 @@ const updateUser = async (req, res) => {
     return res.status(500).send("Internal ServerError");
   }
 };
+const updateUserByAdmin = async (req, res) => {
+  const { userName, passWord, fullName, email, address, gender } = req.body;
+  try {
+    const userFind = await User.findOne({
+      username: userName,
+    });
+    if (userFind) {
+      await User.updateOne(
+        { username: userName },
+        {
+          password: passWord,
+          fullname: fullName,
+          email: email,
+          address: address,
+          gender: gender,
+        }
+      );
+      return res.status(200).json({
+        message: "update ok",
+      });
+    } else {
+      const user = new User({
+        username: userName,
+        password: passWord,
+        fullname: fullName,
+        email: email,
+        address: address,
+        gender: gender,
+      });
+      await user.save();
+      return res.status(200).json({
+        message: "create ok",
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send("Internal ServerError");
+  }
+};
 const updatePassword = async (req, res) => {
   const username = req.params.username;
-  const {pass, newPass} = req.body;
+  const { pass, newPass } = req.body;
   try {
-    const isPass = await User.findOne({username: username, password: pass});
-    if(!isPass) 
-      return res.status(409).json({ error: "Password wrong" });
-    await User.updateOne(
-      { username: username },
-      { password: newPass}
-    );
+    const isPass = await User.findOne({ username: username, password: pass });
+    if (!isPass) return res.status(409).json({ error: "Password wrong" });
+    await User.updateOne({ username: username }, { password: newPass });
     return res.status(200).json({
       message: "update ok",
     });
@@ -103,6 +148,18 @@ const deleteTour = async (req, res) => {
   const { code } = req.body;
   try {
     await Tour.deleteOne({ code: code });
+    return res.status(200).json({
+      message: "delete ok",
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send("Internal ServerError");
+  }
+};
+const deleteUser = async (req, res) => {
+  const username = req.params.username;
+  try {
+    await User.deleteOne({ username: username });
     return res.status(200).json({
       message: "delete ok",
     });
@@ -154,6 +211,27 @@ const login = async (req, res) => {
     return res.status(400).json({ error: error });
   }
 };
+const loginAdmin = async (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    return res
+      .status(400)
+      .json({ error: "Username and password are required" });
+  }
+  try {
+    const user = await AdminSchema.findOne({
+      username: username,
+      password: password,
+    });
+    if (user) {
+      return res.status(200).json({ message: "Login successful", user });
+    } else {
+      return res.status(401).json({ error: "Account not found" });
+    }
+  } catch (error) {
+    return res.status(400).json({ error: error });
+  }
+};
 module.exports = {
   getAllTours,
   createTour,
@@ -163,5 +241,9 @@ module.exports = {
   login,
   getUser,
   updateUser,
-  updatePassword
+  updatePassword,
+  loginAdmin,
+  getAllUsers,
+  deleteUser,
+  updateUserByAdmin,
 };

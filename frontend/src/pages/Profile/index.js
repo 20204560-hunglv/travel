@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import DefaultLayout from "../../components/Layout/DefaultLayout";
 import { useNavigate } from "react-router-dom";
 import axios from "../../utils/axios";
-import getUserLocal from "../../utils/getUserLocal";
+import {getUserLocal} from "../../utils/getLocalStorage";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../components/Notification/index";
 

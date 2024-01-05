@@ -4,7 +4,7 @@ import axios from '../../utils/axios'
 import { useState } from "react";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../components/Notification/index";
-import getUserLocal from "../../utils/getUserLocal";
+import {getUserLocal} from "../../utils/getLocalStorage";
 
 const ChangePass = () => {
   const storedUserDataString = getUserLocal();

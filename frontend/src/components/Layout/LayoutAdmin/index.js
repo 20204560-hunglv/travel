@@ -12,7 +12,7 @@ const LayoutAdmin = ({ children }) => {
           <div className={styles.search}>
             <Search />
           </div>
-          <div>{children}</div>
+          <div className="ml-15">{children}</div>
         </div>
       </div>
     </>
