@@ -4,7 +4,7 @@ import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../../components/Notification/index";
 import axios from "../../../utils/axios";
 import { Link } from "react-router-dom";
-import CrudUserModal from "../../../components/CRUDUserModal";
+import CrudUserModal from "../../../components/Modal/CRUDUserModal";
 
 const CrudUser = () => {
   const [data, setData] = useState([]);

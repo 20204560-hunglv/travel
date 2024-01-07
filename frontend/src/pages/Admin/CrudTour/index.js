@@ -1,97 +1,151 @@
 import styles from "./style.module.css";
 import LayoutAdmin from "../../../components/Layout/LayoutAdmin";
 import React, { useState, useEffect } from "react";
-const CrudTour = () => {
-  const data=[
-    {
-        ID: 1,
-        name: "Hà Nội - TP. HCM",
-        startDay: '28/11/2023',
-        endDay: '5/12/2023',
-        price: '5000000đ'
-    },
-    {
-        ID: 2,
-        name: "Hà Nội - TP. HCM",
-        startDay: '28/11/2023',
-        endDay: '5/12/2023',
-        price: '5000000đ'
-    },
-    {
-        ID: 3,
-        name: "Hà Nội - TP. HCM",
-        startDay: '28/11/2023',
-        endDay: '5/12/2023',
-        price: '5000000đ'
-    },
-    {
-        ID: 4,
-        name: "Hà Nội - TP. HCM",
-        startDay: '28/11/2023',
-        endDay: '5/12/2023',
-        price: '5000000đ'
-    },
-    {
-        ID: 5,
-        name: "Hà Nội - TP. HCM",
-        startDay: '28/11/2023',
-        endDay: '5/12/2023',
-        price: '5000000đ'
-    },
-    {
-        ID: 6,
-        name: "Hà Nội - TP. HCM",
-        startDay: '28/11/2023',
-        endDay: '5/12/2023',
-        price: '5000000đ'
-    },
-  ]
-//   const [data, setData] = useState(null);
+import { ReactNotifications } from "react-notifications-component";
+import { handleNotify } from "../../../components/Notification/index";
+import axios from "../../../utils/axios";
+import CrudTourModal from "../../../components/Modal/CRUDTourModal";
 
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         const response = await axios.get(
-//           "https://63b3a2935901da0ab383d03e.mockapi.io/user?fbclid=IwAR08HoFdy8Zd4sWpAt7lf7j7sCEaoB3JaOkkXo3lUb3jwKjKFGmGzdj9KPg"
-//         );
-//         setData(response.data);
-//       } catch (error) {
-//         console.error("Error fetching data:", error);
-//       }
-//     };
-//     fetchData();
-//   }, []);
+const CrudTour = () => {
+  const [data, setData] = useState([]);
+  const [change, setChange] = useState(false);
+  const [typeChange, setTypeChange] = useState("");
+  const [dataEdit, setDataEdit] = useState({});
+  const handleChangeFalse = () => {
+    setChange(false);
+  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("/api/v1/tours");
+        setData(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, [change]);
+  const handleDelete = (_id) => {
+    axios
+      .delete(`/api/v1/tours/${_id}`)
+      .then(() => {
+        setData((prevData) => prevData.filter((user) => user._id !== _id));
+        handleNotify("success", "Thành công", "Xóa thành công");
+      })
+      .catch((err) => console.log(err));
+  };
   return (
-    <LayoutAdmin>
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Tên tour</th>
-            <th>Ngày bắt đầu</th>
-            <th>Ngày kết thúc</th>
-            <th>Giá tour</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {data &&
-            data.map((tour) => (
-              <tr key={tour.ID}>
-                <td>{tour.ID}</td>
-                <td>{tour.name}</td>
-                <td>{tour.startDay}</td>
-                <td>{tour.endDay}</td>
-                <td>{tour.price}</td>
-                <td className={styles.icons}>
-                  <i className="fa-solid fa-pen"></i>
-                  <i className="fa-solid fa-trash"></i>
-                </td>
+    <div>
+      <ReactNotifications />
+      {change ? (
+        <CrudTourModal
+          type={typeChange}
+          data={dataEdit}
+          handleChangeFalse={handleChangeFalse}
+        />
+      ) : (
+        <LayoutAdmin>
+          <div className="flex items-center my-7">
+            <div className="flex-grow text-right px-4 py-2 m-2">
+              <div>
+                <button
+                  onClick={() => {
+                    setDataEdit({
+                      name: "",
+                      period: "",
+                      startTime: "",
+                      urlImage: "",
+                      prices: "",
+                    });
+                    setTypeChange("add");
+                    setChange(true);
+                  }}
+                  className="bg-green-400 hover:bg-green-500 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="feather feather-plus-circle"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                  </svg>
+                  <span className="pl-2">Thêm</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead>
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Tên tour
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Giá
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Ngời khởi hành
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Số ngày
+                </th>
+                <th className="pl-6 pr-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
               </tr>
-            ))}
-        </tbody>
-      </table>
-    </LayoutAdmin>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {data.map((item, index) => (
+                <tr key={index}>
+                  <td className="px-6 py-4 whitespace-nowrap">{item.name}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{item.prices}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      {item.start_time}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">{item.period}</td>
+                  <td className="pl-6 pr-2 py-4 whitespace-nowrap">
+                    <button
+                      onClick={() => {
+                        setDataEdit({
+                          _id: item._id,
+                          name: item.name,
+                          period: item.period,
+                          startTime: item.start_time,
+                          urlImage: item.main_image_url,
+                          prices: item.prices,
+                        });
+                        setTypeChange("edit");
+                        setChange(true);
+                      }}
+                      className="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:shadow-outline-blue active:bg-blue-600 transition duration-150 ease-in-out"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => {
+                        handleDelete(item._id);
+                      }}
+                      className="ml-2 px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </LayoutAdmin>
+      )}
+    </div>
   );
 };
 export default CrudTour;

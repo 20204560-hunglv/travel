@@ -28,7 +28,10 @@ const Login = () => {
         .then((response) => {
           if (response.status == 200) {
             // console.log(response.data.user)
-            localStorage.setItem("userData",JSON.stringify(response.data.user));
+            localStorage.setItem(
+              "userData",
+              JSON.stringify(response.data.user)
+            );
             navigate("/");
           } else console.log("Tai khoan khong dung");
         })
@@ -87,8 +90,8 @@ const Login = () => {
                   <i className="fa-solid fa-lock" />
                 </div>
               </fieldset>
-              <fieldset className={styles.loginSubmit}>
-                <p>Quên mật khẩu?</p>
+              <fieldset className={`${styles.loginSubmit} justify-center mt-5`}>
+                {/* <p>Quên mật khẩu?</p> */}
                 <button
                   type="button"
                   onClick={handleToSubmit}
@@ -100,10 +103,16 @@ const Login = () => {
               </fieldset>
             </form>
             <div className={styles.loginOther}>
-              <p>Hoặc đăng nhập bằng</p>
-              <div className={styles.loginOtherIcon}>
-                <i className={`fa-brands fa-facebook ${styles.faFace}`} />
-                <i className={`fa-brands fa-google ${styles.faGoog}`} />
+              <p>Hoặc</p>
+              <div>
+                <Link to="/admin">
+                  <p className="underline mt-5 text-center text-sm text-gray-500">
+                    Đăng nhập cho Admin
+                  </p>
+                </Link>
+
+                {/* <i className={`fa-brands fa-facebook ${styles.faFace}`} />
+                <i className={`fa-brands fa-google ${styles.faGoog}`} /> */}
               </div>
             </div>
             <div

@@ -3,17 +3,16 @@ const User = require("../models/users");
 const AdminSchema = require("../models/admins");
 
 const createTour = async (req, res) => {
-  const { name, start_time, period, main_image_url, code, status } = req.body;
+  const { name, start_time, period, main_image_url, prices } = req.body;
   const newTour = {
     name: name,
     start_time: start_time,
     period: period,
     main_image_url: main_image_url,
-    code: code,
-    status: status,
+    prices: prices,
   };
 
-  if (!name || !start_time || !period || !main_image_url || !code || !status) {
+  if (!name || !start_time || !period || !main_image_url || !prices) {
     return res.status(200).json({
       message: "invaild",
     });
@@ -63,24 +62,18 @@ const getUser = async (req, res) => {
   }
 };
 const updateTour = async (req, res) => {
-  const { code, newDate } = req.body;
+  const { _id } = req.body;
+  const { name, start_time, period, main_image_url, prices } = req.body;
   try {
-    await Tour.updateOne({ code: code }, { start_time: newDate });
-    return res.status(200).json({
-      message: "update ok",
-    });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).send("Internal ServerError");
-  }
-};
-const updateUser = async (req, res) => {
-  const username = req.params.username;
-  const { fullName, email, address, gender } = req.body;
-  try {
-    await User.updateOne(
-      { username: username },
-      { fullname: fullName, email: email, address: address, gender: gender }
+    await Tour.updateOne(
+      { _id: _id },
+      {
+        name: name,
+        start_time: start_time,
+        period: period,
+        main_image_url: main_image_url,
+        prices: prices,
+      }
     );
     return res.status(200).json({
       message: "update ok",
@@ -90,6 +83,22 @@ const updateUser = async (req, res) => {
     return res.status(500).send("Internal ServerError");
   }
 };
+// const updateUser = async (req, res) => {
+//   const username = req.params.username;
+//   const { fullName, email, address, gender } = req.body;
+//   try {
+//     await User.updateOne(
+//       { username: username },
+//       { fullname: fullName, email: email, address: address, gender: gender }
+//     );
+//     return res.status(200).json({
+//       message: "update ok",
+//     });
+//   } catch (err) {
+//     console.error(err);
+//     return res.status(500).send("Internal ServerError");
+//   }
+// };
 const updateUserByAdmin = async (req, res) => {
   const { userName, passWord, fullName, email, address, gender } = req.body;
   try {
@@ -145,9 +154,12 @@ const updatePassword = async (req, res) => {
   }
 };
 const deleteTour = async (req, res) => {
-  const { code } = req.body;
+  const _id = req.params.id;
+  if (!_id) {
+    return res.status(400).json({ error: "_id is required" });
+  }
   try {
-    await Tour.deleteOne({ code: code });
+    await Tour.deleteOne({ _id: _id });
     return res.status(200).json({
       message: "delete ok",
     });
@@ -240,7 +252,7 @@ module.exports = {
   signUp,
   login,
   getUser,
-  updateUser,
+  // updateUser,
   updatePassword,
   loginAdmin,
   getAllUsers,

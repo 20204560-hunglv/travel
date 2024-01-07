@@ -6,8 +6,7 @@ const Tour = new Schema({
   start_time: String,
   period: String,
   main_image_url: String,
-  code: String,
-  status: String,
+  prices: String,
 });
 
 module.exports = mongoose.model("Tour", Tour);

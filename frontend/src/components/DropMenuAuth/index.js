@@ -10,7 +10,7 @@ export default function DropMenuAuth() {
   const navigate = useNavigate()
   const handleClick = () => {
     localStorage.removeItem("userData");
-    if (window.location.pathname == '/') window.location.reload();
+    if (window.location.pathname == '/') navigate('/login');
     else navigate('/login')
   };
   const handleProfile = () => {

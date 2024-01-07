@@ -1,7 +1,7 @@
 import { useState } from "react";
-import axios from "../../utils/axios";
+import axios from "../../../utils/axios";
 import { ReactNotifications } from "react-notifications-component";
-import { handleNotify } from "../Notification/index";
+import { handleNotify } from "../../Notification/index";
 
 const CrudUserModal = ({ handleChangeFalse , data}) => {
   const [fullName, setFullName] = useState(data.fullName || "");
