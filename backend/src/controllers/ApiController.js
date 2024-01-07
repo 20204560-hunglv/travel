@@ -30,6 +30,26 @@ const createTour = async (req, res) => {
     }
   }
 };
+const orderTour = async (req, res) => {
+  const username = req.params.username;
+  const tours = req.body;
+  try {
+    const userUpdate = await User.findOneAndUpdate(
+      { username: username },
+      { $push: { tours } },
+      { new: true },
+    ).sort();
+    return res.status(200).json({
+      message: "order tour ok",
+      userUpdate
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json({
+      message: "error",
+    });
+  }
+};
 const getAllTours = async (req, res) => {
   try {
     const tours = await Tour.find({});
@@ -48,6 +68,16 @@ const getAllUsers = async (req, res) => {
     return res.status(500).send("Internal Server Error");
   }
 };
+const getOrderTour = async (req, res) => {
+  const username = req.params.username;
+  try {
+    const user = await User.findOne({username: username});
+    return res.status(200).json(user.tours);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send("Internal Server Error");
+  }
+};
 const getUser = async (req, res) => {
   const username = req.params.username;
   if (!username) {
@@ -56,6 +86,40 @@ const getUser = async (req, res) => {
   try {
     const user = await User.findOne({ username: username });
     return res.status(200).json(user);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send("Internal Server Error");
+  }
+};
+const getTour = async (req, res) => {
+  const _id = req.params.id;
+  if (!_id) {
+    return res.status(400).json({ error: "_id is required" });
+  }
+  try {
+    const tour = await Tour.findOne({ _id: _id });
+    return res.status(200).json(tour);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send("Internal Server Error");
+  }
+};
+const updateOrderTour = async (req, res) => {
+  const username = req.params.username;
+  const dataUpdate = req.body;
+  if (!username) {
+    return res.status(400).json({ error: "_id is required" });
+  }
+  try {
+    await User.updateOne(
+      { username: username },
+      {
+        tours: dataUpdate
+      }
+    );
+    return res.status(200).json({
+      message: "update ok",
+    });
   } catch (err) {
     console.error(err);
     return res.status(500).send("Internal Server Error");
@@ -258,4 +322,8 @@ module.exports = {
   getAllUsers,
   deleteUser,
   updateUserByAdmin,
+  getTour,
+  orderTour,
+  getOrderTour,
+  updateOrderTour
 };

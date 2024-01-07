@@ -1,16 +1,15 @@
 import DefaultLayout from "../../components/Layout/DefaultLayout";
 import Filter from "./Filter";
 import Result from "./Result";
-import styles from "./style.module.css";
 
 const Search = () => {
   return (
     <DefaultLayout>
-      <div className={styles.contain}>
-        <div className={styles.filter}>
+      <div className='flex min-h-screen'>
+        <div className='bg-gray-100 w- grow pt-12'>
           <Filter />
         </div>
-        <div className={styles.result}>
+        <div className='max-w-6xl'>
           <Result />
         </div>
       </div>

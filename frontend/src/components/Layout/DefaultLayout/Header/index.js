@@ -22,10 +22,6 @@ const Header = () => {
               </Link>
               <hr />
             </li>
-            <li className={styles.headerNavLi}>
-              <p>Khuyến mãi</p>
-              <hr />
-            </li>
           </ul>
         </nav>
         {!storedUserDataString ? (

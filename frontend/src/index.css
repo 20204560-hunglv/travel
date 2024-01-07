@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.flex-grow-3{
+    flex-grow: 3;
+}
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    box-sizing: border-box;
+    color: #2d4271;
+  }

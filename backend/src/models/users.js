@@ -8,6 +8,7 @@ const User = new Schema({
   email: String,
   address: String,
   gender: String,
+  tours: {type: Array},
 },{timestamps: true});
 
 module.exports = mongoose.model("User", User);

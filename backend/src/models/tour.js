@@ -7,6 +7,6 @@ const Tour = new Schema({
   period: String,
   main_image_url: String,
   prices: String,
-});
+}, {timestamps: true});
 
 module.exports = mongoose.model("Tour", Tour);

@@ -84,7 +84,7 @@ const Banner = () => {
   const handleNumberDate = (event) => {
     setNumberDate(event.target.value);
   };
-  const [date, onChange] = useState(new Date());
+  const [date, onChange] = useState();
   const [active, setActive] = useState({
     tour: true,
     hotel: false,
@@ -98,9 +98,7 @@ const Banner = () => {
   };
   const navigate = useNavigate();
   const handleClick = () => {
-    if (!countryFrom || !countryTo || !date || parseInt(numberDate) < 1) {
-      handleNotify("Warning", "Warning", "Cần nhập đầy đủ thông tin!");
-    } else navigate("/search");
+    navigate("/search");
   };
   return (
     <div className={styles.search}>
@@ -203,6 +201,7 @@ const Banner = () => {
                     </label>
                     <input
                       onChange={handleNumberDate}
+                      value={numberDate}
                       type="number"
                       id="number-input"
                       aria-describedby="helper-text-explanation"
