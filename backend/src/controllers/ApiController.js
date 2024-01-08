@@ -193,22 +193,22 @@ const updateTour = async (req, res) => {
     return res.status(500).send("Internal ServerError");
   }
 };
-// const updateUser = async (req, res) => {
-//   const username = req.params.username;
-//   const { fullName, email, address, gender } = req.body;
-//   try {
-//     await User.updateOne(
-//       { username: username },
-//       { fullname: fullName, email: email, address: address, gender: gender }
-//     );
-//     return res.status(200).json({
-//       message: "update ok",
-//     });
-//   } catch (err) {
-//     console.error(err);
-//     return res.status(500).send("Internal ServerError");
-//   }
-// };
+const updateUser = async (req, res) => {
+  const username = req.params.username;
+  const { fullName, email, address, gender } = req.body;
+  try {
+    await User.updateOne(
+      { username: username },
+      { fullname: fullName, email: email, address: address, gender: gender }
+    );
+    return res.status(200).json({
+      message: "update ok",
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send("Internal ServerError");
+  }
+};
 const updateUserByAdmin = async (req, res) => {
   const { userName, passWord, fullName, email, address, gender } = req.body;
   try {
@@ -362,7 +362,7 @@ module.exports = {
   signUp,
   login,
   getUser,
-  // updateUser,
+  updateUser,
   updatePassword,
   loginAdmin,
   getAllUsers,

@@ -15,7 +15,7 @@ router.get("/users/tour/:username", apiRouter.getOrderTour);
 router.put("/users/tour/:username", apiRouter.updateOrderTour);
 router.get("/users", apiRouter.getAllUsers);
 router.get("/user/:username", apiRouter.getUser);
-// router.put("/user_crud/:username", apiRouter.updateUser);
+router.put("/user_crud/:username", apiRouter.updateUser);
 router.put("/user_crud", apiRouter.updateUserByAdmin);
 router.delete("/users/:username", apiRouter.deleteUser);
 

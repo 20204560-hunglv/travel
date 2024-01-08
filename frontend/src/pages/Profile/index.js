@@ -31,7 +31,7 @@ const Profile = () => {
   const [user, setUser] = useState({});
   const handleSave = () => {
     axios
-      .put(`/api/v1/user/${storedUserDataString.username}`, {
+      .put(`/api/v1/user_crud/${storedUserDataString.username}`, {
         fullname: fullName,
         email: email,
         address: address,
