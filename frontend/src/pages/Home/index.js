@@ -10,7 +10,7 @@ const Home = () => {
       <main style={{ overflowX: "hidden" }}>
         <Banner />
         <Premium />
-        <Sale />
+        {/* <Sale /> */}
         <Favorite />
       </main>
     </DefaultLayout>

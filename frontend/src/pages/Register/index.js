@@ -39,12 +39,12 @@ const Register = () => {
   const handleToSubmit = () => {
     if (!name || !pass || !newPass)
       handleNotify("Warning", "Warning", "Cần nhập đầy đủ thông tin");
-    else if (pass != newPass)
+    else if (pass !== newPass)
       handleNotify("Warning", "Warning", "Mật khẩu không giống nhau");
     else {
       const exe = async () => {
         try {
-          const res = await axios.post("/api/v1/signup", {
+          await axios.post("/api/v1/signup", {
             username: name,
             password: pass,
           });
@@ -68,7 +68,7 @@ const Register = () => {
             <header className={styles.loginHeader}>
               <h1 className="text-2xl font-bold">Đăng ký</h1>
             </header>
-            <form>
+            <div>
               <fieldset className={styles.loginInput}>
                 <div className={styles.loginInputArea}>
                   <p>Tên đăng nhập</p>
@@ -99,27 +99,20 @@ const Register = () => {
                 {/* <p>Quên mật khẩu?</p> */}
                 <button
                   type="button"
-                  className="px-5 py-3 bg-00d2ff rounded-3xl text-white cursor-pointer 
+                  className="px-5 mt-16 py-3 bg-00d2ff rounded-3xl text-white cursor-pointer 
                   transition-colors border-none mx-auto hover:bg-3a7bd5"
                   onClick={handleToSubmit}
                 >
                   Đăng ký
                 </button>
               </fieldset>
-            </form>
-            <div className={styles.loginOther}>
-              <p>Hoặc đăng ký bằng</p>
-              <div className={styles.loginOtherIcon}>
-                <i className={`fa-brands fa-facebook ${styles.faFace}`} />
-                <i className={`fa-brands fa-google ${styles.faGoog}`} />
-              </div>
             </div>
             <div
               className="flex justify-center mt-12 text-center w-max mx-auto cursor-pointer 
             transition-colors text-185a9d hover:text-3a7bd5"
             >
               {/* <p onClick={handleLogin}>Đăng nhập</p> */}
-              <Link to="/login" className="text-center hover:text-3a7bd5">
+              <Link to="/login" className="mt-5 text-center hover:text-3a7bd5">
                 Đăng nhập
               </Link>
             </div>

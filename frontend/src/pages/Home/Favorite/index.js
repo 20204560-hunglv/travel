@@ -2,10 +2,10 @@ import styles from "./style.module.css";
 
 const Item = (props) => {
   return (
-    <div className={styles.item}>
+    <div className={`${styles.item} cursor-pointer`}>
       <img src={props.link} />
       <a>{props.title}</a>
-      <p>{`Đã có ${props.visitor} lượt khách`}</p>
+      {/* <p>{`Đã có ${props.visitor} lượt khách`}</p> */}
     </div>
   );
 };

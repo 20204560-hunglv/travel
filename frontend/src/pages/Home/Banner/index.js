@@ -60,7 +60,7 @@ const Banner = () => {
             >
               Tour du lịch
             </li>
-            <li
+            {/* <li
               onClick={() => {
                 handleActive("hotel");
               }}
@@ -69,7 +69,7 @@ const Banner = () => {
               } font-bold`}
             >
               Khách sạn
-            </li>
+            </li> */}
           </ul>
         </nav>
         <div className={styles.searchChooseContent}>
