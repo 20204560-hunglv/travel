@@ -4,11 +4,11 @@ import styles from "./style.module.css";
 const LayoutAdmin = ({ children }) => {
   return (
     <>
-      <div className={styles.main}>
-        <div className={styles.sideBar}>
+      <div className='flex'>
+        <div className='h-screen fixed w-1/5'>
           <SideBar />
         </div>
-        <div className={styles.content}>
+        <div className={`w-full ml-20percen max-w-6xl`}>
           <div className={styles.search}>
             <Search />
           </div>

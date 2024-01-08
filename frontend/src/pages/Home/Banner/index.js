@@ -4,74 +4,10 @@ import DatePicker from "react-date-picker";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
 import { useNavigate } from "react-router-dom";
-import { ReactNotifications } from "react-notifications-component";
-import { handleNotify } from "../../../components/Notification/index";
+import citys from "../../../utils/citys";
 
 const Banner = () => {
-  const cityLabels = [
-    "Bắc Giang",
-    "Bắc Kạn",
-    "Cao Bằng",
-    "Hà Giang",
-    "Lạng Sơn",
-    "Phú Thọ",
-    "Quảng Ninh",
-    "Thái Nguyên",
-    "Tuyên Quang",
-    "Yên Bái",
-    "Điện Biên",
-    "Hòa Bình",
-    "Lai Châu",
-    "Sơn La",
-    "Bắc Ninh",
-    "Hà Nam",
-    "Hải Dương",
-    "Hưng Yên",
-    "Nam Định",
-    "Ninh Bình",
-    "Thái Bình",
-    "Vĩnh Phúc",
-    "Hà Nội",
-    "Hải Phòng",
-    "Hà Tĩnh",
-    "Nghệ An",
-    "Quảng Bình",
-    "Quảng Trị",
-    "Thanh Hóa",
-    "Thừa Thiên-Huế",
-    "Đắk Lắk",
-    "Đắk Nông",
-    "Gia Lai",
-    "Kon Tum",
-    "Lâm Đồng",
-    "Bình Định",
-    "Bình Thuận",
-    "Khánh Hòa",
-    "Ninh Thuận",
-    "Phú Yên",
-    "Quảng Nam",
-    "Quảng Ngãi",
-    "Đà Nẵng",
-    "Bà Rịa-Vũng Tàu",
-    "Bình Dương",
-    "Bình Phước",
-    "Đồng Nai",
-    "Tây Ninh",
-    "Hồ Chí Minh",
-    "An Giang",
-    "Bạc Liêu",
-    "Bến Tre",
-    "Cà Mau",
-    "Đồng Tháp",
-    "Hậu Giang",
-    "Kiên Giang",
-    "Long An",
-    "Sóc Trăng",
-    "Tiền Giang",
-    "Trà Vinh",
-    "Vĩnh Long",
-    "Cần Thơ",
-  ];
+  const cityLabels = citys;
   const [countryFrom, setCountryFrom] = useState();
   const [countryTo, setCountryTo] = useState();
   const [numberDate, setNumberDate] = useState(0);
@@ -98,11 +34,18 @@ const Banner = () => {
   };
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/search");
+    navigate("/search", {
+      state: {
+        from: countryFrom,
+        to: countryTo,
+        start: date,
+        period: numberDate,
+      },
+    });
+    // console.log(query);
   };
   return (
     <div className={styles.search}>
-      <ReactNotifications />
       <div className={styles.searchPic}></div>
       <div className={styles.searchChoose}>
         <nav>
@@ -151,8 +94,8 @@ const Banner = () => {
                     >
                       <option value="">Chọn địa phương</option>
                       {cityLabels.map((item, index) => (
-                        <option key={index} value={item}>
-                          {item}
+                        <option key={index} value={item.value}>
+                          {item.label}
                         </option>
                       ))}
                     </select>
@@ -176,8 +119,8 @@ const Banner = () => {
                     >
                       <option value="">Chọn địa phương</option>
                       {cityLabels.map((item, index) => (
-                        <option key={index} value={item}>
-                          {item}
+                        <option key={index} value={item.value}>
+                          {item.label}
                         </option>
                       ))}
                     </select>
@@ -187,7 +130,7 @@ const Banner = () => {
                   <div>
                     <span>Ngày đi</span>
                   </div>
-                  <div>
+                  <div className="h-18">
                     <DatePicker onChange={onChange} value={date} />
                   </div>
                 </div>

@@ -6,6 +6,7 @@ const apiRouter = require("../controllers/ApiController");
 router.post("/tours", apiRouter.createTour);
 router.get("/tours", apiRouter.getAllTours);
 router.get("/tours/:id", apiRouter.getTour);
+router.post("/tour/search", apiRouter.searchTour);
 router.put("/tours", apiRouter.updateTour);
 router.delete("/tours/:id", apiRouter.deleteTour);
 

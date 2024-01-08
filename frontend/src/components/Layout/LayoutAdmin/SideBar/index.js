@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styles from "./style.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
@@ -20,19 +19,6 @@ const SideBar = () => {
   return (
     <div className={styles.main}>
       <h3>Quản lý dữ liệu Admin</h3>
-      {/* <ul>
-        {list.map((item, index) => (
-          <Link key={index} to={`${item.pathName}`}>
-            <li
-              className={`${
-                location.pathname == item.pathName ? "bg-3a7bd5" : "bg-gray-300"
-              }`}
-            >
-              {item.label}
-            </li>
-          </Link>
-        ))}
-      </ul> */}
       <div className="relative my-5 ">
         <div className="flex items-center flex-col w-full font-medium">
           {list.map((item, index) => (
@@ -40,7 +26,7 @@ const SideBar = () => {
               <div
                 className={`
             ${
-              location.pathname == item.pathName
+              location.pathname === item.pathName
                 ? "bg-3a7bd5 text-white"
                 : "bg-gray-300"
             }

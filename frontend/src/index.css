@@ -2,12 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-.flex-grow-3{
-    flex-grow: 3;
+.flex-grow-3 {
+  flex-grow: 3;
 }
 * {
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0;
-    box-sizing: border-box;
-    color: #2d4271;
-  }
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  box-sizing: border-box;
+  color: #2d4271;
+}
+.ml-20percen{
+    margin-left: 20%;
+}
+.mx-4-1-percen{
+  margin-left: 4.1%;
+  margin-right: 4.1%;
+}
+.min-h-630{
+  min-height: 630px;
+}

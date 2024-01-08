@@ -1,18 +1,37 @@
 const Tour = require("../models/tour");
 const User = require("../models/users");
 const AdminSchema = require("../models/admins");
+const unidecode = require('unidecode');
 
 const createTour = async (req, res) => {
-  const { name, start_time, period, main_image_url, prices } = req.body;
+  const {
+    name,
+    start_time,
+    period,
+    main_image_url,
+    prices,
+    addressFrom,
+    addressTo,
+  } = req.body;
   const newTour = {
     name: name,
     start_time: start_time,
     period: period,
     main_image_url: main_image_url,
     prices: prices,
+    addressFrom,
+    addressTo,
   };
 
-  if (!name || !start_time || !period || !main_image_url || !prices) {
+  if (
+    !name ||
+    !start_time ||
+    !period ||
+    !main_image_url ||
+    !prices ||
+    !addressFrom ||
+    !addressTo
+  ) {
     return res.status(200).json({
       message: "invaild",
     });
@@ -37,11 +56,11 @@ const orderTour = async (req, res) => {
     const userUpdate = await User.findOneAndUpdate(
       { username: username },
       { $push: { tours } },
-      { new: true },
+      { new: true }
     ).sort();
     return res.status(200).json({
       message: "order tour ok",
-      userUpdate
+      userUpdate,
     });
   } catch (error) {
     console.log(error);
@@ -53,6 +72,23 @@ const orderTour = async (req, res) => {
 const getAllTours = async (req, res) => {
   try {
     const tours = await Tour.find({});
+    return res.status(200).json(tours);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send("Internal Server Error");
+  }
+};
+const searchTour = async (req, res) => {
+  const {from, to, start, period} = req.body
+
+  // Xây dựng các điều kiện tìm kiếm dựa trên từng trường
+  const conditions = {};
+  if (from) conditions.addressFrom = { $regex: from, $options: 'i' };
+  if (to) conditions.addressTo = { $regex: to, $options: 'i' };
+  if (start) conditions.start_time = { $regex: start, $options: 'i' };
+  if (period) conditions.period = { $regex: period, $options: 'i' };
+  try {
+    const tours = await Tour.find(conditions).sort({updatedAt: -1});
     return res.status(200).json(tours);
   } catch (err) {
     console.error(err);
@@ -71,7 +107,7 @@ const getAllUsers = async (req, res) => {
 const getOrderTour = async (req, res) => {
   const username = req.params.username;
   try {
-    const user = await User.findOne({username: username});
+    const user = await User.findOne({ username: username });
     return res.status(200).json(user.tours);
   } catch (err) {
     console.error(err);
@@ -114,7 +150,7 @@ const updateOrderTour = async (req, res) => {
     await User.updateOne(
       { username: username },
       {
-        tours: dataUpdate
+        tours: dataUpdate,
       }
     );
     return res.status(200).json({
@@ -127,7 +163,15 @@ const updateOrderTour = async (req, res) => {
 };
 const updateTour = async (req, res) => {
   const { _id } = req.body;
-  const { name, start_time, period, main_image_url, prices } = req.body;
+  const {
+    name,
+    start_time,
+    period,
+    main_image_url,
+    prices,
+    addressFrom,
+    addressTo,
+  } = req.body;
   try {
     await Tour.updateOne(
       { _id: _id },
@@ -137,6 +181,8 @@ const updateTour = async (req, res) => {
         period: period,
         main_image_url: main_image_url,
         prices: prices,
+        addressFrom,
+        addressTo,
       }
     );
     return res.status(200).json({
@@ -325,5 +371,6 @@ module.exports = {
   getTour,
   orderTour,
   getOrderTour,
-  updateOrderTour
+  updateOrderTour,
+  searchTour
 };

@@ -6,8 +6,8 @@ import axios from "../../../utils/axios";
 
 const LoginAdmin = () => {
   const navigate = useNavigate();
-  const [name, setName] = useState();
-  const [pass, setPass] = useState();
+  const [name, setName] = useState('');
+  const [pass, setPass] = useState('');
   const changeName = (event) => {
     setName(event.target.value);
   };
@@ -24,7 +24,7 @@ const LoginAdmin = () => {
           password: pass,
         })
         .then((response) => {
-          if (response.status == 200) {
+          if (response.status === 200) {
             // console.log(response.data.user)
             localStorage.setItem(
               "adminData",

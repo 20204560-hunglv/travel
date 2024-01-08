@@ -1,4 +1,3 @@
-import styles from "./style.module.css";
 import LayoutAdmin from "../../../components/Layout/LayoutAdmin";
 import React, { useState, useEffect } from "react";
 import { ReactNotifications } from "react-notifications-component";
@@ -56,6 +55,8 @@ const CrudTour = () => {
                       startTime: "",
                       urlImage: "",
                       prices: "",
+                      addressFrom: "",
+                      addressTo: "",
                     });
                     setTypeChange("add");
                     setChange(true);
@@ -83,7 +84,7 @@ const CrudTour = () => {
               </div>
             </div>
           </div>
-          <table className="min-w-full divide-y divide-gray-200">
+          <table className="max-w-6xl block divide-y divide-gray-200">
             <thead>
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -101,10 +102,12 @@ const CrudTour = () => {
                 <th className="pl-6 pr-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white max-w-6xl divide-y divide-gray-200">
               {data.map((item, index) => (
                 <tr key={index}>
-                  <td className="px-6 py-4 whitespace-nowrap">{item.name}</td>
+                  <td className="max-w-2xl overflow-hidden px-6 py-4 whitespace-nowrap">
+                    {item.name}
+                  </td>
                   <td className="px-6 py-4 whitespace-nowrap">{item.prices}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -122,6 +125,8 @@ const CrudTour = () => {
                           startTime: item.start_time,
                           urlImage: item.main_image_url,
                           prices: item.prices,
+                          addressFrom: item.addressFrom,
+                          addressTo: item.addressTo,
                         });
                         setTypeChange("edit");
                         setChange(true);
