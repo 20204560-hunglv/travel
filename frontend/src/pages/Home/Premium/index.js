@@ -1,8 +1,23 @@
+import { useNavigate } from "react-router-dom";
+
 const Premium = () => {
+  const navigate = useNavigate()
   const links = [
-    "https://media.travel.com.vn/Advertisings/bn_231019_BannerWeb_MienBac-04.webp",
-    "https://media.travel.com.vn/Advertisings/bn_231101_DL%20AmThucMienTrung_1.webp",
-    "https://media.travel.com.vn/Advertisings/bn_231107_viber_image_2023-11-07_11-41-51-609.webp",
+    {
+      name: "Hà Nội - Nghĩa Lộ - Tú Lệ - Mù Cang Chải",
+      link: "https://media.travel.com.vn/Tour/tfd_221212091808_874768.jpg",
+      id: "659a190fec6cc5998ab34037",
+    },
+    {
+      name: "Cần Thơ - Hà Nội",
+      link: "https://media.travel.com.vn/Tour/tfd_220725014536_039495.jpg",
+      id: "659c8acda01d96e977e865ed",
+    },
+    {
+      name: "Hà Nội - Nghỉ Dưỡng Du Thuyền Hạ Long Cao Cấp - Ninh Bình - Bái Đính - Tràng An | Mùng 2 Tết",
+      link: "https://media.travel.com.vn/Destination/tf_231120105641_820562_Sightseeing%20(5).jpg",
+      id: "659c8a65a01d96e977e865eb",
+    },
   ];
 
   return (
@@ -17,12 +32,18 @@ const Premium = () => {
           // }}
         >
           {links.map((item, index) => (
-            <img
-              key={index}
-              className="w-1div3 rounded-xl cursor-pointer"
-              src={item}
-              alt="img"
-            />
+            <div
+            onClick={()=>{
+              navigate(`/tour/${item.id}`)
+            }}
+            key={index} className="w-1div3 cursor-pointer">
+              <img
+                className="rounded-xl  h-72"
+                src={item.link}
+                alt="img"
+              />
+              <p className="mt-2 font-bold text-center text-3a7bd5">{item.name}</p>
+            </div>
           ))}
         </div>
       </div>

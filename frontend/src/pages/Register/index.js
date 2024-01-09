@@ -101,7 +101,7 @@ const Register = () => {
                   type="button"
                   className="px-5 mt-16 py-3 bg-00d2ff rounded-3xl text-white cursor-pointer 
                   transition-colors border-none mx-auto hover:bg-3a7bd5"
-                  onClick={handleToSubmit}
+                  onClick={()=>handleToSubmit()}
                 >
                   Đăng ký
                 </button>

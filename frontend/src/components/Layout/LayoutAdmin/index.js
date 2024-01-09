@@ -10,7 +10,7 @@ const LayoutAdmin = ({ children }) => {
         </div>
         <div className={`w-full ml-20percen max-w-6xl`}>
           <div className={styles.search}>
-            <Search />
+            {/* <Search /> */}
           </div>
           <div className="ml-15">{children}</div>
         </div>

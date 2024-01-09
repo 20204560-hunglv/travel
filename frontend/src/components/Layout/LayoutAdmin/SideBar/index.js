@@ -8,8 +8,8 @@ const SideBar = () => {
     { pathName: "/admin/crud-user", label: "CRUD người dùng" },
     { pathName: "/admin/crud-tour", label: "CRUD tour" },
     // {pathName:"/admin/crud-user",label: "CRUD khuyến mãi"},
-    { pathName: "/admin/hotel", label: "Duyệt khách sạn" },
-    { pathName: "/admin/order", label: "Duyệt order" },
+    // { pathName: "/admin/hotel", label: "Duyệt khách sạn" },
+    // { pathName: "/admin/order", label: "Duyệt order" },
   ];
   const navigate = useNavigate();
   const handleClick = () => {

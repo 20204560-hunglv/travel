@@ -30,7 +30,7 @@ const SearchItem = ({ item }) => {
   return (
     <div
       onClick={handleToBooking}
-      className="rounded-lg cursor-pointer w-1/4 mx-4-1-percen transition-shadow hover:shadow-lg hover:shadow-slate-700"
+      className="rounded-lg cursor-pointer my-4 w-1/4 mx-4-1-percen transition-shadow hover:shadow-lg hover:shadow-slate-700"
     >
       <img src={item.main_image_url} className="h-44 w-full" alt="abc"></img>
       <div className={styles.saledescribe}>
@@ -45,7 +45,7 @@ const SearchItem = ({ item }) => {
 const Search = () => {
   let location = useLocation().state;
   const [data, setData] = useState([]);
-  const [countryFrom, setCountryFrom] = useState(location.from);
+  const [countryFrom, setCountryFrom] = useState(location.from || '');
   const [countryTo, setCountryTo] = useState(location.to);
   const [numberDate, setNumberDate] = useState(location.period);
   const handleFrom = (event) => {
