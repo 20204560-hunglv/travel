@@ -2,7 +2,7 @@ import styles from './style.module.css'
 
 const Footer = () => {
   return (
-    <footer className={styles.footer}>
+    <footer className='bg-gray-900 m-0'>
       <div className={styles.about}>
         <div className={styles.intro}>
           <p>Giới thiệu</p>

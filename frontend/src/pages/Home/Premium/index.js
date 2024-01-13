@@ -21,8 +21,8 @@ const Premium = () => {
   ];
 
   return (
-    <div className="pt-10 m-auto w-11/12">
-      <h3 className="font-bold text-3xl">Tour mới nhất</h3>
+    <div className="pt-20 m-auto w-11/12">
+      <h3 className="font-bold text-3xl text-185a9d">Tour mới nhất</h3>
       <div className="w-full overflow-x-hidden mt-3">
         <div
           className="flex justify-between relative left-0 duration-500"

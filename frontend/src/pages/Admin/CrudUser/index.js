@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../../components/Notification/index";
 import axios from "../../../utils/axios";
-import { Link } from "react-router-dom";
 import CrudUserModal from "../../../components/Modal/CRUDUserModal";
 
 const CrudUser = () => {
@@ -42,9 +41,11 @@ const CrudUser = () => {
         <CrudUserModal data={dataEdit} handleChangeFalse={handleChangeFalse} />
       ) : (
         <LayoutAdmin>
-          <div className="flex items-center my-7">
-            <div className="flex-grow text-right px-4 py-2 m-2">
+          <div className="flex items-center justify-between my-7">
               <div>
+                <h3 className="text-xl font-mediu text-gray-700 pl-6">Danh sách người dùng</h3>
+              </div>
+              <div className="pr-6">
                 <button
                   onClick={() => setChange(true)}
                   className="bg-green-400 hover:bg-green-500 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
@@ -68,7 +69,6 @@ const CrudUser = () => {
                   <span className="pl-2">Thêm</span>
                 </button>
               </div>
-            </div>
           </div>
           <table className="min-w-full divide-y divide-gray-200">
             <thead>
@@ -82,7 +82,7 @@ const CrudUser = () => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Địa chỉ
                 </th>
-                <th className="pl-6 pr-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+                <th className="w-1/12 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
