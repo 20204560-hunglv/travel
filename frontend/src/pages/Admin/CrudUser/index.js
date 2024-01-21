@@ -4,11 +4,15 @@ import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../../components/Notification/index";
 import axios from "../../../utils/axios";
 import CrudUserModal from "../../../components/Modal/CRUDUserModal";
+import ConfirmDelete from "../../../components/Modal/ConfirmDelete";
 
 const CrudUser = () => {
   const [data, setData] = useState([]);
   const [change, setChange] = useState(false);
   const [dataEdit, setDataEdit] = useState({});
+  const [showDeletePopup, setDeletePopup] = useState(false);
+  const [del, setDel] = useState(false);
+  const [uname, setUserName] = useState();
   const handleChangeFalse = () => {
     setChange(false);
   };
@@ -23,16 +27,23 @@ const CrudUser = () => {
     };
     fetchData();
   }, [change]);
-  const handleDelete = (username) => {
-    axios
-      .delete(`/api/v1/users/${username}`)
+  useEffect(() => {
+    if (del) {
+      axios
+      .delete(`/api/v1/users/${uname}`)
       .then(() => {
         setData((prevData) =>
-          prevData.filter((user) => user.username !== username)
+          prevData.filter((user) => user.username !== uname)
         );
         handleNotify("success", "Thành công", "Xóa thành công");
       })
       .catch((err) => console.log(err));
+      setDel(false);
+    }
+  }, [del,uname]);
+  const handleDelete = (username) => {
+    setDeletePopup(true);
+    setUserName(username);
   };
   return (
     <div>
@@ -42,33 +53,35 @@ const CrudUser = () => {
       ) : (
         <LayoutAdmin>
           <div className="flex items-center justify-between my-7">
-              <div>
-                <h3 className="text-xl font-mediu text-gray-700 pl-6">Danh sách người dùng</h3>
-              </div>
-              <div className="pr-6">
-                <button
-                  onClick={() => setChange(true)}
-                  className="bg-green-400 hover:bg-green-500 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
+            <div>
+              <h3 className="text-xl font-mediu text-gray-700 pl-6">
+                Danh sách người dùng
+              </h3>
+            </div>
+            <div className="pr-6">
+              <button
+                onClick={() => setChange(true)}
+                className="bg-green-400 hover:bg-green-500 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="feather feather-plus-circle"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="feather feather-plus-circle"
-                  >
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="12" y1="8" x2="12" y2="16"></line>
-                    <line x1="8" y1="12" x2="16" y2="12"></line>
-                  </svg>
-                  <span className="pl-2">Thêm</span>
-                </button>
-              </div>
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="16"></line>
+                  <line x1="8" y1="12" x2="16" y2="12"></line>
+                </svg>
+                <span className="pl-2">Thêm</span>
+              </button>
+            </div>
           </div>
           <table className="min-w-full divide-y divide-gray-200">
             <thead>
@@ -115,7 +128,7 @@ const CrudUser = () => {
                       Edit
                     </button>
                     <button
-                      onClick={() =>{
+                      onClick={() => {
                         setDataEdit({
                           userName: "",
                           password: "",
@@ -124,7 +137,8 @@ const CrudUser = () => {
                           address: "",
                           gender: "",
                         });
-                        handleDelete(item.username)}}
+                        handleDelete(item.username);
+                      }}
                       className="ml-2 px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out"
                     >
                       Delete
@@ -134,6 +148,9 @@ const CrudUser = () => {
               ))}
             </tbody>
           </table>
+          {showDeletePopup && (
+            <ConfirmDelete setShow={setDeletePopup} setDel={setDel} />
+          )}
         </LayoutAdmin>
       )}
     </div>

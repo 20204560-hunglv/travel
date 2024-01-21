@@ -4,12 +4,16 @@ import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../../components/Notification/index";
 import axios from "../../../utils/axios";
 import CrudTourModal from "../../../components/Modal/CRUDTourModal";
+import ConfirmDelete from "../../../components/Modal/ConfirmDelete";
 
 const CrudTour = () => {
   const [data, setData] = useState([]);
   const [change, setChange] = useState(false);
   const [typeChange, setTypeChange] = useState("");
+  const [showDeletePopup, setDeletePopup] = useState(false);
+  const [id, setId] = useState();
   const [dataEdit, setDataEdit] = useState({});
+  const [del, setDel] = useState(false);
   const handleChangeFalse = () => {
     setChange(false);
   };
@@ -24,14 +28,21 @@ const CrudTour = () => {
     };
     fetchData();
   }, [change]);
-  const handleDelete = (_id) => {
-    axios
-      .delete(`/api/v1/tours/${_id}`)
+  useEffect(() => {
+    if (del) {
+      axios
+      .delete(`/api/v1/tours/${id}`)
       .then(() => {
-        setData((prevData) => prevData.filter((user) => user._id !== _id));
+        setData((prevData) => prevData.filter((user) => user._id !== id));
         handleNotify("success", "Thành công", "Xóa thành công");
       })
       .catch((err) => console.log(err));
+      setDel(false);
+    }
+  }, [del,id]);
+  const handleDelete = (_id) => {
+    setDeletePopup(true);
+    setId(_id);
   };
   return (
     <div>
@@ -148,6 +159,9 @@ const CrudTour = () => {
               ))}
             </tbody>
           </table>
+          {showDeletePopup && (
+            <ConfirmDelete setShow={setDeletePopup} setDel={setDel} />
+          )}
         </LayoutAdmin>
       )}
     </div>

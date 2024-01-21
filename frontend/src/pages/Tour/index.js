@@ -8,6 +8,7 @@ import Dialog from "../../components/Dialog";
 import { getUserLocal } from "../../utils/getLocalStorage";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../components/Notification/index";
+import cityLabels from "../../utils/citys";
 
 const Tour = () => {
   const username = getUserLocal().username;
@@ -34,9 +35,16 @@ const Tour = () => {
   const fetchData = () => {
     axios
       .get(`/api/v1/tours/${id}`)
-      .then((res) => setData(res.data))
+      .then((res) => {
+        console.log(res.data)
+        setData(res.data)})
       .catch((err) => console.log(err));
   };
+  const selectCity=(value)=>{
+    const city = cityLabels.find((item)=>item.value === value)
+    // console.log(city.label)
+    return city.label
+  }
   return (
     <DefaultLayout>
       <ReactNotifications />
@@ -47,8 +55,10 @@ const Tour = () => {
           <div className={styles.content}>
             <p className={styles.title}>{data.name}</p>
             <div className={styles.detail}>
-              <p>{`Khởi hành ${data.start_time}`}</p>
-              <p>{`Thời gian ${data.period} ngày`}</p>
+              <p>{`Nơi khởi hành: ${data.addressFrom && selectCity(data.addressFrom)}`}</p>
+              <p>{`Nơi đến: ${data.addressTo && selectCity(data.addressTo)}`}</p>
+              <p>{`Khởi hành: ${data.start_time}`}</p>
+              <p>{`Thời gian: ${data.period} ngày`}</p>
             </div>
           </div>
         </div>
