@@ -1,28 +1,54 @@
-import styles from './style.module.css'
-
 const Footer = () => {
   return (
-    <footer className='bg-gray-900 m-0'>
-      <div className={styles.about}>
-        <div className={styles.intro}>
-          <p>Giới thiệu</p>
-          <a href="">Về công ty</a>
-          <a href="">Tuyển dụng</a>
-          <a href="">Hệ thống cửa hàng</a>
+    <footer className="bg-gray-900 m-0">
+      <div className="flex flex-wrap pt-8 justify-between mx-24 my-0">
+        <div>
+          <p className="font-semibold text-2xl leading-8 text-white mb-5">
+            Giới thiệu
+          </p>
+          <a className="block text-sm leading-6 text-gray-400 mb-4 no-underline">
+            Về công ty
+          </a>
+          <a className="block text-sm leading-6 text-gray-400 mb-4 no-underline">
+            Tuyển dụng
+          </a>
+          <a className="block text-sm leading-6 text-gray-400 mb-4 no-underline">
+            Hệ thống cửa hàng
+          </a>
         </div>
-        <div className={styles.services}>
-          <p>Dịch vụ khách hàng</p>
-          <a href="">Chính sách điều khoản</a>
-          <a href="">Hướng dẫn</a>
-          <a href="">Q&A</a>
+        <div>
+          <p className="font-semibold text-2xl leading-8 text-white mb-5">
+            Dịch vụ khách hàng
+          </p>
+          <a className="block text-sm leading-6 text-gray-400 mb-4 no-underline">
+            Chính sách điều khoản
+          </a>
+          <a className="block text-sm leading-6 text-gray-400 mb-4 no-underline">
+            Hướng dẫn
+          </a>
+          <a className="block text-sm leading-6 text-gray-400 mb-4 no-underline">
+            Q&A
+          </a>
         </div>
-        <div className={styles.contact}>
-          <p>Liên hệ</p>
-          <a href="">Hotline</a>
-          <a href="">Email</a>
-          <a href="">Live chat</a>
-          <a href="">Messenger</a>
-          <a href="">Liên hệ</a>
+        <div>
+          <p className="font-semibold text-2xl leading-8 text-white mb-5">
+            Liên hệ
+          </p>
+          <a className="block text-sm leading-6 text-gray-400 mb-4 no-underline">
+            Hotline
+          </a>
+          <a className="block text-sm leading-6 text-gray-400 mb-4 no-underline">
+            Email
+          </a>
+          <a className="block text-sm leading-6 text-gray-400 mb-4 no-underline">
+            Live chat
+          </a>
+          <a className="block text-sm leading-6 text-gray-400 mb-4 no-underline">
+            Messenger
+          </a>
+          <a className="block text-sm leading-6 text-gray-400 mb-4 no-underline">
+            Liên hệ
+          </a>
         </div>
       </div>
     </footer>

@@ -1,6 +1,6 @@
 import styles from "./style.module.css";
 import LayoutAdmin from "../../../components/Layout/LayoutAdmin";
-import React, { useState, useEffect } from "react";
+import React from "react";
 const Order = () => {
   const data = [
     {
