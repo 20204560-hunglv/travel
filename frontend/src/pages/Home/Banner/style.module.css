@@ -1,30 +1,13 @@
-.search {
-  height: 600px;
-  position: relative;
-  /* border-bottom: 1px solid black; */
-  margin-bottom: 40px;
-}
-.searchPic {
-  margin: auto;
-  width: 100%;
-  height: 90%;
-  background-image: url("../../../assets/images/Quảng_trường_Hồ_Chí_Minh.jpg");
-  background-repeat: no-repeat;
-  background-position: 0 25%;
-  border-radius: 60px 0;
-  border-top: 2px solid #e7e8e9;
-}
 .searchChoose {
-  /* height: 40%; */
-  position: absolute;
-  bottom: -10%;
-  left: 10%;
-  right: 10%;
+  /* bottom: -10%; */
+  /* left: 10%;
+  right: 10%; */
+  width: 1000px;
+  margin: auto;
   background-color: rgb(45 66 100 / 80%);
   border-radius: 15px;
   height: max-content;
   box-shadow: 0 0 10px #616d8a;
-  color: #4d4aef!important;
 }
 .searchChooseNav {
   list-style: none;
@@ -54,15 +37,15 @@
   font-size: 20px;
   font-weight: 600;
 }
-.searchChooseContent{
-  color: #2d4271!important;
+.searchChooseContent {
+  color: #2d4271 !important;
   padding: 20px 0;
 }
 .searchChooseFilter {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding-bottom: 20px;
+  padding: 0 10px 20px;
 }
 .searchChooseItem {
   padding: 5px 30px;

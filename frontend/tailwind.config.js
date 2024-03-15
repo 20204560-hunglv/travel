@@ -12,6 +12,9 @@ module.exports = {
         '3a7bd5': '#3a7bd5',
         '185a9d': '#185a9d',
       },
+      colors: {
+        '3a7bd5': '#3a7bd5',
+      }
     },
   },
   plugins: [],

@@ -7,7 +7,7 @@ import Premium from "./Premium";
 const Home = () => {
   return (
     <DefaultLayout>
-      <main style={{ overflowX: "hidden" }}>
+      <main>
         <Banner />
         <Premium />
         {/* <Sale /> */}
