@@ -5,7 +5,7 @@ import DropMenuAuth from "../../../DropMenuAuth";
 const Header = () => {
   const storedUserDataString = localStorage.getItem("userData");
   return (
-    <header className="border-b border-3a7bd5">
+    <header className="border-b border-dfe3e6">
       <div className='h-16 m-auto flex justify-between items-center text-blue-900 w-11/12'>
         <nav className="h-full">
           <ul className='list-none h-full flex items-center pl-0'>

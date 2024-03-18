@@ -46,7 +46,7 @@ const Banner = () => {
   return (
     <div className="">
       <div className={`relative mt-10`}>
-        <div className={`text-indigo-600 ${styles.searchChoose}`}>
+        <div className={` ${styles.searchChoose}`}>
           <nav>
             <ul className={styles.searchChooseNav}>
               <li
@@ -54,7 +54,7 @@ const Banner = () => {
                   handleActive("tour");
                 }}
                 className={`${styles.searchChooseNavLi} ${
-                  active.tour ? "bg-white text-3a7bd5" : "text-white bg-inherit"
+                  active.tour ? "bg-white text-2d4271" : "text-white bg-inherit"
                 } font-bold`}
               >
                 Tour du lịch
@@ -127,7 +127,7 @@ const Banner = () => {
                     <div>
                       <label
                         htmlFor="number-input"
-                        className="mb-2 text-sm font-medium text-gray-900"
+                        className="mb-2 text-sm font-medium"
                       >
                         Số ngày
                       </label>
@@ -137,7 +137,7 @@ const Banner = () => {
                         type="number"
                         id="number-input"
                         aria-describedby="helper-text-explanation"
-                        className="bg-gray-50 text-gray-900 text-sm rounded-lg
+                        className="bg-gray-50 text-sm rounded-lg
                    focus:ring-blue-500 focus:border-blue-500 block w-20 p-2.5"
                         placeholder="0"
                         min={0}

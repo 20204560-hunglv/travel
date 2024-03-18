@@ -13,7 +13,7 @@ const SideBar = () => {
     navigate("/admin");
   };
   return (
-    <div className="h-full w-full relative flex flex-col justify-between border-r-2">
+    <div className="h-full w-full bg-white relative flex flex-col justify-between border-r-2">
       <div className="w-full">
         <div className="flex w-full items-end justify-center">
           <div>
@@ -57,7 +57,7 @@ const SideBar = () => {
                 >
                   <div className="text-inherit select-none flex justify-center items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]">
                     <div></div>
-                    <p className="flex text-inherit items-center flex-grow text-sm">
+                    <p className="flex text-inherit items-center flex-grow text-xs">
                       {item.label}
                     </p>
                   </div>

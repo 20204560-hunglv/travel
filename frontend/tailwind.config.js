@@ -11,9 +11,11 @@ module.exports = {
       textColor: {
         '3a7bd5': '#3a7bd5',
         '185a9d': '#185a9d',
+        '2d4271': '#2d4271',
       },
       colors: {
         '3a7bd5': '#3a7bd5',
+        'dfe3e6': '#dfe3e6',
       }
     },
   },

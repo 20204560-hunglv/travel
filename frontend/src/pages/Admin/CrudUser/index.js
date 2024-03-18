@@ -52,12 +52,7 @@ const CrudUser = () => {
         <CrudUserModal data={dataEdit} handleChangeFalse={handleChangeFalse} />
       ) : (
         <LayoutAdmin>
-          <div className="flex items-center justify-between my-7">
-            <div>
-              <h3 className="text-xl font-mediu text-gray-700 pl-6">
-                Danh sách người dùng
-              </h3>
-            </div>
+          <div className="flex items-center justify-end my-7">
             <div className="pr-6">
               <button
                 onClick={() => setChange(true)}

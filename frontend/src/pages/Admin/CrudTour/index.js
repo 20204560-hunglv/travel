@@ -44,6 +44,14 @@ const CrudTour = () => {
     setDeletePopup(true);
     setId(_id);
   };
+  // Neu >= 45 ky tu, thi thay the bang 3 cham
+  function truncateString(str) {
+    if (str.length >= 45) {
+      return str.slice(0, 42) + '...';
+    } else {
+      return str;
+    }
+  }
   return (
     <div>
       <ReactNotifications />
@@ -117,7 +125,7 @@ const CrudTour = () => {
               {data.map((item, index) => (
                 <tr key={index}>
                   <td className="max-w-2xl overflow-hidden px-6 py-4 whitespace-nowrap">
-                    {item.name}
+                    {truncateString(item.name)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">{item.prices}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
