@@ -5,7 +5,7 @@ const DefaultLayout = ({ children }) => {
   return (
     <>
       <Header></Header>
-      <div className="min-h-630">{children}</div>
+      <div>{children}</div>
       <Footer />
     </>
   );

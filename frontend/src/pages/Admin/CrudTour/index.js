@@ -63,9 +63,8 @@ const CrudTour = () => {
         />
       ) : (
         <LayoutAdmin>
-          <div className="flex items-center my-7">
-            <div className="flex-grow text-right px-4 py-2 m-2">
-              <div>
+          <div className="flex items-center justify-end my-7">
+            <div className="px-4 ">
                 <button
                   onClick={() => {
                     setDataEdit({
@@ -100,10 +99,9 @@ const CrudTour = () => {
                   </svg>
                   <span className="pl-2">Thêm</span>
                 </button>
-              </div>
             </div>
           </div>
-          <table className="max-w-6xl block divide-y divide-gray-200">
+          <table className="mr-0 pr-0 max-w-6xl w-full divide-y divide-gray-200">
             <thead>
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -118,13 +116,13 @@ const CrudTour = () => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Số ngày
                 </th>
-                <th className="pl-6 pr-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+                <th className="pl-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
               </tr>
             </thead>
             <tbody className="bg-white max-w-6xl divide-y divide-gray-200">
               {data.map((item, index) => (
                 <tr key={index}>
-                  <td className="max-w-2xl overflow-hidden px-6 py-4 whitespace-nowrap">
+                  <td className="px-6 py-4 whitespace-nowrap">
                     {truncateString(item.name)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">{item.prices}</td>
@@ -134,7 +132,7 @@ const CrudTour = () => {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">{item.period}</td>
-                  <td className="pl-6 pr-2 py-4 whitespace-nowrap">
+                  <td className="pl-6 py-4 whitespace-nowrap">
                     <button
                       onClick={() => {
                         setDataEdit({

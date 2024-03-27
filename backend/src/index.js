@@ -1,6 +1,5 @@
 const express = require("express");
 const morgan = require("morgan");
-const handlebars = require("express-handlebars");
 const path = require("path");
 const route = require("./routes");
 const app = express();
@@ -19,9 +18,6 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "public")));
 
-app.engine("handlebars", handlebars());
-app.set("view engine", "handlebars");
-app.set("views", path.join(__dirname, "./resources/views"));
 //connect MongoDB
 database.connect();
 

@@ -6,18 +6,18 @@ const Header = () => {
   const storedUserDataString = localStorage.getItem("userData");
   return (
     <header className="border-b border-dfe3e6">
-      <div className='h-16 m-auto flex justify-between items-center text-blue-900 w-11/12'>
+      <div className='h-16 m-auto flex justify-between items-center w-11/12'>
         <nav className="h-full">
           <ul className='list-none h-full flex items-center pl-0'>
-            <li className={`float-left text-sm font-bold h-full flex items-center relative w-max px-2 ${styles.headerNavLi}`}>
+            <li className={`float-left text-sm font-bold h-full flex items-center relative w-max mx-2 ${styles.headerNavLi}`}>
               <Link to="/">
-                <p className="text-center cursor-pointer">Trang chủ</p>
+                <p className="text-center text-666666 cursor-pointer">Trang chủ</p>
               </Link>
               <hr/>
             </li>
-            <li className={`float-left text-sm font-bold h-full flex items-center relative w-max px-2 ${styles.headerNavLi}`}>
+            <li className={`float-left text-sm font-bold h-full flex items-center relative w-max mx-2 ${styles.headerNavLi}`}>
               <Link to="/news">
-                <p className="text-center cursor-pointer">Tin tức</p>
+                <p className="text-center text-666666 cursor-pointer">Tin tức</p>
               </Link>
               <hr/>
             </li>
@@ -26,7 +26,7 @@ const Header = () => {
         {!storedUserDataString ? (
           <Link to="/login">
             <i
-              className={`fa-regular fa-circle-user ${styles.faCircleUser}`}
+              className={`fa-regular fa-circle-user text-2xl text-blue-900 cursor-pointer`}
             ></i>
           </Link>
         ) : (

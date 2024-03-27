@@ -1,7 +1,6 @@
 const Tour = require("../models/tour");
 const User = require("../models/users");
 const AdminSchema = require("../models/admins");
-const unidecode = require('unidecode');
 
 const createTour = async (req, res) => {
   const {

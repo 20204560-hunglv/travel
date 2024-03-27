@@ -30,21 +30,35 @@ const CrudUser = () => {
   useEffect(() => {
     if (del) {
       axios
-      .delete(`/api/v1/users/${uname}`)
-      .then(() => {
-        setData((prevData) =>
-          prevData.filter((user) => user.username !== uname)
-        );
-        handleNotify("success", "Thành công", "Xóa thành công");
-      })
-      .catch((err) => console.log(err));
+        .delete(`/api/v1/users/${uname}`)
+        .then(() => {
+          setData((prevData) =>
+            prevData.filter((user) => user.username !== uname)
+          );
+          handleNotify("success", "Thành công", "Xóa thành công");
+        })
+        .catch((err) => console.log(err));
       setDel(false);
     }
-  }, [del,uname]);
+  }, [del, uname]);
   const handleDelete = (username) => {
     setDeletePopup(true);
     setUserName(username);
   };
+  function truncateString(str) {
+    if (str.length >= 45) {
+      return str.slice(0, 42) + '...';
+    } else {
+      return str;
+    }
+  }
+  function truncateStringEmail(str) {
+    if (str.length > 25) {
+      return str.slice(0, 24) + '...';
+    } else {
+      return str;
+    }
+  }
   return (
     <div>
       <ReactNotifications />
@@ -53,7 +67,7 @@ const CrudUser = () => {
       ) : (
         <LayoutAdmin>
           <div className="flex items-center justify-end my-7">
-            <div className="pr-6">
+            <div className="px-4">
               <button
                 onClick={() => setChange(true)}
                 className="bg-green-400 hover:bg-green-500 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
@@ -78,16 +92,16 @@ const CrudUser = () => {
               </button>
             </div>
           </div>
-          <table className="min-w-full divide-y divide-gray-200">
+          <table className="max-w-6xl divide-y divide-gray-200">
             <thead>
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="w-1/4 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Tên tài khoản
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 w-1/3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Email
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 w-1/3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Địa chỉ
                 </th>
                 <th className="w-1/12 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
@@ -99,10 +113,10 @@ const CrudUser = () => {
                   <td className="px-6 py-4 whitespace-nowrap">
                     {item.username}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">{item.email}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{truncateStringEmail(item.email)}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                      {item.address}
+                      {truncateString(item.address)}
                     </span>
                   </td>
                   <td className="pl-6 pr-2 py-4 whitespace-nowrap">

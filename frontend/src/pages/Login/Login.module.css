@@ -1,112 +1,42 @@
-.main {
-  /* background-attachment: fixed; */
-  height: 100vh;
-  display: flex;
-  background-color: rgb(240, 240, 240);
-}
-.contain {
-  color: rgb(94, 93, 93);
-  background-color: white;
-  width: 30%;
-  min-width: 330px;
-  height: 90%;
-  min-height: 500px;
-  margin: auto;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 /* Login begin */
 
 /* Header */
-.loginHeader {
-  text-align: center;
-  margin-bottom: 20px;
-}
-.loginHeader > h1 {
-  color: var(--color);
-}
 fieldset {
   border: none;
 }
 
 /* input */
-.loginInput {
-  display: flex;
-  flex-direction: column;
-  height: 180px;
-  justify-content: space-between;
-}
 .loginInputArea {
   display: flex;
   flex-direction: column;
-  width: 85%;
   margin: auto;
   position: relative;
 }
 .loginInputArea > p {
-  font-size: 15px;
+  font-size: 14px;
   padding-left: 5px;
 }
 .loginInputArea > input {
   height: 40px;
-  border: none;
-  border-bottom: 2px solid rgb(173, 173, 173);
-  padding-left: 35px;
+  border: 1px solid rgb(173, 173, 173);
+  padding-left: 12px;
+  padding-right: 12px;
   outline: none;
   font-size: 16px;
-  color: rgb(173, 173, 173);
-  margin-top: 5px;
-  transition: border-bottom-color 1s;
-}
-.loginInputArea > input:focus ~ i {
-  color: #3a7bd5;
+  color: #646363;
+  margin-top: 4px;
+  border-radius: 8px;
+  width: 480px;
 }
 .loginInputArea > input:focus {
-  border-bottom-color: #646363;
-}
-.loginInputArea > i {
-  position: absolute;
-  left: 10px;
-  top: 30px;
-  font-size: 18px;
-  color: rgb(173, 173, 173);
-  transition: color 0.5s;
+  border-color: #646363;
 }
 
 /* submit */
 .loginSubmit {
-  position: relative;
-  width: 85%;
   height: 40px;
   margin-left: auto;
   margin-right: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.loginSubmit > p {
-  font-size: 13px;
-  color: rgb(134, 133, 133);
-  cursor: pointer;
-  transition: color 0.3s;
-}
-.loginSubmit > p:hover {
-  color: #3a7bd5;
-}
-.loginSubmitButton {
-  padding: 10px 20px;
-  background-color: #00d2ff;
-  border-radius: 25px;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.5s;
-  border: none;
-}
-.loginSubmitButton:hover {
-  background-color: #3a7bd5;
 }
 
 /* login other */
