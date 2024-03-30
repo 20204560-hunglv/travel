@@ -26,7 +26,7 @@ fieldset {
   color: #646363;
   margin-top: 4px;
   border-radius: 8px;
-  width: 480px;
+  width: 400px;
 }
 .loginInputArea > input:focus {
   border-color: #646363;
@@ -46,39 +46,4 @@ fieldset {
 .loginOther > p {
   text-align: center;
   font-size: 14px;
-}
-.loginOtherIcon {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-.loginOtherIcon > i {
-  font-size: 40px;
-  cursor: pointer;
-  transition: color 0.5s;
-}
-.loginOtherIcon > i:hover {
-  color: #333333;
-}
-.faFace {
-  margin-right: 20px;
-  color: rgb(59, 89, 152);
-}
-.faGoog {
-  color: rgb(234, 67, 53);
-}
-
-/* next to register */
-.loginRegister > p {
-  margin-top: 50px;
-  text-align: center;
-  width: max-content;
-  margin-left: auto;
-  margin-right: auto;
-  cursor: pointer;
-  transition: color 0.5s;
-  color: #185a9d;
-}
-.loginRegister > p:hover {
-  color: #3a7bd5;
 }

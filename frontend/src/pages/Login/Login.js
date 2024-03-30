@@ -55,6 +55,16 @@ const Login = () => {
           }
         });
   };
+  const chooseShow = () => {
+    const checkbox = document.getElementById("showPasswordCheckbox");
+    var passwordInput = document.getElementById("password");
+
+    if (checkbox.checked) {
+        passwordInput.type = "text";
+    } else {
+        passwordInput.type = "password";
+    }
+  }
   return (
     <DefaultLayout>
       <ReactNotifications />
@@ -62,7 +72,7 @@ const Login = () => {
         <div
           className={`text-666666 m-auto flex flex-col justify-center w-max rounded-lg `}
         >
-          <div className={styles.login}>
+          <div>
             <header className="text-center mb-5">
               <h1 className="text-4xl font-bold mb-3 text-333333">Đăng nhập</h1>
               <div className="flex justify-center">
@@ -80,7 +90,9 @@ const Login = () => {
                 <div
                   className={`flex flex-col m-auto ${styles.loginInputArea}`}
                 >
-                  <p>Tên đăng nhập</p>
+                  <div className="flex justify-between">
+                    <p>Tên đăng nhập</p>
+                  </div>
                   <input
                     type="text"
                     name="username"
@@ -91,7 +103,13 @@ const Login = () => {
                 <div
                   className={`flex flex-col m-auto ${styles.loginInputArea}`}
                 >
-                  <p>Mật khẩu</p>
+                  <div className="flex justify-between">
+                    <p>Mật khẩu</p>
+                    <div className="flex justify-between items-center">
+                      <p className="mr-1 text-xs">Hiện</p>
+                      <input type="checkbox" id="showPasswordCheckbox" onChange={()=>chooseShow()}/>
+                    </div>
+                  </div>
                   <input
                     type="password"
                     name="password"
