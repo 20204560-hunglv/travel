@@ -46,14 +46,14 @@ const CrudUser = () => {
     setUserName(username);
   };
   function truncateString(str) {
-    if (str.length >= 45) {
+    if (str && str.length >= 45) {
       return str.slice(0, 42) + '...';
     } else {
       return str;
     }
   }
   function truncateStringEmail(str) {
-    if (str.length > 25) {
+    if (str && str.length > 25) {
       return str.slice(0, 24) + '...';
     } else {
       return str;
