@@ -36,3 +36,6 @@
 .h-2px{
   height: 2px;
 }
+.calc-64{
+  height: calc(100vh - 64px);
+}
