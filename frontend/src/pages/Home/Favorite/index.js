@@ -17,9 +17,8 @@ const Item = (props) => {
       })
     }}
     className={`${styles.item} cursor-pointer`}>
-      <img src={props.link} />
-      <a>{props.title}</a>
-      {/* <p>{`Đã có ${props.visitor} lượt khách`}</p> */}
+      <img src={props.link} alt=""/>
+      <p>{props.title}</p>
     </div>
   );
 };

@@ -39,3 +39,8 @@
 .calc-64{
   height: calc(100vh - 64px);
 }
+.bg-image{
+  background-image: url(./assets/images/background.jpg);
+  background-position-y: 45%;
+  background-repeat: no-repeat;
+}

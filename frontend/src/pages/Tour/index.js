@@ -42,7 +42,6 @@ const Tour = () => {
   };
   const selectCity=(value)=>{
     const city = cityLabels.find((item)=>item.value === value)
-    // console.log(city.label)
     return city.label
   }
   return (
@@ -79,7 +78,6 @@ const Tour = () => {
       </div>
       {dialog && (
         <Dialog
-          //Update
           nameProduct={"Bạn có chắc chắn đặt tour này không?"}
           onDialog={areUSureOrder}
           message={"Xác nhận"}

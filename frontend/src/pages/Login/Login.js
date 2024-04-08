@@ -26,7 +26,7 @@ const Login = () => {
           password: pass,
         })
         .then((response) => {
-          if (response.status == 200) {
+          if (response.status === 200) {
             // console.log(response.data.user)
             localStorage.setItem(
               "userData",

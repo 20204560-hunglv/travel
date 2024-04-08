@@ -1,5 +1,4 @@
 import { useState } from "react";
-import styles from "./style.module.css";
 import DatePicker from "react-date-picker";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
@@ -21,17 +20,6 @@ const Banner = () => {
     setNumberDate(event.target.value);
   };
   const [date, onChange] = useState();
-  const [active, setActive] = useState({
-    tour: true,
-    hotel: false,
-  });
-  const handleActive = (detailName) => {
-    setActive((prevState) => ({
-      tour: false,
-      hotel: false,
-      [detailName]: true,
-    }));
-  };
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/search", {
@@ -44,16 +32,16 @@ const Banner = () => {
     });
   };
   return (
-    <div className={`calc-64 bg-F5F7FA flex flex-col justify-center items-center ${styles.main}`}>
+    <div className={`calc-64 bg-F5F7FA flex flex-col justify-center items-center bg-image`}>
       <div className="mb-14">
-        <h1 className="font-semibold text-center text-4D4D4D text-7xl">
+        <h1 className="font-semibold text-center text-404040 text-7xl">
           Du lịch khắp mọi nơi!
         </h1>
-        <p className="text-center text-717171 text-3xl">
+        <p className="text-center text-4D4D4D text-3xl">
           Cung cấp cho bạn những trải nghiệm tuyệt vời.
         </p>
       </div>
-      <div className={`h-max py-3 border-b-2 border-4CAF4F`}>
+      <div className={`h-max rounded-md py-4 px-4 border-b-2 border-4CAF4F bg-white`}>
         <div className={`flex justify-around items-center`}>
           <div className=" flex items-center justify-around py-1 px-5 border-2 border-yellow-200 rounded-2xl h-20">
             <i className="fa-solid fa-location-dot mr-2 text-red-400 text-xl"></i>
@@ -81,7 +69,7 @@ const Banner = () => {
           </div>
           <i className={`text-404040 mx-4 fa-solid fa-right-left`}></i>
           <div className=" flex items-center justify-between py-1 px-7 border-2 border-yellow-200 rounded-2xl h-20">
-            <i className="fa-solid fa-location-dot mr-2 text-red-400 text-xl text-base"></i>
+            <i className="fa-solid fa-location-dot mr-2 text-red-400 text-base"></i>
             <div>
               <label
                 htmlFor="countriesTo"
