@@ -16,34 +16,36 @@ import NotFound from "./components/NotFound/notFound";
 import ChangePass from "./pages/ChangePass";
 import LoginAdmin from "./pages/Admin/LoginAdmin";
 import HistoryBooking from "./pages/HistoryBooking";
+import ScrollToTop from "./components/ScrollToTop";
 
 const App = () => {
   return (
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/news" element={<News />} />
-          <Route path="/tour/:id" element={<Tour />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/history-booking" element={<HistoryBooking />} />
-          <Route path="/admin/crud-user" element={<CrudUser />} />
-          <Route path="/admin/crud-tour" element={<CrudTour />} />
-          <Route path="/admin/hotel" element={<ResponHotel />} />
-          <Route path="/admin/order" element={<Order />} />
-          <Route path="/admin" element={<LoginAdmin />} />
-          <Route
-            path="/hotel-manager/register-hotel"
-            element={<RegisterHotel />}
-          />
-          <Route path="/hotel-manager/edit-hotel" element={<EditHotel />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/404" element={<NotFound />} />
-          <Route path="/change-pass" element={<ChangePass />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+    <BrowserRouter>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/news" element={<News />} />
+        <Route path="/tour/:id" element={<Tour />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/history-booking" element={<HistoryBooking />} />
+        <Route path="/admin/crud-user" element={<CrudUser />} />
+        <Route path="/admin/crud-tour" element={<CrudTour />} />
+        <Route path="/admin/hotel" element={<ResponHotel />} />
+        <Route path="/admin/order" element={<Order />} />
+        <Route path="/admin" element={<LoginAdmin />} />
+        <Route
+          path="/hotel-manager/register-hotel"
+          element={<RegisterHotel />}
+        />
+        <Route path="/hotel-manager/edit-hotel" element={<EditHotel />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/404" element={<NotFound />} />
+        <Route path="/change-pass" element={<ChangePass />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
