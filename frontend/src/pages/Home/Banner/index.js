@@ -9,15 +9,11 @@ const Banner = () => {
   const cityLabels = citys;
   const [countryFrom, setCountryFrom] = useState();
   const [countryTo, setCountryTo] = useState();
-  const [numberDate, setNumberDate] = useState(0);
   const handleFrom = (event) => {
     setCountryFrom(event.target.value);
   };
   const handleTo = (event) => {
     setCountryTo(event.target.value);
-  };
-  const handleNumberDate = (event) => {
-    setNumberDate(event.target.value);
   };
   const [date, onChange] = useState();
   const navigate = useNavigate();
@@ -27,7 +23,6 @@ const Banner = () => {
         from: countryFrom,
         to: countryTo,
         start: date,
-        period: numberDate,
       },
     });
   };
@@ -100,27 +95,6 @@ const Banner = () => {
               <DatePicker onChange={onChange} value={date} />
             </div>
           </div>
-          {/* <div className=" flex items-center justify-around py-1 px-7 border-4 border-yellow-200 rounded-2xl h-20">
-            <div>
-              <label
-                htmlFor="number-input"
-                className="mb-2 text-sm font-medium"
-              >
-                Số ngày
-              </label>
-              <input
-                onChange={handleNumberDate}
-                value={numberDate}
-                type="number"
-                id="number-input"
-                aria-describedby="helper-text-explanation"
-                className="bg-gray-50 text-sm rounded-lg
-                   focus:ring-blue-500 focus:border-blue-500 block w-20 p-2.5"
-                placeholder="0"
-                min={0}
-              />
-            </div>
-          </div> */}
           <div
             onClick={handleClick}
             className="bg-yellow-300 py-4 px-5 rounded-lg cursor-pointer"
