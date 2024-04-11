@@ -33,7 +33,7 @@ const Header = () => {
         </nav>
         {!storedUserDataString ? (
           <div className="flex">
-            <div className=" py-2 px-3 bg-white rounded-lg border border-111111 hover:bg-slate-300 transition-color duration-500 mr-3">
+            <div className=" py-2 px-3 bg-white rounded-lg border border-111111 hover:bg-slate-300 hover:border-slate-300 transition-color duration-500 mr-3">
               <Link to="/login">
                 <p>Đăng nhập</p>
               </Link>
