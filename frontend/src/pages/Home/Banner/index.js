@@ -97,7 +97,7 @@ const Banner = () => {
           </div>
           <div
             onClick={handleClick}
-            className="bg-yellow-300 py-4 px-5 rounded-lg cursor-pointer"
+            className="bg-yellow-300 hover:bg-yellow-400 transition-colors duration-300 py-4 px-5 rounded-lg cursor-pointer"
           >
             <p className="font-semibold text-404040">Tìm kiếm</p>
           </div>
