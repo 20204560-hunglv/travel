@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import DefaultLayout from "../../components/Layout/DefaultLayout";
 import { useNavigate } from "react-router-dom";
 import axios from "../../utils/axios";
-import {getUserLocal} from "../../utils/getLocalStorage";
+import { getUserLocal } from "../../utils/getLocalStorage";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../components/Notification/index";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Profile = () => {
   const storedUserDataString = getUserLocal();
@@ -28,6 +30,8 @@ const Profile = () => {
   const handleGender = (event) => {
     setGender(event.target.value);
   };
+  const [date, onChangeDate] = useState(new Date());
+
   const [user, setUser] = useState({});
   const handleSave = () => {
     axios
@@ -67,8 +71,7 @@ const Profile = () => {
             <h2 className="text-2xl text-center text-gray-900">
               Thông tin tài khoản
             </h2>
-            <div className="flex items-center justify-between mt-5">
-              <p className="text-gray-900">{`Hello ${storedUserDataString.username}`}</p>
+            <div className="flex items-center justify-end mt-5">
               <div>
                 <button
                   onClick={handleToPass}
@@ -128,7 +131,7 @@ const Profile = () => {
                     onChange={handleAddress}
                   />
                 </div>
-                <div className="w-full md:w-full px-3 mb-6">
+                <div className="w-full md:w-full px-3">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                     Giới tính
                   </label>
@@ -169,11 +172,21 @@ const Profile = () => {
                     </div>
                   </div>
                 </div>
+                <div className="px-3 mb-6">
+                  <div>
+                    <span>Ngày sinh</span>
+                  </div>
+                  <div className="h-16 text-404040 mt-2">
+                    <DatePicker 
+                    onChange={(date) => onChangeDate(date)} selected={date} 
+                    />
+                  </div>
+                </div>
                 <div className="personal w-full border-t border-gray-400 pt-4">
                   <div className="flex justify-end">
                     <button
                       onClick={() => handleSave()}
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full"
                     >
                       Lưu
                     </button>
