@@ -65,7 +65,7 @@ const Profile = () => {
   return (
     <DefaultLayout>
       <ReactNotifications />
-      <div className="bg-gray-200 min-h-screen pt-2 font-mono">
+      <div className="min-h-screen pt-2 font-mono">
         <div className="container mx-auto">
           <div className="inputs w-full max-w-2xl p-6 mx-auto">
             <h2 className="text-2xl text-center text-gray-900">
@@ -81,17 +81,17 @@ const Profile = () => {
                 </button>
               </div>
             </div>
-            <div className="mt-6 border-t border-gray-400 pt-4">
+            <div className="mt-6 pt-4">
               <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full md:w-full px-3 mb-6">
+                <div className="w-full md:w-full px-3 mb-6 grid grid-cols-3 gap-4">
                   <label
-                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    className="block uppercase tracking-wide text-gray-700 text-xs content-center text-end"
                     htmlFor="grid-text-1"
                   >
                     Họ và tên
                   </label>
                   <input
-                    className="appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500"
+                    className="col-span-2 appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500"
                     id="grid-text-1"
                     type="text"
                     placeholder="Họ và tên"
@@ -99,15 +99,15 @@ const Profile = () => {
                     onChange={handleFullName}
                   />
                 </div>
-                <div className="w-full md:w-full px-3 mb-6">
+                <div className="w-full md:w-full px-3 mb-6 grid grid-cols-3 gap-4">
                   <label
-                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    className="content-center text-end block uppercase tracking-wide text-gray-700 text-xs"
                     htmlFor="grid-text-1"
                   >
                     Email
                   </label>
                   <input
-                    className="appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500"
+                    className="col-span-2 appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500"
                     id="grid-text-1"
                     type="email"
                     placeholder="Email"
@@ -115,15 +115,15 @@ const Profile = () => {
                     onChange={handleEmail}
                   />
                 </div>
-                <div className="w-full md:w-full px-3 mb-6">
+                <div className="w-full md:w-full px-3 mb-6 grid grid-cols-3 gap-4">
                   <label
-                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    className="block content-center text-end uppercase tracking-wide text-gray-700 text-xs"
                     htmlFor="grid-text-1"
                   >
                     Địa chỉ
                   </label>
                   <input
-                    className="appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500"
+                    className="col-span-2 appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500"
                     id="grid-text-1"
                     type="text"
                     placeholder="Địa chỉ"
@@ -131,12 +131,12 @@ const Profile = () => {
                     onChange={handleAddress}
                   />
                 </div>
-                <div className="w-full md:w-full px-3">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                <div className="w-full md:w-full px-3 grid grid-cols-3 gap-4">
+                  <label className="content-center text-end block uppercase tracking-wide text-gray-700 text-xs">
                     Giới tính
                   </label>
-                  <div className="flex">
-                    <div className="flex items-center mb-4">
+                  <div className="flex col-span-2">
+                    <div className="flex items-center px-4">
                       <input
                         id="gender-radio-1"
                         type="radio"
@@ -153,7 +153,7 @@ const Profile = () => {
                         Nam
                       </label>
                     </div>
-                    <div className="flex items-center mb-4 ml-4">
+                    <div className="flex items-center ml-4">
                       <input
                         id="gender-radio-2"
                         type="radio"
@@ -172,17 +172,18 @@ const Profile = () => {
                     </div>
                   </div>
                 </div>
-                <div className="px-3 mb-6">
-                  <div>
-                    <span>Ngày sinh</span>
+                <div className="w-full md:w-full mt-4 px-3 grid grid-cols-3 gap-4">
+                  <div className="content-center text-end">
+                    <p className="uppercase tracking-wide text-gray-700 text-xs">Ngày sinh</p>
                   </div>
-                  <div className="h-16 text-404040 mt-2">
+                  <div className="content-center h-10 text-404040 col-span-2">
                     <DatePicker 
+                    className="outline-none border-2 border-y-gray-200 px-4 py-2"
                     onChange={(date) => onChangeDate(date)} selected={date} 
                     />
                   </div>
                 </div>
-                <div className="personal w-full border-t border-gray-400 pt-4">
+                <div className="personal w-full  pt-4">
                   <div className="flex justify-end">
                     <button
                       onClick={() => handleSave()}
