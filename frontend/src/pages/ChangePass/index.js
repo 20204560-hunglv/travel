@@ -108,7 +108,7 @@ const ChangePass = () => {
               </label>
               <button
               onClick={()=>handleSave()}
-              className="w-full py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center">
+              className="w-full py-3 font-medium text-white bg-blue-500 hover:bg-blue-400 rounded-lg  hover:shadow inline-flex space-x-2 items-center justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -129,7 +129,7 @@ const ChangePass = () => {
               <p className="text-center">
                 <Link
                   to="/profile"
-                  className="text-indigo-600 font-medium inline-flex space-x-1 items-center"
+                  className="text-gray-800 font-medium inline-flex space-x-1 items-center"
                 >
                   <span>Quay lại</span>
                 </Link>

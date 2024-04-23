@@ -10,10 +10,6 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const Profile = () => {
   const storedUserDataString = getUserLocal();
-  const navigate = useNavigate();
-  const handleToPass = () => {
-    navigate("/change-pass");
-  };
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
@@ -65,24 +61,26 @@ const Profile = () => {
   return (
     <DefaultLayout>
       <ReactNotifications />
-      <div className="min-h-screen pt-2 font-mono">
-        <div className="container mx-auto">
-          <div className="inputs w-full max-w-2xl p-6 mx-auto">
+      <div className="min-h-screen py-5 font-mono bg-slate-200">
+        <div className="max-w-2xl mx-auto bg-white rounded-xl">
+          <div className="inputs w-full p-6 mx-auto">
             <h2 className="text-2xl text-center text-gray-900">
               Thông tin tài khoản
             </h2>
-            <div className="flex items-center justify-end mt-5">
-              <div>
-                <button
-                  onClick={handleToPass}
-                  className="appearance-none px-2 py-1 shadow-sm border border-gray-400 rounded-md bg-blue-500 hover:bg-blue-700 text-white "
-                >
-                  Đổi mật khẩu
-                </button>
-              </div>
-            </div>
             <div className="mt-6 pt-4">
               <div className="flex flex-wrap -mx-3 mb-6">
+              <div className="w-full md:w-full px-3 mb-6 grid grid-cols-3 gap-4">
+                  <p
+                    className="block uppercase tracking-wide text-gray-700 text-xs content-center text-end"
+                  >
+                    Tên tài khoản
+                  </p>
+                  <p
+                    className="col-span-2  block w-full bg-white text-gray-900  rounded-md py-3 leading-tight focus:outline-none  focus:border-gray-500"
+                  >
+                    {storedUserDataString.username}
+                  </p>
+                </div>
                 <div className="w-full md:w-full px-3 mb-6 grid grid-cols-3 gap-4">
                   <label
                     className="block uppercase tracking-wide text-gray-700 text-xs content-center text-end"
@@ -187,7 +185,7 @@ const Profile = () => {
                   <div className="flex justify-end">
                     <button
                       onClick={() => handleSave()}
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full"
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full"
                     >
                       Lưu
                     </button>

@@ -2,6 +2,7 @@
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import Icons from "../Icons";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -38,7 +39,7 @@ export default function DropMenuAuth() {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
             <Menu.Item>
               {({ active }) => (
@@ -49,7 +50,10 @@ export default function DropMenuAuth() {
                     "block w-full px-4 py-2 text-left text-sm"
                   )}
                 >
-                  Thông tin tài khoản
+                  <div className="flex items-center">
+                    <Icons.Info />
+                    <p className="ml-2">Thông tin tài khoản</p>
+                  </div>
                 </button>
               )}
             </Menu.Item>
@@ -62,7 +66,26 @@ export default function DropMenuAuth() {
                     "block w-full px-4 py-2 text-left text-sm"
                   )}
                 >
-                  Lịch sử Booking
+                  <div className="flex items-center">
+                    <Icons.HistorySVG />
+                    <p className="ml-2">Lịch sử đặt</p>
+                  </div>
+                </button>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <button
+                  onClick={()=>{navigate("/change-pass")}}
+                  className={classNames(
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block w-full px-4 py-2 text-left text-sm"
+                  )}
+                >
+                  <div className="flex items-center">
+                    <Icons.Key />
+                    <p className="ml-2">Đổi mật khẩu</p>
+                  </div>
                 </button>
               )}
             </Menu.Item>
@@ -75,7 +98,10 @@ export default function DropMenuAuth() {
                     "block w-full px-4 py-2 text-left text-sm"
                   )}
                 >
-                  Sign out
+                  <div className="flex items-center">
+                    <Icons.LogOut />
+                    <p className="ml-2">Đăng xuất</p>
+                  </div>
                 </button>
               )}
             </Menu.Item>
