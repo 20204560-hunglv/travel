@@ -6,12 +6,18 @@ import { useNavigate } from "react-router-dom";
 import axios from "../../utils/axios";
 import { useEffect, useState } from "react";
 import currencyVnd from "../../utils/curencyVnd";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Choose = (props) => {
   return (
     <div className={styles.choose}>
       <h5>{props.label}</h5>
-      <select value={props.value} onChange={props.onChange} className={styles.input}>
+      <select
+        value={props.value}
+        onChange={props.onChange}
+        className={styles.input}
+      >
         <option value="">Chọn địa phương</option>
         {citys.map((city, index) => (
           <option key={index} value={city.value}>
@@ -45,7 +51,7 @@ const SearchItem = ({ item }) => {
 const Search = () => {
   let location = useLocation().state;
   const [data, setData] = useState([]);
-  const [countryFrom, setCountryFrom] = useState(location.from || '');
+  const [countryFrom, setCountryFrom] = useState(location.from || "");
   const [countryTo, setCountryTo] = useState(location.to);
   const [numberDate, setNumberDate] = useState(location.period);
   const handleFrom = (event) => {
@@ -65,10 +71,7 @@ const Search = () => {
       return `${year}-${month}-${day}`;
     }
   };
-  const [date, onChange] = useState(formatDate(location.start) || '');
-  const handleStartTime = (event) => {
-    onChange(event.target.value);
-  };
+  const [date, onChange] = useState(formatDate(location.start) || "");
   useEffect(() => {
     fetchData();
   }, []);
@@ -89,7 +92,19 @@ const Search = () => {
             <Choose label="ĐIỂM ĐẾN" value={countryTo} onChange={handleTo} />
             <div className={styles.choose}>
               <h5>NGÀY ĐI</h5>
-              <input className={styles.input} type="date" value={date} onChange={handleStartTime}></input>
+              {/* <input
+                className={styles.input}
+                type="date"
+                value={date}
+                onChange={handleStartTime}
+              ></input> */}
+              <div className="w-full">
+                <DatePicker
+                  className="py-2 px-3 w-full outline-none text-base font-normal leading-normal bg-white appearance-none"
+                  onChange={(date) => onChange(date)}
+                  selected={date}
+                />
+              </div>
             </div>
             <div className={styles.choose}>
               <h5>SỐ NGÀY</h5>
