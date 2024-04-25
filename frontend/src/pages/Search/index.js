@@ -11,7 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const Choose = (props) => {
   return (
-    <div className={styles.choose}>
+    <div className="font-semibold text-sm mb-4">
       <h5>{props.label}</h5>
       <select
         value={props.value}
@@ -90,26 +90,20 @@ const Search = () => {
             <p className={`${styles.filterResult} text-center`}>Lọc kết quả</p>
             <Choose label="ĐIỂM ĐI" value={countryFrom} onChange={handleFrom} />
             <Choose label="ĐIỂM ĐẾN" value={countryTo} onChange={handleTo} />
-            <div className={styles.choose}>
-              <h5>NGÀY ĐI</h5>
-              {/* <input
-                className={styles.input}
-                type="date"
-                value={date}
-                onChange={handleStartTime}
-              ></input> */}
-              <div className="w-full">
+            <div className="font-semibold w-full text-sm flex items-center justify-between">
+              <h5 className="min-w-fit">NGÀY ĐI</h5>
+              <div>
                 <DatePicker
-                  className="py-2 px-3 w-full outline-none text-base font-normal leading-normal bg-white appearance-none"
+                  className="py-2 px-3 outline-none text-base font-normal leading-normal bg-white appearance-none"
                   onChange={(date) => onChange(date)}
                   selected={date}
                 />
               </div>
             </div>
-            <div className={styles.choose}>
-              <h5>SỐ NGÀY</h5>
+            <div className="font-semibold text-sm w-full flex items-center justify-between mt-4">
+              <h5 className="min-w-fit">SỐ NGÀY</h5>
               <input
-                className={styles.input}
+                className="border block border-solid border-gray-300 py-2 px-3 outline-none text-base font-normal leading-normal bg-white appearance-none"
                 type="number"
                 min={0}
                 value={numberDate}
