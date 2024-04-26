@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import DefaultLayout from "../../components/Layout/DefaultLayout";
-import axios from "../../utils/axios";
 import { getUserLocal } from "../../utils/getLocalStorage";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../components/Notification/index";
+import {
+  get as getProfile,
+  save as saveProfile,
+} from "../../Services/ProfileServices";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -27,15 +30,13 @@ const Profile = () => {
   };
   const [date, onChangeDate] = useState(new Date());
 
-  const [user, setUser] = useState({});
   const handleSave = () => {
-    axios
-      .put(`/api/v1/user_crud/${storedUserDataString.username}`, {
-        fullname: fullName,
-        email: email,
-        address: address,
-        gender: gender,
-      })
+    saveProfile(storedUserDataString.username, {
+      fullName: fullName,
+      email: email,
+      address: address,
+      gender: gender,
+    })
       .then(() => {
         handleNotify("success", "Thành công", "Lưu thông tin thành công!");
       })
@@ -43,10 +44,8 @@ const Profile = () => {
   };
   useEffect(() => {
     if (storedUserDataString) {
-      axios
-        .get(`/api/v1/user/${storedUserDataString.username}`)
+      getProfile(storedUserDataString.username)
         .then((response) => {
-          setUser(response.data);
           if (response.data.fullname) setFullName(response.data.fullname);
           if (response.data.email) setEmail(response.data.email);
           if (response.data.address) setAddress(response.data.address);
@@ -56,7 +55,7 @@ const Profile = () => {
           console.error(error);
         });
     }
-  }, []);
+  }, [storedUserDataString]);
   return (
     <DefaultLayout>
       <ReactNotifications />
@@ -68,15 +67,11 @@ const Profile = () => {
             </h2>
             <div className="mt-6 pt-4">
               <div className="flex flex-wrap -mx-3 mb-6">
-              <div className="w-full md:w-full px-3 mb-6 grid grid-cols-3 gap-4">
-                  <p
-                    className="block uppercase tracking-wide text-gray-700 text-xs content-center text-end"
-                  >
+                <div className="w-full md:w-full px-3 mb-6 grid grid-cols-3 gap-4">
+                  <p className="block uppercase tracking-wide text-gray-700 text-xs content-center text-end">
                     Tên tài khoản
                   </p>
-                  <p
-                    className="col-span-2  block w-full bg-white text-gray-900  rounded-md py-3 leading-tight focus:outline-none  focus:border-gray-500"
-                  >
+                  <p className="col-span-2  block w-full bg-white text-gray-900  rounded-md py-3 leading-tight focus:outline-none  focus:border-gray-500">
                     {storedUserDataString.username}
                   </p>
                 </div>
@@ -171,12 +166,15 @@ const Profile = () => {
                 </div>
                 <div className="w-full md:w-full mt-4 px-3 grid grid-cols-3 gap-4">
                   <div className="content-center text-end">
-                    <p className="uppercase tracking-wide text-gray-700 text-xs">Ngày sinh</p>
+                    <p className="uppercase tracking-wide text-gray-700 text-xs">
+                      Ngày sinh
+                    </p>
                   </div>
                   <div className="content-center h-10 text-404040 col-span-2">
-                    <DatePicker 
-                    className="outline-none border-2 border-y-gray-200 px-4 py-2"
-                    onChange={(date) => onChangeDate(date)} selected={date} 
+                    <DatePicker
+                      className="outline-none border-2 border-y-gray-200 px-4 py-2"
+                      onChange={(date) => onChangeDate(date)}
+                      selected={date}
                     />
                   </div>
                 </div>

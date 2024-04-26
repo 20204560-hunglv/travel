@@ -1,48 +1,42 @@
 import { Link } from "react-router-dom";
 import ValidateLogin from "../../components/ValidateLogin";
-import axios from '../../utils/axios'
 import { useState } from "react";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../components/Notification/index";
-import {getUserLocal} from "../../utils/getLocalStorage";
+import { getUserLocal } from "../../utils/getLocalStorage";
+import { changePass } from "../../Services/AuthServices";
 
 const ChangePass = () => {
   const storedUserDataString = getUserLocal();
-  const [pass, setPass] = useState('')
-  const [newPass, setNewPass] = useState('')
-  const [confirmPass, setConfirmPass] = useState('')
-  const handlePass = (event) =>{
-    setPass(event.target.value)
-  }
-  const handleNewPass = (event) =>{
-    setNewPass(event.target.value)
-  }
-  const handleConfirmPass = (event) =>{
-    setConfirmPass(event.target.value)
-  }
-  const handleSave =()=>{
-    if (! pass || !newPass || !confirmPass){
+  const [pass, setPass] = useState("");
+  const [newPass, setNewPass] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
+  const handlePass = (event) => {
+    setPass(event.target.value);
+  };
+  const handleNewPass = (event) => {
+    setNewPass(event.target.value);
+  };
+  const handleConfirmPass = (event) => {
+    setConfirmPass(event.target.value);
+  };
+  const handleSave = () => {
+    if (!pass || !newPass || !confirmPass) {
       handleNotify("Warning", "Warning", "Cần nhập đầy đủ thông tin");
-    }
-    else if (newPass != confirmPass){
+    } else if (newPass !== confirmPass) {
       handleNotify("Warning", "Warning", "Mật khẩu mới không giống nhau");
-    }
-    else{
-      axios.put(`api/v1/change_password/${storedUserDataString.username}`,
-      {
+    } else {
+      changePass(storedUserDataString.username, {
         pass: pass,
-        newPass: newPass
+        newPass: newPass,
       })
-      .then(
-        ()=>{
-          setPass("")
-          setNewPass("")
-          setConfirmPass("")
-          handleNotify('success','Thành công','Đổi mật khẩu thành công!')
-        }
-      )
-      .catch(
-        (error) => {
+        .then(() => {
+          setPass("");
+          setNewPass("");
+          setConfirmPass("");
+          handleNotify("success", "Thành công", "Đổi mật khẩu thành công!");
+        })
+        .catch((error) => {
           if (error.response) {
             // Trường hợp máy chủ trả về mã trạng thái 401 (Unauthorized)
             if (error.response.status === 409) {
@@ -60,10 +54,9 @@ const ChangePass = () => {
             // Lỗi xảy ra trong quá trình thiết lập yêu cầu
             console.error("An error occurred:", error.message);
           }
-        }
-      )
+        });
     }
-  }
+  };
   return (
     <ValidateLogin>
       <ReactNotifications />
@@ -74,7 +67,9 @@ const ChangePass = () => {
           <div className="py-10">
             <div className="flex flex-col space-y-5">
               <label htmlFor="email">
-                <p className="font-medium text-slate-700 pb-2">Mật khẩu hiện tại</p>
+                <p className="font-medium text-slate-700 pb-2">
+                  Mật khẩu hiện tại
+                </p>
                 <input
                   name="email"
                   type="password"
@@ -96,7 +91,9 @@ const ChangePass = () => {
                 />
               </label>
               <label htmlFor="email">
-                <p className="font-medium text-slate-700 pb-2">Nhập lại mật khẩu mới</p>
+                <p className="font-medium text-slate-700 pb-2">
+                  Nhập lại mật khẩu mới
+                </p>
                 <input
                   name="email"
                   type="password"
@@ -107,8 +104,9 @@ const ChangePass = () => {
                 />
               </label>
               <button
-              onClick={()=>handleSave()}
-              className="w-full py-3 font-medium text-white bg-blue-500 hover:bg-blue-400 rounded-lg  hover:shadow inline-flex space-x-2 items-center justify-center">
+                onClick={() => handleSave()}
+                className="w-full py-3 font-medium text-white bg-blue-500 hover:bg-blue-400 rounded-lg  hover:shadow inline-flex space-x-2 items-center justify-center"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

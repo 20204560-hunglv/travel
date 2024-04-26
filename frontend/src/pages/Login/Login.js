@@ -3,7 +3,7 @@ import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../components/Notification/index";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "../../utils/axios";
+import {login} from "../../Services/AuthServices";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,11 +19,7 @@ const Login = () => {
     if (!name || !pass)
       handleNotify("Warning", "Warning", "Cần nhập đầy đủ thông tin");
     else
-      axios
-        .post("/api/v1/login", {
-          username: name,
-          password: pass,
-        })
+      login(name, pass)
         .then((response) => {
           if (response.status === 200) {
             // console.log(response.data.user)
@@ -59,11 +55,11 @@ const Login = () => {
     var passwordInput = document.getElementById("password");
 
     if (checkbox.checked) {
-        passwordInput.type = "text";
+      passwordInput.type = "text";
     } else {
-        passwordInput.type = "password";
+      passwordInput.type = "password";
     }
-  }
+  };
   return (
     <DefaultLayout>
       <ReactNotifications />
@@ -85,10 +81,10 @@ const Login = () => {
               </div>
             </header>
             <form action="" method="">
-              <fieldset className={`border-none flex flex-col h-48 justify-between`}>
-                <div
-                  className={`flex flex-col m-auto `}
-                >
+              <fieldset
+                className={`border-none flex flex-col h-48 justify-between`}
+              >
+                <div className={`flex flex-col m-auto `}>
                   <div className="flex justify-between">
                     <p>Tên đăng nhập</p>
                   </div>
@@ -100,14 +96,16 @@ const Login = () => {
                     onChange={changeName}
                   />
                 </div>
-                <div
-                  className={`flex flex-col m-auto `}
-                >
+                <div className={`flex flex-col m-auto `}>
                   <div className="flex justify-between">
                     <p>Mật khẩu</p>
                     <div className="flex justify-between items-center">
                       <p className="mr-1 text-xs">Hiện</p>
-                      <input type="checkbox" id="showPasswordCheckbox" onChange={()=>chooseShow()}/>
+                      <input
+                        type="checkbox"
+                        id="showPasswordCheckbox"
+                        onChange={() => chooseShow()}
+                      />
                     </div>
                   </div>
                   <input
@@ -120,7 +118,9 @@ const Login = () => {
                   />
                 </div>
               </fieldset>
-              <fieldset className={`border-none h-10 ml-auto mr-auto justify-center mt-5`}>
+              <fieldset
+                className={`border-none h-10 ml-auto mr-auto justify-center mt-5`}
+              >
                 <button
                   type="button"
                   onClick={handleToSubmit}

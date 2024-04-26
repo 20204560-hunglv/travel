@@ -8,6 +8,7 @@ import { getUserLocal } from "../../utils/getLocalStorage";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../components/Notification/index";
 import cityLabels from "../../utils/citys";
+import { get as getTour } from "../../Services/TourServices";
 
 const Tour = () => {
   const username = getUserLocal().username;
@@ -16,8 +17,8 @@ const Tour = () => {
     if (choose) {
       axios
         .post(`/api/v1/users/tour/${username}`, data)
-        .then((res) => {
-          handleNotify('success','Hoàn tất','Đặt tour thành công!')
+        .then(() => {
+          handleNotify("success", "Hoàn tất", "Đặt tour thành công!");
         })
         .catch((err) => console.log(err));
       setDialog(false);
@@ -29,32 +30,38 @@ const Tour = () => {
   const { id } = useParams();
   const [data, setData] = useState({});
   useEffect(() => {
-    fetchData();
-  }, []);
-  const fetchData = () => {
-    axios
-      .get(`/api/v1/tours/${id}`)
+    getTour(id)
       .then((res) => {
-        console.log(res.data)
-        setData(res.data)})
+        setData(res.data);
+      })
       .catch((err) => console.log(err));
+  }, [id]);
+  const selectCity = (value) => {
+    const city = cityLabels.find((item) => item.value === value);
+    return city.label;
   };
-  const selectCity=(value)=>{
-    const city = cityLabels.find((item)=>item.value === value)
-    return city.label
-  }
   return (
     <DefaultLayout>
       <ReactNotifications />
       <div className="">
-        <h1 className="text-3xl font-bold text-center my-10">Thông tin về tour</h1>
+        <h1 className="text-3xl font-bold text-center my-10">
+          Thông tin về tour
+        </h1>
         <div className="flex">
-          <img className="ml-20 w-300" src={data.main_image_url} />
+          <img
+            alt="main pictures"
+            className="ml-20 w-300"
+            src={data.main_image_url}
+          />
           <div className="flex flex-col justify-around ml-10">
             <p className="font-bold text-xl leading-7">{data.name}</p>
             <div>
-              <p className="text-xs leading-8">{`Nơi khởi hành: ${data.addressFrom && selectCity(data.addressFrom)}`}</p>
-              <p className="text-xs leading-8">{`Nơi đến: ${data.addressTo && selectCity(data.addressTo)}`}</p>
+              <p className="text-xs leading-8">{`Nơi khởi hành: ${
+                data.addressFrom && selectCity(data.addressFrom)
+              }`}</p>
+              <p className="text-xs leading-8">{`Nơi đến: ${
+                data.addressTo && selectCity(data.addressTo)
+              }`}</p>
               <p className="text-xs leading-8">{`Khởi hành: ${data.start_time}`}</p>
               <p className="text-xs leading-8">{`Thời gian: ${data.period} ngày`}</p>
             </div>

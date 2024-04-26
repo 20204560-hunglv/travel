@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { handleNotify } from "../../components/Notification/index";
 import { ReactNotifications } from "react-notifications-component";
-import axios from "../../utils/axios";
+import { signUp } from "../../Services/AuthServices";
 
 const LoginInputArea = ({ title, name, change, value }) => {
   const chooseShow = () => {
@@ -60,21 +60,15 @@ const Register = () => {
     else if (pass !== newPass)
       handleNotify("Warning", "Warning", "Mật khẩu không giống nhau");
     else {
-      const exe = async () => {
-        try {
-          await axios.post("/api/v1/signup", {
-            username: name,
-            password: pass,
-          });
-          setName("");
-          setPass("");
-          setNewPass("");
-          handleNotify("success", "Thành công", "Đăng ký thành công!");
-        } catch (error) {
-          console.log(error);
-        }
-      };
-      exe();
+      try {
+        signUp(name, pass);
+        setName("");
+        setPass("");
+        setNewPass("");
+        handleNotify("success", "Thành công", "Đăng ký thành công!");
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -102,9 +96,7 @@ const Register = () => {
             </header>
             <div>
               <fieldset className={`flex flex-col justify-between`}>
-                <div
-                  className={`flex flex-col m-auto `}
-                >
+                <div className={`flex flex-col m-auto `}>
                   <p className="text-sm pl-1">Tên đăng nhập</p>
                   <input
                     className=" border border-solid outline-none w-400 border-ADADAD focus:border-gray-700 h-10 pl-3 pr-3 text-base text-gray-700 mt-1 mb-8 rounded-lg"

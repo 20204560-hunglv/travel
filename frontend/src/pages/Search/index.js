@@ -2,11 +2,11 @@ import { useLocation } from "react-router-dom";
 import DefaultLayout from "../../components/Layout/DefaultLayout";
 import citys from "../../utils/citys";
 import { useNavigate } from "react-router-dom";
-import axios from "../../utils/axios";
 import { useEffect, useState } from "react";
 import currencyVnd from "../../utils/curencyVnd";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import {get as getTours} from "../../Services/SearchServices"
 
 const Choose = (props) => {
   return (
@@ -75,8 +75,7 @@ const Search = () => {
     fetchData();
   }, []);
   const fetchData = () => {
-    axios
-      .get("/api/v1/tours")
+    getTours()
       .then((res) => setData(res.data))
       .catch((err) => console.log(err));
   };

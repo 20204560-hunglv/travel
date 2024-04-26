@@ -1,68 +1,64 @@
 import { useEffect, useState } from "react";
 import DefaultLayout from "../../components/Layout/DefaultLayout";
-import axios from "../../utils/axios";
 import { getUserLocal } from "../../utils/getLocalStorage";
 import currencyVnd from "../../utils/curencyVnd";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../components/Notification/index";
 import ModalRate from "../../components/ModalRate";
+import {
+  get as getBooking,
+  update as updateTour,
+} from "../../Services/BookingServices";
 
 const HistoryBooking = () => {
   const [modal, setModal] = useState(false);
   const username = getUserLocal().username;
   const [data, setData] = useState([]);
-  const [rate,setRate]= useState(0)
-  const [indexRate, setIndexRate] = useState()
-  
-  const handleRate = (rateChange)=>{
-    
-    setRate(rateChange)
-    // console.log({rate})
-  }
-  
+  const [rate, setRate] = useState(0);
+  const [indexRate, setIndexRate] = useState();
+
+  const handleRate = (rateChange) => {
+    setRate(rateChange);
+  };
+
   useEffect(() => {
-    fetchData();
-  }, []);
-  const fetchData = () => {
-    axios
-      .get(`/api/v1/users/tour/${username}`)
+    getBooking(username)
       .then((res) => setData(res.data))
       .catch((err) => console.log(err));
-  };
+  }, [username]);
+
   const handleDelete = (index) => {
     const dataUpdate = data.filter((user, i) => i !== index);
-    axios
-      .put(`/api/v1/users/tour/${username}`, dataUpdate)
+    updateTour(username, dataUpdate)
       .then(() => {
         setData((prevData) => prevData.filter((user, i) => i !== index));
         handleNotify("success", "Thành công", "Xóa thành công");
       })
       .catch((err) => console.log(err));
   };
+
   // vi khi an Danh gia => ham nay se duoc goi ben component ModalRate
   const areUSureOrder = (choose) => {
     if (choose) {
-      const rate = choose
+      const rate = choose;
       const dataUpdate = data.map((user, i) => {
-        if (i !== indexRate){
-          return user
+        if (i !== indexRate) {
+          return user;
         }
         user.rate = rate;
-        return user
+        return user;
       });
-      axios
-      .put(`/api/v1/users/tour/${username}`, dataUpdate)
-      .then(() => {
-        // setData((prevData) => prevData.filter((user, i) => i !== index));
-        handleNotify("success", "Thành công", "Đánh giá thành công");
-      })
-      .catch((err) => console.log(err));
+      updateTour(username, dataUpdate)
+        .then(() => {
+          handleNotify("success", "Thành công", "Đánh giá thành công");
+        })
+        .catch((err) => console.log(err));
       setModal(false);
     } else {
       setModal(false);
     }
   };
-  
+
   return (
     <DefaultLayout>
       <ReactNotifications />
@@ -136,10 +132,11 @@ const HistoryBooking = () => {
                     </div>
                     <div>
                       <div
-                        onClick={() =>{
-                          setIndexRate(index)
-                          setRate(item.rate)
-                          setModal(true)}}
+                        onClick={() => {
+                          setIndexRate(index);
+                          setRate(item.rate);
+                          setModal(true);
+                        }}
                         className="inline-block cursor-pointer px-12 py-3 text-sm font-medium text-violet-600 border border-violet-600 rounded hover:bg-violet-600 hover:text-white active:bg-indigo-500 focus:outline-none focus:ring"
                       >
                         Đánh giá
