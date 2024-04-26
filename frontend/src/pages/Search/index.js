@@ -4,26 +4,29 @@ import citys from "../../utils/citys";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import currencyVnd from "../../utils/curencyVnd";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {get as getTours} from "../../Services/SearchServices"
+// import dayjs from "dayjs";
+import { get as getTours } from "../../Services/SearchServices";
+import Button from "@mui/material/Button";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import TextField from "@mui/material/TextField";
+import { MenuItem, Select } from "@mui/material";
 
 const Choose = (props) => {
   return (
     <div className="font-semibold text-sm mb-4">
       <h5>{props.label}</h5>
-      <select
+      <Select
+        className="w-full"
         value={props.value}
         onChange={props.onChange}
-        className="block border-solid border-gray-300 py-2 px-3 outline-none text-base font-normal leading-normal bg-white appearance-none"
       >
-        <option value="">Chọn địa phương</option>
         {citys.map((city, index) => (
-          <option key={index} value={city.value}>
+          <MenuItem key={index} value={city.value}>
             {city.label}
-          </option>
+          </MenuItem>
         ))}
-      </select>
+      </Select>
     </div>
   );
 };
@@ -41,7 +44,9 @@ const SearchItem = ({ item }) => {
       <div className="text-blue-900 pt-1 pr-2 pb-2">
         <p className="text-xs">{item.start_time}</p>
         <p className="font-bold">{item.name}</p>
-        <p className="text-red-500 font-semibold float-right mt-3">{currencyVnd(item.prices)}</p>
+        <p className="text-red-500 font-semibold float-right mt-3">
+          {currencyVnd(item.prices)}
+        </p>
       </div>
       <div></div>
     </div>
@@ -49,10 +54,14 @@ const SearchItem = ({ item }) => {
 };
 const Search = () => {
   let location = useLocation().state;
+
   const [data, setData] = useState([]);
   const [countryFrom, setCountryFrom] = useState(location.from || "");
   const [countryTo, setCountryTo] = useState(location.to);
   const [numberDate, setNumberDate] = useState(location.period);
+  // const [date, onChange] = useState(formatDate(location.start) || "");
+  const [date, setValue] = useState();
+
   const handleFrom = (event) => {
     setCountryFrom(event.target.value);
   };
@@ -62,15 +71,7 @@ const Search = () => {
   const handlePeriod = (event) => {
     setNumberDate(event.target.value);
   };
-  const formatDate = (date) => {
-    if (date) {
-      const year = date.getFullYear();
-      const month = (date.getMonth() + 1).toString().padStart(2, "0");
-      const day = date.getDate().toString().padStart(2, "0");
-      return `${year}-${month}-${day}`;
-    }
-  };
-  const [date, onChange] = useState(formatDate(location.start) || "");
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -79,6 +80,7 @@ const Search = () => {
       .then((res) => setData(res.data))
       .catch((err) => console.log(err));
   };
+
   return (
     <DefaultLayout>
       <div className="flex min-h-630">
@@ -88,30 +90,40 @@ const Search = () => {
             <p className={`font-bold text-xl mb-6 text-center`}>Lọc kết quả</p>
             <Choose label="ĐIỂM ĐI" value={countryFrom} onChange={handleFrom} />
             <Choose label="ĐIỂM ĐẾN" value={countryTo} onChange={handleTo} />
-            <div className="font-semibold w-full text-sm flex items-center justify-between">
-              <h5 className="min-w-fit">NGÀY ĐI</h5>
-              <div>
+            <div className="font-semibold w-full text-sm">
+              <h5 className="">NGÀY ĐI</h5>
+              <div className="w-full">
                 <DatePicker
-                  className="py-2 px-3 outline-none text-base font-normal leading-normal bg-white appearance-none"
-                  onChange={(date) => onChange(date)}
-                  selected={date}
+                  value={date}
+                  onChange={(newValue) => setValue(newValue)}
                 />
               </div>
             </div>
-            <div className="font-semibold text-sm w-full flex items-center justify-between mt-4">
+            <div className="font-semibold text-sm w-full mt-4">
               <h5 className="min-w-fit">SỐ NGÀY</h5>
-              <input
+              {/* <input
                 className="border block border-solid border-gray-300 py-2 px-3 outline-none text-base font-normal leading-normal bg-white appearance-none"
                 type="number"
                 min={0}
                 value={numberDate}
                 onChange={handlePeriod}
-              ></input>
+              ></input> */}
+              <TextField
+                id="period-number"
+                type="number"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                value={numberDate}
+                onChange={handlePeriod}
+                className="w-full"
+              />
             </div>
             <div className="text-center mt-6 cursor-pointer">
-              <div className="py-2 px-5 rounded no-underline bg-slate-400 transition-colors text-blue-900 font-bold hover:bg-blue-900 hover:text-white">
+              {/* <div className="py-2 px-5 rounded no-underline bg-slate-400 transition-colors text-blue-900 font-bold hover:bg-blue-900 hover:text-white">
                 Tìm kiếm
-              </div>
+              </div> */}
+              <Button variant="contained">Tìm kiếm</Button>
             </div>
           </div>
         </div>
