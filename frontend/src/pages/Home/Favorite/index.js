@@ -1,4 +1,3 @@
-import styles from "./style.module.css";
 import { useNavigate } from "react-router-dom";
 
 const Item = (props) => {
@@ -16,9 +15,9 @@ const Item = (props) => {
         },
       })
     }}
-    className={`${styles.item} cursor-pointer`}>
-      <img src={props.link} alt=""/>
-      <p>{props.title}</p>
+    className={`mt-4 w-24-100 cursor-pointer`}>
+      <img className="w-full h-56 rounded-xl" src={props.link} alt=""/>
+      <p className="block font-bold my-2 text-xs ml-2 text-blue-900">{props.title}</p>
     </div>
   );
 };
@@ -51,9 +50,9 @@ const Favorite = () => {
       },
   ];
   return (
-    <div className={styles.contain}>
-      <h3>Điểm đến yêu thích</h3>
-      <div className={styles.gallery}>
+    <div className="pt-10 m-auto mb-10 w-11/12">
+      <h3 className="font-bold text-3xl text-blue-900">Điểm đến yêu thích</h3>
+      <div className="flex justify-between">
         {linkImgs.map((item,index) => (
             <Item
             key = {index}

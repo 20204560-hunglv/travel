@@ -48,3 +48,12 @@
   background-position-y: 45%;
   background-repeat: no-repeat;
 }
+.w-24-100{
+  width: 24%;
+}
+.w-400{
+  width: 400px;
+}
+.w-300{
+  width: 300px;
+}

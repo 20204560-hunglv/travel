@@ -3,7 +3,6 @@ import DefaultLayout from "../../components/Layout/DefaultLayout/index";
 import { useParams } from "react-router-dom";
 import axios from "../../utils/axios";
 import currencyVnd from "../../utils/curencyVnd";
-import styles from "./style.module.css";
 import Dialog from "../../components/Dialog";
 import { getUserLocal } from "../../utils/getLocalStorage";
 import { ReactNotifications } from "react-notifications-component";
@@ -47,17 +46,17 @@ const Tour = () => {
   return (
     <DefaultLayout>
       <ReactNotifications />
-      <div className={`${styles.main}`}>
-        <h1 className={styles.heading}>Thông tin về tour</h1>
-        <div className={styles.contain}>
-          <img src={data.main_image_url} />
-          <div className={styles.content}>
-            <p className={styles.title}>{data.name}</p>
-            <div className={styles.detail}>
-              <p>{`Nơi khởi hành: ${data.addressFrom && selectCity(data.addressFrom)}`}</p>
-              <p>{`Nơi đến: ${data.addressTo && selectCity(data.addressTo)}`}</p>
-              <p>{`Khởi hành: ${data.start_time}`}</p>
-              <p>{`Thời gian: ${data.period} ngày`}</p>
+      <div className="">
+        <h1 className="text-3xl font-bold text-center my-10">Thông tin về tour</h1>
+        <div className="flex">
+          <img className="ml-20 w-300" src={data.main_image_url} />
+          <div className="flex flex-col justify-around ml-10">
+            <p className="font-bold text-xl leading-7">{data.name}</p>
+            <div>
+              <p className="text-xs leading-8">{`Nơi khởi hành: ${data.addressFrom && selectCity(data.addressFrom)}`}</p>
+              <p className="text-xs leading-8">{`Nơi đến: ${data.addressTo && selectCity(data.addressTo)}`}</p>
+              <p className="text-xs leading-8">{`Khởi hành: ${data.start_time}`}</p>
+              <p className="text-xs leading-8">{`Thời gian: ${data.period} ngày`}</p>
             </div>
           </div>
         </div>

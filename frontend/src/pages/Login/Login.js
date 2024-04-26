@@ -1,4 +1,3 @@
-import styles from "./Login.module.css";
 import DefaultLayout from "../../components/Layout/DefaultLayout";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../components/Notification/index";
@@ -86,14 +85,15 @@ const Login = () => {
               </div>
             </header>
             <form action="" method="">
-              <fieldset className={`flex flex-col h-48 justify-between`}>
+              <fieldset className={`border-none flex flex-col h-48 justify-between`}>
                 <div
-                  className={`flex flex-col m-auto ${styles.loginInputArea}`}
+                  className={`flex flex-col m-auto `}
                 >
                   <div className="flex justify-between">
                     <p>Tên đăng nhập</p>
                   </div>
                   <input
+                    className="h-10 pl-3 pr-3 text-base text-gray-700 mt-1 rounded-lg border border-solid outline-none w-400 border-ADADAD focus:border-gray-700"
                     type="text"
                     name="username"
                     id="username"
@@ -101,7 +101,7 @@ const Login = () => {
                   />
                 </div>
                 <div
-                  className={`flex flex-col m-auto ${styles.loginInputArea}`}
+                  className={`flex flex-col m-auto `}
                 >
                   <div className="flex justify-between">
                     <p>Mật khẩu</p>
@@ -111,6 +111,7 @@ const Login = () => {
                     </div>
                   </div>
                   <input
+                    className="h-10 pl-3 pr-3 text-base text-gray-700 mt-1 rounded-lg border border-solid outline-none w-400 border-ADADAD focus:border-gray-700"
                     type="password"
                     name="password"
                     id="password"
@@ -119,7 +120,7 @@ const Login = () => {
                   />
                 </div>
               </fieldset>
-              <fieldset className={`${styles.loginSubmit} justify-center mt-5`}>
+              <fieldset className={`border-none h-10 ml-auto mr-auto justify-center mt-5`}>
                 <button
                   type="button"
                   onClick={handleToSubmit}
@@ -130,8 +131,8 @@ const Login = () => {
                 </button>
               </fieldset>
             </form>
-            <div className={styles.loginOther}>
-              <p>Hoặc</p>
+            <div className="mt-10">
+              <p className="text-center text-sm">Hoặc</p>
               <div>
                 <Link to="/admin">
                   <p className="underline mt-5 text-center text-sm text-gray-500">

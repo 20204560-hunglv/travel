@@ -1,4 +1,3 @@
-import styles from "./style.module.css";
 import DefaultLayout from "../../components/Layout/DefaultLayout";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -12,15 +11,15 @@ const LoginInputArea = ({ title, name, change, value }) => {
     var passwordInput = document.getElementById(`${name}`);
 
     if (checkbox.checked) {
-        passwordInput.type = "text";
+      passwordInput.type = "text";
     } else {
-        passwordInput.type = "password";
+      passwordInput.type = "password";
     }
-  }
+  };
   return (
-    <div className={`flex flex-col m-auto ${styles.loginInputArea}`}>
+    <div className={`flex flex-col m-auto`}>
       <div className="flex justify-between">
-        <p>{title}</p>
+        <p className="text-sm pl-1">{title}</p>
         <div className="flex justify-between items-center">
           <p className="mr-1 text-xs">Hiện</p>
           <input
@@ -31,6 +30,7 @@ const LoginInputArea = ({ title, name, change, value }) => {
         </div>
       </div>
       <input
+        className="border border-solid outline-none w-400 border-ADADAD focus:border-gray-700 h-10 pl-3 pr-3 text-base text-gray-700 mt-1 mb-8 rounded-lg"
         type="password"
         name={name}
         id={name}
@@ -77,7 +77,7 @@ const Register = () => {
       exe();
     }
   };
-  
+
   return (
     <DefaultLayout>
       <ReactNotifications />
@@ -103,10 +103,11 @@ const Register = () => {
             <div>
               <fieldset className={`flex flex-col justify-between`}>
                 <div
-                  className={`flex flex-col m-auto ${styles.loginInputArea}`}
+                  className={`flex flex-col m-auto `}
                 >
-                  <p>Tên đăng nhập</p>
+                  <p className="text-sm pl-1">Tên đăng nhập</p>
                   <input
+                    className=" border border-solid outline-none w-400 border-ADADAD focus:border-gray-700 h-10 pl-3 pr-3 text-base text-gray-700 mt-1 mb-8 rounded-lg"
                     type="text"
                     name="username"
                     id="username"
@@ -127,7 +128,7 @@ const Register = () => {
                   value={newPass}
                 />
               </fieldset>
-              <fieldset className={`${styles.loginSubmit} justify-center mt-5`}>
+              <fieldset className={`h-10 ml-auto mr-auto justify-center mt-5`}>
                 <button
                   type="button"
                   className="px-5 py-2 w-full bg-C3C3C3 rounded-3xl text-white cursor-pointer 
