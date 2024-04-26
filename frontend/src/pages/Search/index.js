@@ -1,17 +1,22 @@
 import { useLocation } from "react-router-dom";
 import DefaultLayout from "../../components/Layout/DefaultLayout";
-import styles from "./style.module.css";
 import citys from "../../utils/citys";
 import { useNavigate } from "react-router-dom";
 import axios from "../../utils/axios";
 import { useEffect, useState } from "react";
 import currencyVnd from "../../utils/curencyVnd";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Choose = (props) => {
   return (
-    <div className={styles.choose}>
+    <div className="font-semibold text-sm mb-4">
       <h5>{props.label}</h5>
-      <select value={props.value} onChange={props.onChange} className={styles.input}>
+      <select
+        value={props.value}
+        onChange={props.onChange}
+        className="block border-solid border-gray-300 py-2 px-3 outline-none text-base font-normal leading-normal bg-white appearance-none"
+      >
         <option value="">Chọn địa phương</option>
         {citys.map((city, index) => (
           <option key={index} value={city.value}>
@@ -33,10 +38,10 @@ const SearchItem = ({ item }) => {
       className="rounded-lg cursor-pointer my-4 w-1/4 mx-4-1-percen transition-shadow hover:shadow-lg hover:shadow-slate-700"
     >
       <img src={item.main_image_url} className="h-44 w-full" alt="abc"></img>
-      <div className={styles.saledescribe}>
-        <p className={styles.saleitemtimecreate}>{item.start_time}</p>
-        <p className={styles.saleitemcontent}>{item.name}</p>
-        <p className={styles.saleitemprice}>{currencyVnd(item.prices)}</p>
+      <div className="text-blue-900 pt-1 pr-2 pb-2">
+        <p className="text-xs">{item.start_time}</p>
+        <p className="font-bold">{item.name}</p>
+        <p className="text-red-500 font-semibold float-right mt-3">{currencyVnd(item.prices)}</p>
       </div>
       <div></div>
     </div>
@@ -45,7 +50,7 @@ const SearchItem = ({ item }) => {
 const Search = () => {
   let location = useLocation().state;
   const [data, setData] = useState([]);
-  const [countryFrom, setCountryFrom] = useState(location.from || '');
+  const [countryFrom, setCountryFrom] = useState(location.from || "");
   const [countryTo, setCountryTo] = useState(location.to);
   const [numberDate, setNumberDate] = useState(location.period);
   const handleFrom = (event) => {
@@ -65,10 +70,7 @@ const Search = () => {
       return `${year}-${month}-${day}`;
     }
   };
-  const [date, onChange] = useState(formatDate(location.start) || '');
-  const handleStartTime = (event) => {
-    onChange(event.target.value);
-  };
+  const [date, onChange] = useState(formatDate(location.start) || "");
   useEffect(() => {
     fetchData();
   }, []);
@@ -84,17 +86,23 @@ const Search = () => {
         {/* Search */}
         <div className="bg-gray-100 w-1/4 pt-12">
           <div className="w-4/5 mx-auto">
-            <p className={`${styles.filterResult} text-center`}>Lọc kết quả</p>
+            <p className={`font-bold text-xl mb-6 text-center`}>Lọc kết quả</p>
             <Choose label="ĐIỂM ĐI" value={countryFrom} onChange={handleFrom} />
             <Choose label="ĐIỂM ĐẾN" value={countryTo} onChange={handleTo} />
-            <div className={styles.choose}>
-              <h5>NGÀY ĐI</h5>
-              <input className={styles.input} type="date" value={date} onChange={handleStartTime}></input>
+            <div className="font-semibold w-full text-sm flex items-center justify-between">
+              <h5 className="min-w-fit">NGÀY ĐI</h5>
+              <div>
+                <DatePicker
+                  className="py-2 px-3 outline-none text-base font-normal leading-normal bg-white appearance-none"
+                  onChange={(date) => onChange(date)}
+                  selected={date}
+                />
+              </div>
             </div>
-            <div className={styles.choose}>
-              <h5>SỐ NGÀY</h5>
+            <div className="font-semibold text-sm w-full flex items-center justify-between mt-4">
+              <h5 className="min-w-fit">SỐ NGÀY</h5>
               <input
-                className={styles.input}
+                className="border block border-solid border-gray-300 py-2 px-3 outline-none text-base font-normal leading-normal bg-white appearance-none"
                 type="number"
                 min={0}
                 value={numberDate}
@@ -109,8 +117,8 @@ const Search = () => {
           </div>
         </div>
         <div className="w-3/4">
-          <div className={styles.contain}>
-            <div className={styles.search}>
+          <div className="w-full mb-5 mt-5">
+            <div className="mt-5 flex flex-wrap w-full">
               {data
                 .filter((item) => {
                   return (
