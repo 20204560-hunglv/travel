@@ -1,9 +1,10 @@
 import { useState } from "react";
-import DatePicker from "react-date-picker";
+// import DatePicker from "react-date-picker";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
 import { useNavigate } from "react-router-dom";
 import citys from "../../../utils/citys";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 const Banner = () => {
   const cityLabels = citys;
@@ -38,7 +39,7 @@ const Banner = () => {
       </div>
       <div className={`h-max rounded-md py-4 px-4 border-b-2 border-4CAF4F bg-white`}>
         <div className={`flex justify-around items-center`}>
-          <div className=" flex items-center justify-around py-1 px-5 border-2 border-yellow-200 rounded-2xl h-20">
+          <div className=" flex items-center justify-around py-1 px-5 border-2 border-yellow-200 rounded-2xl h-24">
             <i className="fa-solid fa-location-dot mr-2 text-red-400 text-xl"></i>
             <div>
               <label
@@ -63,7 +64,7 @@ const Banner = () => {
             </div>
           </div>
           <i className={`text-404040 mx-4 fa-solid fa-right-left`}></i>
-          <div className=" flex items-center justify-between py-1 px-7 border-2 border-yellow-200 rounded-2xl h-20">
+          <div className=" flex items-center justify-between py-1 px-7 border-2 border-yellow-200 rounded-2xl h-24">
             <i className="fa-solid fa-location-dot mr-2 text-red-400 text-base"></i>
             <div>
               <label
@@ -87,12 +88,14 @@ const Banner = () => {
               </select>
             </div>
           </div>
-          <div className="py-1 px-7 mx-4 border-2 border-yellow-200 rounded-2xl h-20">
+          <div className="py-1 px-4 mx-4 border-2 border-yellow-200 rounded-2xl h-24">
             <div>
               <span>Ngày đi</span>
             </div>
-            <div className="h-18 text-404040">
-              <DatePicker onChange={onChange} value={date} />
+            <div>
+              <DatePicker 
+              className="text-404040 bg-gray-50 outline-none border-b border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-2"
+              onChange={onChange} value={date} />
             </div>
           </div>
           <div
