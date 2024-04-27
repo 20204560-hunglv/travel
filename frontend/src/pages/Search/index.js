@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import currencyVnd from "../../utils/curencyVnd";
 import "react-datepicker/dist/react-datepicker.css";
-// import dayjs from "dayjs";
+import dayjs from "dayjs";
 import { get as getTours } from "../../Services/SearchServices";
 import Button from "@mui/material/Button";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -57,10 +57,10 @@ const Search = () => {
 
   const [data, setData] = useState([]);
   const [countryFrom, setCountryFrom] = useState(location.from || "");
-  const [countryTo, setCountryTo] = useState(location.to);
+  const [countryTo, setCountryTo] = useState(location.to || "");
   const [numberDate, setNumberDate] = useState(location.period);
   // const [date, onChange] = useState(formatDate(location.start) || "");
-  const [date, setValue] = useState();
+  const [date, setValue] = useState(location.start || null);
 
   const handleFrom = (event) => {
     setCountryFrom(event.target.value);
@@ -81,9 +81,11 @@ const Search = () => {
       .catch((err) => console.log(err));
   };
 
+  console.log(date)
+
   return (
     <DefaultLayout>
-      <div className="flex min-h-630">
+      <div className="flex min-h-630 m-auto w-11/12">
         {/* Search */}
         <div className="bg-gray-100 w-1/4 pt-12">
           <div className="w-4/5 mx-auto">
@@ -129,7 +131,7 @@ const Search = () => {
         </div>
         <div className="w-3/4">
           <div className="w-full mb-5 mt-5">
-            <div className="mt-5 flex flex-wrap w-full">
+            <div className="mt-5 flex justify-between flex-wrap w-full">
               {data
                 .filter((item) => {
                   return (
