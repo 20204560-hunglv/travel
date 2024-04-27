@@ -7,6 +7,14 @@ import {
   get as getProfile,
   save as saveProfile,
 } from "../../Services/ProfileServices";
+import { DatePicker } from "@mui/x-date-pickers";
+import {
+  Button,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  TextField,
+} from "@mui/material";
 
 const Profile = () => {
   const storedUserDataString = getUserLocal();
@@ -14,6 +22,8 @@ const Profile = () => {
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
+  const [birthDate, setBirthDate] = useState(null);
+
   const handleFullName = (event) => {
     setFullName(event.target.value);
   };
@@ -39,20 +49,20 @@ const Profile = () => {
       })
       .catch((err) => console.log(err));
   };
+
   useEffect(() => {
-    if (storedUserDataString) {
-      getProfile(storedUserDataString.username)
-        .then((response) => {
-          if (response.data.fullname) setFullName(response.data.fullname);
-          if (response.data.email) setEmail(response.data.email);
-          if (response.data.address) setAddress(response.data.address);
-          if (response.data.gender) setGender(response.data.gender);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  }, [storedUserDataString]);
+    getProfile(storedUserDataString.username)
+      .then((response) => {
+        if (response.data.fullname) setFullName(response.data.fullname);
+        if (response.data.email) setEmail(response.data.email);
+        if (response.data.address) setAddress(response.data.address);
+        if (response.data.gender) setGender(response.data.gender);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [storedUserDataString.username]);
+
   return (
     <DefaultLayout>
       <ReactNotifications />
@@ -63,8 +73,8 @@ const Profile = () => {
               Thông tin tài khoản
             </h2>
             <div className="mt-6 pt-4">
-              <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full md:w-full px-3 mb-6 grid grid-cols-3 gap-4">
+              <div className="flex flex-wrap mx-3 mb-6">
+                <div className="w-full md:w-full px-3 mb-6 grid grid-cols-4 gap-4">
                   <p className="block uppercase tracking-wide text-gray-700 text-xs content-center text-end">
                     Tên tài khoản
                   </p>
@@ -72,60 +82,63 @@ const Profile = () => {
                     {storedUserDataString.username}
                   </p>
                 </div>
-                <div className="w-full md:w-full px-3 mb-6 grid grid-cols-3 gap-4">
+                <div className="w-full md:w-full px-3 mb-6 grid grid-cols-4 gap-4">
                   <label
                     className="block uppercase tracking-wide text-gray-700 text-xs content-center text-end"
-                    htmlFor="grid-text-1"
+                    htmlFor="full-name"
                   >
                     Họ và tên
                   </label>
-                  <input
-                    className="col-span-2 appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500"
-                    id="grid-text-1"
+                  <TextField
+                    className="col-span-2 w-full"
+                    id="full-name"
+                    variant="outlined"
                     type="text"
                     placeholder="Họ và tên"
                     value={fullName}
                     onChange={handleFullName}
                   />
                 </div>
-                <div className="w-full md:w-full px-3 mb-6 grid grid-cols-3 gap-4">
+                <div className="w-full md:w-full px-3 mb-6 grid grid-cols-4 gap-4">
                   <label
                     className="content-center text-end block uppercase tracking-wide text-gray-700 text-xs"
-                    htmlFor="grid-text-1"
+                    htmlFor="email-input"
                   >
                     Email
                   </label>
-                  <input
-                    className="col-span-2 appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500"
-                    id="grid-text-1"
-                    type="email"
+                  <TextField
+                    className="col-span-2 w-full"
+                    id="email-input"
+                    variant="outlined"
+                    type="text"
                     placeholder="Email"
                     value={email}
                     onChange={handleEmail}
                   />
                 </div>
-                <div className="w-full md:w-full px-3 mb-6 grid grid-cols-3 gap-4">
+                <div className="w-full md:w-full px-3 mb-6 grid grid-cols-4 gap-4">
                   <label
                     className="block content-center text-end uppercase tracking-wide text-gray-700 text-xs"
-                    htmlFor="grid-text-1"
+                    htmlFor="address-input"
                   >
                     Địa chỉ
                   </label>
-                  <input
-                    className="col-span-2 appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500"
-                    id="grid-text-1"
+                  <TextField
+                    className="col-span-2 w-full"
+                    id="address-input"
+                    variant="outlined"
                     type="text"
                     placeholder="Địa chỉ"
                     value={address}
                     onChange={handleAddress}
                   />
                 </div>
-                <div className="w-full md:w-full px-3 grid grid-cols-3 gap-4">
-                  <label className="content-center text-end block uppercase tracking-wide text-gray-700 text-xs">
+                <div className="w-full md:w-full px-3 grid grid-cols-4 gap-4">
+                  <p className="content-center text-end block uppercase tracking-wide text-gray-700 text-xs">
                     Giới tính
-                  </label>
+                  </p>
                   <div className="flex col-span-2">
-                    <div className="flex items-center px-4">
+                    {/* <div className="flex items-center px-4">
                       <input
                         id="gender-radio-1"
                         type="radio"
@@ -141,8 +154,27 @@ const Profile = () => {
                       >
                         Nam
                       </label>
-                    </div>
-                    <div className="flex items-center ml-4">
+                    </div> */}
+                    <RadioGroup
+                      id="radio-buttons-gender"
+                      row
+                      aria-labelledby="radio-buttons-gender"
+                      name="gender-radio-buttons-group"
+                      value={gender}
+                      onChange={handleGender}
+                    >
+                      <FormControlLabel
+                        value="nu"
+                        control={<Radio />}
+                        label="Nữ"
+                      />
+                      <FormControlLabel
+                        value="nam"
+                        control={<Radio />}
+                        label="Nam"
+                      />
+                    </RadioGroup>
+                    {/* <div className="flex items-center ml-4">
                       <input
                         id="gender-radio-2"
                         type="radio"
@@ -158,26 +190,34 @@ const Profile = () => {
                       >
                         Nữ
                       </label>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
-                <div className="w-full md:w-full mt-4 px-3 grid grid-cols-3 gap-4">
+                <div className="w-full md:w-full mt-4 px-3 grid grid-cols-4 gap-4">
                   <div className="content-center text-end">
                     <p className="uppercase tracking-wide text-gray-700 text-xs">
                       Ngày sinh
                     </p>
                   </div>
                   <div className="content-center h-10 text-404040 col-span-2">
+                    <DatePicker
+                      value={birthDate}
+                      onChange={(newDate) => setBirthDate(newDate)}
+                    />
                   </div>
                 </div>
                 <div className="personal w-full  pt-4">
                   <div className="flex justify-end">
-                    <button
+                    <Button
+                      sx={{
+                        py: 2,
+                        px: 4,
+                      }}
+                      variant="contained"
                       onClick={() => handleSave()}
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full"
                     >
                       Lưu
-                    </button>
+                    </Button>
                   </div>
                 </div>
               </div>
