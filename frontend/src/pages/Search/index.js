@@ -9,16 +9,13 @@ import Button from "@mui/material/Button";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import TextField from "@mui/material/TextField";
 import { MenuItem, Select } from "@mui/material";
+import dayjs from "dayjs";
 
 const Choose = (props) => {
   return (
     <div className="font-semibold text-sm mb-4">
       <h5>{props.label}</h5>
-      <Select
-        className="w-full"
-        value={props.value}
-        onChange={props.onChange}
-      >
+      <Select className="w-full" value={props.value} onChange={props.onChange}>
         {citys.map((city, index) => (
           <MenuItem key={index} value={city.value}>
             {city.label}
@@ -57,7 +54,9 @@ const Search = () => {
   const [countryFrom, setCountryFrom] = useState(location.from || "");
   const [countryTo, setCountryTo] = useState(location.to || "");
   const [numberDate, setNumberDate] = useState(location.period);
-  const [date, setValue] = useState(location.start || null);
+  const [date, setValue] = useState(
+    location.start ? dayjs(location.start) : null
+  );
 
   const handleFrom = (event) => {
     setCountryFrom(event.target.value);
@@ -78,8 +77,6 @@ const Search = () => {
       .catch((err) => console.log(err));
   };
 
-  console.log(date)
-
   return (
     <DefaultLayout>
       <div className="flex min-h-630 m-auto w-11/12">
@@ -92,6 +89,7 @@ const Search = () => {
               <h5 className="">NGÀY ĐI</h5>
               <div className="w-full">
                 <DatePicker
+                  className="w-full"
                   value={date}
                   onChange={(newValue) => setValue(newValue)}
                 />

@@ -2,28 +2,34 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import citys from "../../../utils/citys";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 
 const Banner = () => {
   const cityLabels = citys;
+  const navigate = useNavigate();
+
   const [countryFrom, setCountryFrom] = useState();
   const [countryTo, setCountryTo] = useState();
+  const [date, onChange] = useState(null);
+
   const handleFrom = (event) => {
     setCountryFrom(event.target.value);
   };
   const handleTo = (event) => {
     setCountryTo(event.target.value);
   };
-  const [date, onChange] = useState();
-  const navigate = useNavigate();
+
   const handleClick = () => {
+    const dayStart = date ? date.$d : null;
     navigate("/search", {
       state: {
         from: countryFrom,
         to: countryTo,
-        start: date,
+        start: dayStart,
       },
     });
   };
+
   return (
     <div className={`calc-64 bg-F5F7FA flex flex-col justify-center items-center bg-image`}>
       <div className="mb-14">
