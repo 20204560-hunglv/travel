@@ -4,8 +4,6 @@ import citys from "../../utils/citys";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import currencyVnd from "../../utils/curencyVnd";
-import "react-datepicker/dist/react-datepicker.css";
-import dayjs from "dayjs";
 import { get as getTours } from "../../Services/SearchServices";
 import Button from "@mui/material/Button";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -59,7 +57,6 @@ const Search = () => {
   const [countryFrom, setCountryFrom] = useState(location.from || "");
   const [countryTo, setCountryTo] = useState(location.to || "");
   const [numberDate, setNumberDate] = useState(location.period);
-  // const [date, onChange] = useState(formatDate(location.start) || "");
   const [date, setValue] = useState(location.start || null);
 
   const handleFrom = (event) => {
@@ -86,7 +83,6 @@ const Search = () => {
   return (
     <DefaultLayout>
       <div className="flex min-h-630 m-auto w-11/12">
-        {/* Search */}
         <div className="bg-gray-100 w-1/4 pt-12">
           <div className="w-4/5 mx-auto">
             <p className={`font-bold text-xl mb-6 text-center`}>Lọc kết quả</p>
@@ -103,13 +99,6 @@ const Search = () => {
             </div>
             <div className="font-semibold text-sm w-full mt-4">
               <h5 className="min-w-fit">SỐ NGÀY</h5>
-              {/* <input
-                className="border block border-solid border-gray-300 py-2 px-3 outline-none text-base font-normal leading-normal bg-white appearance-none"
-                type="number"
-                min={0}
-                value={numberDate}
-                onChange={handlePeriod}
-              ></input> */}
               <TextField
                 id="period-number"
                 type="number"
@@ -122,9 +111,6 @@ const Search = () => {
               />
             </div>
             <div className="text-center mt-6 cursor-pointer">
-              {/* <div className="py-2 px-5 rounded no-underline bg-slate-400 transition-colors text-blue-900 font-bold hover:bg-blue-900 hover:text-white">
-                Tìm kiếm
-              </div> */}
               <Button variant="contained">Tìm kiếm</Button>
             </div>
           </div>

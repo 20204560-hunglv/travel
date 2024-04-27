@@ -7,8 +7,6 @@ import {
   get as getProfile,
   save as saveProfile,
 } from "../../Services/ProfileServices";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 
 const Profile = () => {
   const storedUserDataString = getUserLocal();
@@ -28,7 +26,6 @@ const Profile = () => {
   const handleGender = (event) => {
     setGender(event.target.value);
   };
-  const [date, onChangeDate] = useState(new Date());
 
   const handleSave = () => {
     saveProfile(storedUserDataString.username, {
@@ -171,11 +168,6 @@ const Profile = () => {
                     </p>
                   </div>
                   <div className="content-center h-10 text-404040 col-span-2">
-                    <DatePicker
-                      className="outline-none border-2 border-y-gray-200 px-4 py-2"
-                      onChange={(date) => onChangeDate(date)}
-                      selected={date}
-                    />
                   </div>
                 </div>
                 <div className="personal w-full  pt-4">

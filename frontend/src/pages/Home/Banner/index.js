@@ -1,7 +1,4 @@
 import { useState } from "react";
-// import DatePicker from "react-date-picker";
-import "react-date-picker/dist/DatePicker.css";
-import "react-calendar/dist/Calendar.css";
 import { useNavigate } from "react-router-dom";
 import citys from "../../../utils/citys";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
