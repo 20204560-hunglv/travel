@@ -1,11 +1,11 @@
 const User = require("../models/users");
 
 const userOrderTour = async (req, res) => {
-  const username = req.params.username;
+  const id = req.params.id;
   const tours = req.body;
   try {
     const userUpdate = await User.findOneAndUpdate(
-      { username: username },
+      { _id: id },
       { $push: { tours } },
       { new: true }
     ).sort();
@@ -33,9 +33,9 @@ const getAllUsers = async (req, res) => {
 };
 
 const userGetOrderTour = async (req, res) => {
-  const username = req.params.username;
+  const id = req.params.id;
   try {
-    const user = await User.findOne({ username: username });
+    const user = await User.findOne({ _id: id });
     return res.status(200).json(user.tours);
   } catch (err) {
     console.error(err);
@@ -44,12 +44,9 @@ const userGetOrderTour = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
-  const username = req.params.username;
-  if (!username) {
-    return res.status(400).json({ error: "Username is required" });
-  }
+  const id = req.params.id;
   try {
-    const user = await User.findOne({ username: username });
+    const user = await User.findOne({ _id: id });
     return res.status(200).json(user);
   } catch (err) {
     console.error(err);
@@ -58,14 +55,11 @@ const getUser = async (req, res) => {
 };
 
 const userUpdateOrderTour = async (req, res) => {
-  const username = req.params.username;
+  const id = req.params.id;
   const dataUpdate = req.body;
-  if (!username) {
-    return res.status(400).json({ error: "_id is required" });
-  }
   try {
     await User.updateOne(
-      { username: username },
+      { _id: id },
       {
         tours: dataUpdate,
       }
@@ -80,13 +74,14 @@ const userUpdateOrderTour = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const username = req.params.username;
+  const id = req.params.id;
   const { fullname, email, address, gender } = req.body;
   try {
-    await User.updateOne(
-      { username: username },
+    const resp = await User.updateOne(
+      { _id: id },
       { fullname: fullname, email: email, address: address, gender: gender }
     );
+    console.log(resp)
     return res.status(200).json({
       message: "update ok",
     });

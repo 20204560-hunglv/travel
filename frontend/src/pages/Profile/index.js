@@ -38,7 +38,7 @@ const Profile = () => {
   };
 
   const handleSave = () => {
-    saveProfile(storedUserDataString.username, {
+    saveProfile(storedUserDataString._id, {
       fullName: fullName,
       email: email,
       address: address,

@@ -59,7 +59,7 @@ const searchTour = async (req, res) => {
 };
 
 const updateTour = async (req, res) => {
-  const { _id } = req.body;
+  const _id = req.params.id;
   const {
     name,
     start_time,

@@ -1,8 +1,11 @@
 import { useState } from "react";
-import axios from "../../../utils/axios";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../Notification/index";
 import citys from "../../../utils/citys";
+import {
+  add as addTour,
+  update as updateTour,
+} from "../../../Services/TourServices";
 
 const CrudTourModal = ({ handleChangeFalse, data, type }) => {
   const cityLabels = citys;
@@ -36,32 +39,21 @@ const CrudTourModal = ({ handleChangeFalse, data, type }) => {
   };
   const handleSave = () => {
     if (type === "add") {
-      axios
-        .post(`/api/v1/tours`, {
-          name: name,
-          start_time: startTime,
-          period: period,
-          main_image_url: urlImage,
-          prices: prices,
-          addressFrom: countryFrom,
-          addressTo: countryTo,
-        })
+      addTour(name, startTime, period, urlImage, prices, countryFrom, countryTo)
         .then(() => {
           handleNotify("success", "Thành công", "Lưu thông tin thành công!");
         })
         .catch((err) => console.log(err));
     } else if (type === "edit") {
-      axios
-        .put(`/api/v1/tours`, {
-          _id: data._id,
-          name: name,
-          start_time: startTime,
-          period: period,
-          main_image_url: urlImage,
-          prices: prices,
-          addressFrom: countryFrom,
-          addressTo: countryTo,
-        })
+      updateTour(data._id, {
+        name: name,
+        start_time: startTime,
+        period: period,
+        main_image_url: urlImage,
+        prices: prices,
+        addressFrom: countryFrom,
+        addressTo: countryTo,
+      })
         .then(() => {
           handleNotify("success", "Thành công", "Lưu thông tin thành công!");
         })
