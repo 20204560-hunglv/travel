@@ -8,8 +8,21 @@ import { get as getTours } from "../../Services/SearchServices";
 import Button from "@mui/material/Button";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import TextField from "@mui/material/TextField";
-import { MenuItem, Select } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  IconButton,
+  MenuItem,
+  Select,
+  Typography,
+} from "@mui/material";
 import dayjs from "dayjs";
+import Grid from "@mui/material/Unstable_Grid2";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { shorten45Chart } from "../../utils/shortenString";
 
 const Choose = (props) => {
   return (
@@ -25,35 +38,53 @@ const Choose = (props) => {
     </div>
   );
 };
+
 const SearchItem = ({ item }) => {
   const navigate = useNavigate();
+
   const handleToBooking = () => {
     navigate(`/tour/${item._id}`);
   };
+
   return (
-    <div
-      onClick={handleToBooking}
-      className="rounded-lg cursor-pointer my-4 w-1/4 mx-4-1-percen transition-shadow hover:shadow-lg hover:shadow-slate-700"
-    >
-      <img src={item.main_image_url} className="h-44 w-full" alt="abc"></img>
-      <div className="text-blue-900 pt-1 pr-2 pb-2">
-        <p className="text-xs">{item.start_time}</p>
-        <p className="font-bold">{item.name}</p>
-        <p className="text-red-500 font-semibold float-right mt-3">
-          {currencyVnd(item.prices)}
-        </p>
+    <Card className="h-96 flex flex-col">
+      <CardMedia
+        component="img"
+        sx={{
+          height: "50%",
+        }}
+        image={item.main_image_url}
+        alt={item.main_image_url}
+      />
+      <div onClick={handleToBooking} className="cursor-pointer">
+        <CardContent>
+          <Typography variant="h6" component="div">
+            {shorten45Chart(item.name)}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {item.start_time}
+          </Typography>
+        </CardContent>
       </div>
-      <div></div>
-    </div>
+      <CardActions className="flex justify-between">
+        <IconButton aria-label="add to favorites">
+          <FavoriteIcon />
+        </IconButton>
+        <Typography className="text-red-500" variant="h6" component="p">
+            {currencyVnd(item.prices)}
+          </Typography>
+      </CardActions>
+    </Card>
   );
 };
+
 const Search = () => {
   let location = useLocation().state;
 
   const [data, setData] = useState([]);
   const [countryFrom, setCountryFrom] = useState(location.from || "");
   const [countryTo, setCountryTo] = useState(location.to || "");
-  const [numberDate, setNumberDate] = useState(location.period);
+  const [numberDate, setNumberDate] = useState(location.period || "");
   const [date, setValue] = useState(
     location.start ? dayjs(location.start) : null
   );
@@ -67,6 +98,9 @@ const Search = () => {
   const handlePeriod = (event) => {
     setNumberDate(event.target.value);
   };
+  const handleDate = (date) => {
+    setValue(date);
+  };
 
   useEffect(() => {
     fetchData();
@@ -75,6 +109,15 @@ const Search = () => {
     getTours()
       .then((res) => setData(res.data))
       .catch((err) => console.log(err));
+  };
+
+  const compareItem = (item) => {
+    return (
+      (countryFrom ? countryFrom === item.addressFrom : true) &&
+      (countryTo ? countryTo === item.addressTo : true) &&
+      (date ? dayjs(item.start_time).isSame(date, "day") : true) &&
+      (numberDate ? numberDate === item.period : true)
+    );
   };
 
   return (
@@ -91,7 +134,7 @@ const Search = () => {
                 <DatePicker
                   className="w-full"
                   value={date}
-                  onChange={(newValue) => setValue(newValue)}
+                  onChange={(newValue) => handleDate(newValue)}
                 />
               </div>
             </div>
@@ -103,6 +146,9 @@ const Search = () => {
                 InputLabelProps={{
                   shrink: true,
                 }}
+                inputProps={{
+                  min: 0,
+                }}
                 value={numberDate}
                 onChange={handlePeriod}
                 className="w-full"
@@ -113,26 +159,31 @@ const Search = () => {
             </div>
           </div>
         </div>
-        <div className="w-3/4">
-          <div className="w-full mb-5 mt-5">
-            <div className="mt-5 flex justify-between flex-wrap w-full">
+        <div className="w-3/4 py-5 px-3">
+          <Typography align="center" variant="h4" component="h4">
+            Kết quả tìm kiếm
+          </Typography>
+          <Box sx={{ flexGrow: 1, my: 4 }}>
+            <Grid
+              container
+              spacing={{ xs: 2, md: 3 }}
+              columns={{ xs: 4, sm: 8, md: 12 }}
+            >
               {data
                 .filter((item) => {
-                  return (
-                    (countryFrom ? countryFrom === item.addressFrom : true) &&
-                    (countryTo ? countryTo === item.addressTo : true) &&
-                    (date ? date === item.start_time : true) &&
-                    (numberDate ? numberDate === item.period : true)
-                  );
+                  return compareItem(item);
                 })
                 .map((item, index) => (
-                  <SearchItem key={index} item={item} />
+                  <Grid xs={2} sm={4} md={4} key={index}>
+                    <SearchItem item={item} />
+                  </Grid>
                 ))}
-            </div>
-          </div>
+            </Grid>
+          </Box>
         </div>
       </div>
     </DefaultLayout>
   );
 };
+
 export default Search;
