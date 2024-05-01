@@ -1,54 +1,6 @@
-const Tour = require("../models/tour");
 const User = require("../models/users");
-const AdminSchema = require("../models/admins");
 
-const createTour = async (req, res) => {
-  const {
-    name,
-    start_time,
-    period,
-    main_image_url,
-    prices,
-    addressFrom,
-    addressTo,
-  } = req.body;
-  const newTour = {
-    name: name,
-    start_time: start_time,
-    period: period,
-    main_image_url: main_image_url,
-    prices: prices,
-    addressFrom,
-    addressTo,
-  };
-
-  if (
-    !name ||
-    !start_time ||
-    !period ||
-    !main_image_url ||
-    !prices ||
-    !addressFrom ||
-    !addressTo
-  ) {
-    return res.status(200).json({
-      message: "invaild",
-    });
-  } else {
-    try {
-      await Tour.create(newTour);
-      return res.status(200).json({
-        message: "ok",
-      });
-    } catch (error) {
-      console.log(error);
-      return res.status(200).json({
-        message: "error",
-      });
-    }
-  }
-};
-const orderTour = async (req, res) => {
+const userOrderTour = async (req, res) => {
   const username = req.params.username;
   const tours = req.body;
   try {
@@ -68,32 +20,8 @@ const orderTour = async (req, res) => {
     });
   }
 };
-const getAllTours = async (req, res) => {
-  try {
-    const tours = await Tour.find({});
-    return res.status(200).json(tours);
-  } catch (err) {
-    console.error(err);
-    return res.status(500).send("Internal Server Error");
-  }
-};
-const searchTour = async (req, res) => {
-  const {from, to, start, period} = req.body
 
-  // Xây dựng các điều kiện tìm kiếm dựa trên từng trường
-  const conditions = {};
-  if (from) conditions.addressFrom = { $regex: from, $options: 'i' };
-  if (to) conditions.addressTo = { $regex: to, $options: 'i' };
-  if (start) conditions.start_time = { $regex: start, $options: 'i' };
-  if (period) conditions.period = { $regex: period, $options: 'i' };
-  try {
-    const tours = await Tour.find(conditions).sort({updatedAt: -1});
-    return res.status(200).json(tours);
-  } catch (err) {
-    console.error(err);
-    return res.status(500).send("Internal Server Error");
-  }
-};
+
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find({});
@@ -103,7 +31,8 @@ const getAllUsers = async (req, res) => {
     return res.status(500).send("Internal Server Error");
   }
 };
-const getOrderTour = async (req, res) => {
+
+const userGetOrderTour = async (req, res) => {
   const username = req.params.username;
   try {
     const user = await User.findOne({ username: username });
@@ -113,6 +42,7 @@ const getOrderTour = async (req, res) => {
     return res.status(500).send("Internal Server Error");
   }
 };
+
 const getUser = async (req, res) => {
   const username = req.params.username;
   if (!username) {
@@ -126,20 +56,8 @@ const getUser = async (req, res) => {
     return res.status(500).send("Internal Server Error");
   }
 };
-const getTour = async (req, res) => {
-  const _id = req.params.id;
-  if (!_id) {
-    return res.status(400).json({ error: "_id is required" });
-  }
-  try {
-    const tour = await Tour.findOne({ _id: _id });
-    return res.status(200).json(tour);
-  } catch (err) {
-    console.error(err);
-    return res.status(500).send("Internal Server Error");
-  }
-};
-const updateOrderTour = async (req, res) => {
+
+const userUpdateOrderTour = async (req, res) => {
   const username = req.params.username;
   const dataUpdate = req.body;
   if (!username) {
@@ -160,38 +78,7 @@ const updateOrderTour = async (req, res) => {
     return res.status(500).send("Internal Server Error");
   }
 };
-const updateTour = async (req, res) => {
-  const { _id } = req.body;
-  const {
-    name,
-    start_time,
-    period,
-    main_image_url,
-    prices,
-    addressFrom,
-    addressTo,
-  } = req.body;
-  try {
-    await Tour.updateOne(
-      { _id: _id },
-      {
-        name: name,
-        start_time: start_time,
-        period: period,
-        main_image_url: main_image_url,
-        prices: prices,
-        addressFrom,
-        addressTo,
-      }
-    );
-    return res.status(200).json({
-      message: "update ok",
-    });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).send("Internal ServerError");
-  }
-};
+
 const updateUser = async (req, res) => {
   const username = req.params.username;
   const { fullname, email, address, gender } = req.body;
@@ -208,6 +95,7 @@ const updateUser = async (req, res) => {
     return res.status(500).send("Internal ServerError");
   }
 };
+
 const updateUserByAdmin = async (req, res) => {
   const { userName, passWord, fullName, email, address, gender } = req.body;
   try {
@@ -247,6 +135,7 @@ const updateUserByAdmin = async (req, res) => {
     return res.status(500).send("Internal ServerError");
   }
 };
+
 const updatePassword = async (req, res) => {
   const username = req.params.username;
   const { pass, newPass } = req.body;
@@ -262,6 +151,7 @@ const updatePassword = async (req, res) => {
     return res.status(500).send("Internal ServerError");
   }
 };
+
 const deleteTour = async (req, res) => {
   const _id = req.params.id;
   if (!_id) {
@@ -277,6 +167,7 @@ const deleteTour = async (req, res) => {
     return res.status(500).send("Internal ServerError");
   }
 };
+
 const deleteUser = async (req, res) => {
   const username = req.params.username;
   try {
@@ -289,6 +180,7 @@ const deleteUser = async (req, res) => {
     return res.status(500).send("Internal ServerError");
   }
 };
+
 const signUp = async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -311,6 +203,7 @@ const signUp = async (req, res) => {
     return res.status(401).json({ error: error });
   }
 };
+
 const login = async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -332,44 +225,18 @@ const login = async (req, res) => {
     return res.status(400).json({ error: error });
   }
 };
-const loginAdmin = async (req, res) => {
-  const { username, password } = req.body;
-  if (!username || !password) {
-    return res
-      .status(400)
-      .json({ error: "Username and password are required" });
-  }
-  try {
-    const user = await AdminSchema.findOne({
-      username: username,
-      password: password,
-    });
-    if (user) {
-      return res.status(200).json({ message: "Login successful", user });
-    } else {
-      return res.status(401).json({ error: "Account not found" });
-    }
-  } catch (error) {
-    return res.status(400).json({ error: error });
-  }
-};
+
 module.exports = {
-  getAllTours,
-  createTour,
-  updateTour,
   deleteTour,
   signUp,
   login,
   getUser,
   updateUser,
   updatePassword,
-  loginAdmin,
   getAllUsers,
   deleteUser,
   updateUserByAdmin,
-  getTour,
-  orderTour,
-  getOrderTour,
-  updateOrderTour,
-  searchTour
+  userOrderTour,
+  userGetOrderTour,
+  userUpdateOrderTour,
 };
