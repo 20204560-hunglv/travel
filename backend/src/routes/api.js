@@ -1,27 +1,29 @@
 const express = require("express");
 const router = express.Router();
 
-const apiRouter = require("../controllers/ApiController");
+const UserController = require("../controllers/UserController");
+const AdminController = require("../controllers/AdminController");
+const TourController = require("../controllers/TourController");
 
-router.post("/tours", apiRouter.createTour);
-router.get("/tours", apiRouter.getAllTours);
-router.get("/tours/:id", apiRouter.getTour);
-router.post("/tour/search", apiRouter.searchTour);
-router.put("/tours", apiRouter.updateTour);
-router.delete("/tours/:id", apiRouter.deleteTour);
+router.get("/tours", TourController.getAllTours);
+router.get("/tours/:id", TourController.getTour);
+router.post("/tour/search", TourController.searchTour);
+router.put("/tours", TourController.updateTour);
+router.delete("/tours/:id", TourController.deleteTour);
+router.post("/tours", TourController.createTour);
 
-router.post("/users/tour/:username", apiRouter.orderTour);
-router.get("/users/tour/:username", apiRouter.getOrderTour);
-router.put("/users/tour/:username", apiRouter.updateOrderTour);
-router.get("/users", apiRouter.getAllUsers);
-router.get("/user/:username", apiRouter.getUser);
-router.put("/user_crud/:username", apiRouter.updateUser);
-router.put("/user_crud", apiRouter.updateUserByAdmin);
-router.delete("/users/:username", apiRouter.deleteUser);
+router.post("/users/tour/:username", UserController.userOrderTour);
+router.get("/users/tour/:username", UserController.userGetOrderTour);
+router.put("/users/tour/:username", UserController.userUpdateOrderTour);
+router.get("/users", UserController.getAllUsers);
+router.get("/user/:username", UserController.getUser);
+router.put("/user_crud/:username", UserController.updateUser);
+router.put("/user_crud", UserController.updateUserByAdmin);
+router.delete("/user/:id", UserController.deleteUser);
+router.put("/change_password/:id", UserController.updatePassword);
+router.post("/signup", UserController.signUp);
+router.post("/login", UserController.login);
 
-router.put("/change_password/:username", apiRouter.updatePassword);
-router.post("/signup",apiRouter.signUp)
-router.post("/login",apiRouter.login)
-router.post("/login_admin",apiRouter.loginAdmin)
+router.post("/login_admin", AdminController.loginAdmin);
 
 module.exports = router;

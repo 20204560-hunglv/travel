@@ -2,9 +2,9 @@ import LayoutAdmin from "../../../components/Layout/LayoutAdmin";
 import React, { useState, useEffect } from "react";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../../components/Notification/index";
-import axios from "../../../utils/axios";
 import CrudTourModal from "../../../components/Modal/CRUDTourModal";
 import ConfirmDelete from "../../../components/Modal/ConfirmDelete";
+import { getAll, deleteTour } from "../../../Services/TourServices";
 
 const CrudTour = () => {
   const [data, setData] = useState([]);
@@ -14,40 +14,43 @@ const CrudTour = () => {
   const [id, setId] = useState();
   const [dataEdit, setDataEdit] = useState({});
   const [del, setDel] = useState(false);
+
   const handleChangeFalse = () => {
     setChange(false);
   };
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("/api/v1/tours");
-        setData(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, [change]);
-  useEffect(() => {
-    if (del) {
-      axios
-      .delete(`/api/v1/tours/${id}`)
-      .then(() => {
-        setData((prevData) => prevData.filter((user) => user._id !== id));
-        handleNotify("success", "Thành công", "Xóa thành công");
-      })
-      .catch((err) => console.log(err));
-      setDel(false);
-    }
-  }, [del,id]);
   const handleDelete = (_id) => {
     setDeletePopup(true);
     setId(_id);
   };
+
+  const fetchData = async () => {
+    try {
+      const response = await getAll();
+      setData(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, [change]);
+
+  useEffect(() => {
+    if (del) {
+      deleteTour(id)
+        .then(() => {
+          setData((prevData) => prevData.filter((user) => user._id !== id));
+          handleNotify("success", "Thành công", "Xóa thành công");
+        })
+        .catch((err) => console.log(err));
+      setDel(false);
+    }
+  }, [del, id]);
+
   // Neu >= 45 ky tu, thi thay the bang 3 cham
   function truncateString(str) {
     if (str && str.length >= 45) {
-      return str.slice(0, 42) + '...';
+      return str.slice(0, 42) + "...";
     } else {
       return str;
     }
@@ -65,40 +68,40 @@ const CrudTour = () => {
         <LayoutAdmin>
           <div className="flex items-center justify-end my-7">
             <div className="px-4 ">
-                <button
-                  onClick={() => {
-                    setDataEdit({
-                      name: "",
-                      period: "",
-                      startTime: "",
-                      urlImage: "",
-                      prices: "",
-                      addressFrom: "",
-                      addressTo: "",
-                    });
-                    setTypeChange("add");
-                    setChange(true);
-                  }}
-                  className="bg-green-400 hover:bg-green-500 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
+              <button
+                onClick={() => {
+                  setDataEdit({
+                    name: "",
+                    period: "",
+                    startTime: "",
+                    urlImage: "",
+                    prices: "",
+                    addressFrom: "",
+                    addressTo: "",
+                  });
+                  setTypeChange("add");
+                  setChange(true);
+                }}
+                className="bg-green-400 hover:bg-green-500 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="feather feather-plus-circle"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="feather feather-plus-circle"
-                  >
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="12" y1="8" x2="12" y2="16"></line>
-                    <line x1="8" y1="12" x2="16" y2="12"></line>
-                  </svg>
-                  <span className="pl-2">Thêm</span>
-                </button>
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="16"></line>
+                  <line x1="8" y1="12" x2="16" y2="12"></line>
+                </svg>
+                <span className="pl-2">Thêm</span>
+              </button>
             </div>
           </div>
           <table className="mr-0 pr-0 max-w-6xl w-full divide-y divide-gray-200">

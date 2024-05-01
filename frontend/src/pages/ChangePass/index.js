@@ -26,7 +26,7 @@ const ChangePass = () => {
     } else if (newPass !== confirmPass) {
       handleNotify("Warning", "Warning", "Mật khẩu mới không giống nhau");
     } else {
-      changePass(storedUserDataString.username, {
+      changePass(storedUserDataString._id, {
         pass: pass,
         newPass: newPass,
       })

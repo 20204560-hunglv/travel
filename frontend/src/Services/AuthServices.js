@@ -23,12 +23,24 @@ export async function signUp(username, password) {
   }
 }
 
-export async function changePass(username, { pass, newPass }) {
+export async function changePass(_id, { pass, newPass }) {
   try {
-    await axios.put(`api/v1/change_password/${username}`, {
+    await axios.put(`api/v1/change_password/${_id}`, {
       pass: pass,
       newPass: newPass,
     });
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function loginAdmin(name, pass) {
+  try {
+    const response = await axios.post("/api/v1/login_admin", {
+      username: name,
+      password: pass,
+    });
+    return response;
   } catch (error) {
     throw error;
   }
