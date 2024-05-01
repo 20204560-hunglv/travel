@@ -2,12 +2,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../../components/Notification/index";
 import { useState } from "react";
-import axios from "../../../utils/axios";
+import { loginAdmin } from "../../../Services/AuthServices";
 
 const LoginAdmin = () => {
   const navigate = useNavigate();
-  const [name, setName] = useState('');
-  const [pass, setPass] = useState('');
+  const [name, setName] = useState("");
+  const [pass, setPass] = useState("");
   const changeName = (event) => {
     setName(event.target.value);
   };
@@ -18,11 +18,7 @@ const LoginAdmin = () => {
     if (!name || !pass)
       handleNotify("Warning", "Warning", "Cần nhập đầy đủ thông tin");
     else
-      axios
-        .post("/api/v1/login_admin", {
-          username: name,
-          password: pass,
-        })
+      loginAdmin(name, pass)
         .then((response) => {
           if (response.status === 200) {
             // console.log(response.data.user)

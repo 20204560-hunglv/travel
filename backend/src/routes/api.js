@@ -19,8 +19,8 @@ router.get("/users", UserController.getAllUsers);
 router.get("/user/:username", UserController.getUser);
 router.put("/user_crud/:username", UserController.updateUser);
 router.put("/user_crud", UserController.updateUserByAdmin);
-router.delete("/users/:username", UserController.deleteUser);
-router.put("/change_password/:username", UserController.updatePassword);
+router.delete("/user/:id", UserController.deleteUser);
+router.put("/change_password/:id", UserController.updatePassword);
 router.post("/signup", UserController.signUp);
 router.post("/login", UserController.login);
 

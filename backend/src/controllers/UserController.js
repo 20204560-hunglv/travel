@@ -137,12 +137,13 @@ const updateUserByAdmin = async (req, res) => {
 };
 
 const updatePassword = async (req, res) => {
-  const username = req.params.username;
+  const id = req.params.id;
   const { pass, newPass } = req.body;
   try {
-    const isPass = await User.findOne({ username: username, password: pass });
+    const isPass = await User.findOne({ _id: id, password: pass});
+    // const isPass = await User.findOne({ username: username, password: pass });
     if (!isPass) return res.status(409).json({ error: "Password wrong" });
-    await User.updateOne({ username: username }, { password: newPass });
+    await User.updateOne({ _id: id }, { password: newPass });
     return res.status(200).json({
       message: "update ok",
     });
@@ -169,11 +170,12 @@ const deleteTour = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-  const username = req.params.username;
+  const id = req.params.id;
   try {
-    await User.deleteOne({ username: username });
+    const respUser = await User.deleteOne({ _id: id });
     return res.status(200).json({
       message: "delete ok",
+      data: respUser
     });
   } catch (err) {
     console.error(err);

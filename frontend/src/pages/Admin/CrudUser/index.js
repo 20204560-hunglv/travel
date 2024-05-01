@@ -2,9 +2,9 @@ import LayoutAdmin from "../../../components/Layout/LayoutAdmin";
 import React, { useState, useEffect } from "react";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../../components/Notification/index";
-import axios from "../../../utils/axios";
 import CrudUserModal from "../../../components/Modal/CRUDUserModal";
 import ConfirmDelete from "../../../components/Modal/ConfirmDelete";
+import { getAll, deleteUser } from "../../../Services/UserServices";
 
 const CrudUser = () => {
   const [data, setData] = useState([]);
@@ -12,53 +12,58 @@ const CrudUser = () => {
   const [dataEdit, setDataEdit] = useState({});
   const [showDeletePopup, setDeletePopup] = useState(false);
   const [del, setDel] = useState(false);
-  const [uname, setUserName] = useState();
+  const [id, setId] = useState();
+
   const handleChangeFalse = () => {
     setChange(false);
   };
+
+  const fetchData = async () => {
+    try {
+      const response = await getAll();
+      setData(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("/api/v1/users");
-        setData(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
     fetchData();
   }, [change]);
   useEffect(() => {
     if (del) {
-      axios
-        .delete(`/api/v1/users/${uname}`)
+      deleteUser(id)
         .then(() => {
           setData((prevData) =>
-            prevData.filter((user) => user.username !== uname)
+            prevData.filter((user) => user._id !== id)
           );
           handleNotify("success", "Thành công", "Xóa thành công");
         })
         .catch((err) => console.log(err));
       setDel(false);
     }
-  }, [del, uname]);
-  const handleDelete = (username) => {
+  }, [del, id]);
+
+  const handleDelete = (id) => {
     setDeletePopup(true);
-    setUserName(username);
+    setId(id);
   };
+
   function truncateString(str) {
     if (str && str.length >= 45) {
-      return str.slice(0, 42) + '...';
+      return str.slice(0, 42) + "...";
     } else {
       return str;
     }
   }
   function truncateStringEmail(str) {
     if (str && str.length > 25) {
-      return str.slice(0, 24) + '...';
+      return str.slice(0, 24) + "...";
     } else {
       return str;
     }
   }
+
   return (
     <div>
       <ReactNotifications />
@@ -113,7 +118,9 @@ const CrudUser = () => {
                   <td className="px-6 py-4 whitespace-nowrap">
                     {item.username}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">{truncateStringEmail(item.email)}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {truncateStringEmail(item.email)}
+                  </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                       {truncateString(item.address)}
@@ -146,7 +153,7 @@ const CrudUser = () => {
                           address: "",
                           gender: "",
                         });
-                        handleDelete(item.username);
+                        handleDelete(item._id);
                       }}
                       className="ml-2 px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out"
                     >
