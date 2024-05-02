@@ -21,17 +21,6 @@ const Header = () => {
                 </p>
               </Link>
             </li>
-            <li
-              className={`float-left text-sm font-bold h-full flex items-center
-              relative w-max mx-2 hover:bg-white transition-colors duration-500
-              header-nav`}
-            >
-              <Link to="/news">
-                <p className="text-center text-666666 cursor-pointer">
-                  Tin tức
-                </p>
-              </Link>
-            </li>
           </ul>
         </nav>
         {!storedUserDataString ? (
