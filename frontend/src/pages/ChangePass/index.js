@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ValidateLogin from "../../components/ValidateLogin";
 import { useState } from "react";
 import { ReactNotifications } from "react-notifications-component";
@@ -8,9 +8,13 @@ import { changePass } from "../../Services/AuthServices";
 
 const ChangePass = () => {
   const storedUserDataString = getUserLocal();
+
+  const navigate = useNavigate();
+  
   const [pass, setPass] = useState("");
   const [newPass, setNewPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
+
   const handlePass = (event) => {
     setPass(event.target.value);
   };
@@ -20,6 +24,7 @@ const ChangePass = () => {
   const handleConfirmPass = (event) => {
     setConfirmPass(event.target.value);
   };
+
   const handleSave = () => {
     if (!pass || !newPass || !confirmPass) {
       handleNotify("Warning", "Warning", "Cần nhập đầy đủ thông tin");
@@ -57,6 +62,7 @@ const ChangePass = () => {
         });
     }
   };
+
   return (
     <ValidateLogin>
       <ReactNotifications />
@@ -125,12 +131,12 @@ const ChangePass = () => {
                 <span className="text-white">Lưu</span>
               </button>
               <p className="text-center">
-                <Link
-                  to="/profile"
-                  className="text-gray-800 font-medium inline-flex space-x-1 items-center"
+                <p
+                  onClick={() => navigate(-1)}
+                  className="text-gray-800 font-medium inline-flex space-x-1 items-center cursor-pointer"
                 >
                   <span>Quay lại</span>
-                </Link>
+                </p>
               </p>
             </div>
           </div>
