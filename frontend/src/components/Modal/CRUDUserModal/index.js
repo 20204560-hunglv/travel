@@ -1,15 +1,16 @@
 import { useState } from "react";
-import axios from "../../../utils/axios";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../Notification/index";
+import { update as updateUser } from "../../../Services/UserServices";
 
-const CrudUserModal = ({ handleChangeFalse , data}) => {
+const CrudUserModal = ({ handleChangeFalse, data }) => {
   const [fullName, setFullName] = useState(data.fullName || "");
   const [userName, setUserName] = useState(data.userName || "");
   const [password, setPassword] = useState(data.password || "");
   const [email, setEmail] = useState(data.email || "");
   const [address, setAddress] = useState(data.address || "");
   const [gender, setGender] = useState(data.gender || "");
+
   const handleFullName = (event) => {
     setFullName(event.target.value);
   };
@@ -29,23 +30,22 @@ const CrudUserModal = ({ handleChangeFalse , data}) => {
     setGender(event.target.value);
   };
   const handleSave = () => {
-    axios
-      .put(`/api/v1/user_crud`, {
-        userName: userName,
-        passWord: password,
-        fullName: fullName,
-        email: email,
-        address: address,
-        gender: gender,
-      })
+    updateUser(data._id, {
+      passWord: password,
+      fullName: fullName,
+      email: email,
+      address: address,
+      gender: gender,
+    })
       .then(() => {
         handleNotify("success", "Thành công", "Lưu thông tin thành công!");
       })
       .catch((err) => console.log(err));
   };
+
   return (
     <div className="flex items-center">
-    <ReactNotifications />
+      <ReactNotifications />
       <div className="w-full max-w-sm container mx-auto py-10">
         <h2 className="text-2xl text-center text-gray-900 pb-5">
           Thông tin tài khoản
@@ -189,4 +189,5 @@ const CrudUserModal = ({ handleChangeFalse , data}) => {
     </div>
   );
 };
+
 export default CrudUserModal;

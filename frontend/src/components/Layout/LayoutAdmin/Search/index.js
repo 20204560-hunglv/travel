@@ -1,11 +1,15 @@
-import styles from './style.module.css'
-const Search=()=>{
+const Search = () => {
   return (
     <>
-      <div className={styles.contain}>
-        <input placeholder='Tìm kiếm'></input>
+      <div className="mt-3 flex pl-6">
+        <input
+          className="rounded-lg text-base border border-solid border-gray-500
+          outline-none py-1 px-2 w-1/3"
+          placeholder="Tìm kiếm"
+        ></input>
       </div>
     </>
-  )
-}
-export default Search
+  );
+};
+
+export default Search;

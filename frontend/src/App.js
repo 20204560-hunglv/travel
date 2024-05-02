@@ -7,10 +7,7 @@ import Tour from "./pages/Tour";
 import Search from "./pages/Search";
 import CrudUser from "./pages/Admin/CrudUser";
 import CrudTour from "./pages/Admin/CrudTour";
-import ResponHotel from "./pages/Admin/ResponHotel";
 import Order from "./pages/Admin/Order";
-import RegisterHotel from "./pages/HotelManager/RegisterHotel";
-import EditHotel from "./pages/HotelManager/EditHotel";
 import Profile from "./pages/Profile";
 import NotFound from "./components/NotFound/notFound";
 import ChangePass from "./pages/ChangePass";
@@ -32,14 +29,8 @@ const App = () => {
         <Route path="/history-booking" element={<HistoryBooking />} />
         <Route path="/admin/crud-user" element={<CrudUser />} />
         <Route path="/admin/crud-tour" element={<CrudTour />} />
-        <Route path="/admin/hotel" element={<ResponHotel />} />
         <Route path="/admin/order" element={<Order />} />
         <Route path="/admin" element={<LoginAdmin />} />
-        <Route
-          path="/hotel-manager/register-hotel"
-          element={<RegisterHotel />}
-        />
-        <Route path="/hotel-manager/edit-hotel" element={<EditHotel />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="/change-pass" element={<ChangePass />} />

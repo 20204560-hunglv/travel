@@ -3,15 +3,18 @@ import { useLocation } from "react-router-dom";
 
 const SideBar = () => {
   let location = useLocation();
+
   const list = [
     { pathName: "/admin/crud-user", label: "Người dùng" },
     { pathName: "/admin/crud-tour", label: "Tour" },
   ];
+
   const navigate = useNavigate();
   const handleClick = () => {
     localStorage.removeItem("adminData");
     navigate("/admin");
   };
+  
   return (
     <div className="h-full w-full bg-white relative flex flex-col justify-between border-r-2">
       <div className="w-full">

@@ -130,6 +130,7 @@ const CrudUser = () => {
                     <button
                       onClick={() => {
                         setDataEdit({
+                          _id: item._id,
                           userName: item.username,
                           password: item.password,
                           fullName: item.fullname,

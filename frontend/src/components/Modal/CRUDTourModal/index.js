@@ -9,16 +9,18 @@ import {
 
 const CrudTourModal = ({ handleChangeFalse, data, type }) => {
   const cityLabels = citys;
+
   const [period, setPeriod] = useState(data.period);
   const [name, setName] = useState(data.name);
   const [startTime, setStartTime] = useState(data.startTime);
   const [urlImage, setUrlImage] = useState(data.urlImage);
   const [prices, setPrices] = useState(data.prices);
   const [countryFrom, setCountryFrom] = useState(data.addressFrom);
+  const [countryTo, setCountryTo] = useState(data.addressTo);
+
   const handleFrom = (event) => {
     setCountryFrom(event.target.value);
   };
-  const [countryTo, setCountryTo] = useState(data.addressTo);
   const handleTo = (event) => {
     setCountryTo(event.target.value);
   };
@@ -60,6 +62,7 @@ const CrudTourModal = ({ handleChangeFalse, data, type }) => {
         .catch((err) => console.log(err));
     }
   };
+
   return (
     <div className="flex items-center">
       <ReactNotifications />
@@ -199,4 +202,5 @@ const CrudTourModal = ({ handleChangeFalse, data, type }) => {
     </div>
   );
 };
+
 export default CrudTourModal;

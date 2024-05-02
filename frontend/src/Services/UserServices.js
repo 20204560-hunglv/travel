@@ -16,3 +16,17 @@ export const deleteUser = async (id) => {
     throw error;
   }
 };
+
+export const update = async (id, data) => {
+  try {
+    await axios.put(`/api/v1/user_crud/${id}`, {
+      password: data.passWord,
+      fullname: data.fullName,
+      email: data.email,
+      address: data.address,
+      gender: data.gender,
+    });
+  } catch (error) {
+    throw error;
+  }
+};

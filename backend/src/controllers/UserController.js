@@ -75,13 +75,12 @@ const userUpdateOrderTour = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const id = req.params.id;
-  const { fullname, email, address, gender } = req.body;
+  const request = req.body;
   try {
     const resp = await User.updateOne(
       { _id: id },
-      { fullname: fullname, email: email, address: address, gender: gender }
+      { ...request }
     );
-    console.log(resp)
     return res.status(200).json({
       message: "update ok",
     });
