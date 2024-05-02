@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import ValidateLogin from "../../components/ValidateLogin";
 import { useState } from "react";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../components/Notification/index";
 import { getUserLocal } from "../../utils/getLocalStorage";
 import { changePass } from "../../Services/AuthServices";
+import DefaultLayout from "../../components/Layout/DefaultLayout";
 
 const ChangePass = () => {
   const storedUserDataString = getUserLocal();
@@ -64,7 +64,7 @@ const ChangePass = () => {
   };
 
   return (
-    <ValidateLogin>
+    <DefaultLayout>
       <ReactNotifications />
       <div className="antialiased bg-slate-200 py-4">
         <div className="max-w-lg mx-auto py-10 bg-white px-8 rounded-xl shadow shadow-slate-300">
@@ -142,7 +142,8 @@ const ChangePass = () => {
           </div>
         </div>
       </div>
-    </ValidateLogin>
+    </DefaultLayout>
   );
 };
+
 export default ChangePass;
