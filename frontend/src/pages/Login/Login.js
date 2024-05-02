@@ -7,8 +7,10 @@ import {login} from "../../Services/AuthServices";
 
 const Login = () => {
   const navigate = useNavigate();
+
   const [name, setName] = useState();
   const [pass, setPass] = useState();
+
   const changeName = (event) => {
     setName(event.target.value);
   };
@@ -50,6 +52,7 @@ const Login = () => {
           }
         });
   };
+
   const chooseShow = () => {
     const checkbox = document.getElementById("showPasswordCheckbox");
     var passwordInput = document.getElementById("password");
@@ -60,6 +63,7 @@ const Login = () => {
       passwordInput.type = "password";
     }
   };
+  
   return (
     <DefaultLayout>
       <ReactNotifications />

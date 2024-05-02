@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 
 const Profile = () => {
-  const storedUserDataString = getUserLocal();
+  const userData = getUserLocal();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
@@ -38,7 +38,7 @@ const Profile = () => {
   };
 
   const handleSave = () => {
-    saveProfile(storedUserDataString._id, {
+    saveProfile(userData._id, {
       fullName: fullName,
       email: email,
       address: address,
@@ -51,7 +51,7 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    getProfile(storedUserDataString.username)
+    getProfile(userData._id)
       .then((response) => {
         if (response.data.fullname) setFullName(response.data.fullname);
         if (response.data.email) setEmail(response.data.email);
@@ -61,7 +61,7 @@ const Profile = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, [storedUserDataString.username]);
+  }, [userData._id]);
 
   return (
     <DefaultLayout>
@@ -79,7 +79,7 @@ const Profile = () => {
                     Tên tài khoản
                   </p>
                   <p className="col-span-2  block w-full bg-white text-gray-900  rounded-md py-3 leading-tight focus:outline-none  focus:border-gray-500">
-                    {storedUserDataString.username}
+                    {userData.username}
                   </p>
                 </div>
                 <div className="w-full md:w-full px-3 mb-6 grid grid-cols-4 gap-4">

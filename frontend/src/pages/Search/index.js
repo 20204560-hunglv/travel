@@ -46,6 +46,10 @@ const SearchItem = ({ item }) => {
     navigate(`/tour/${item._id}`);
   };
 
+  const convertDay = (day) => {
+    return dayjs(day).format("DD/MM/YYYY");
+  }
+
   return (
     <Card className="h-96 flex flex-col">
       <CardMedia
@@ -62,7 +66,7 @@ const SearchItem = ({ item }) => {
             {shorten45Chart(item.name)}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {item.start_time}
+            {convertDay(item.start_time)}
           </Typography>
         </CardContent>
       </div>
@@ -71,8 +75,8 @@ const SearchItem = ({ item }) => {
           <FavoriteIcon />
         </IconButton>
         <Typography className="text-red-500" variant="h6" component="p">
-            {currencyVnd(item.prices)}
-          </Typography>
+          {currencyVnd(item.prices)}
+        </Typography>
       </CardActions>
     </Card>
   );

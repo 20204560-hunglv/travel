@@ -1,8 +1,8 @@
 import axios from "../utils/axios";
 
-export async function get(username) {
+export async function get(id) {
   try {
-    const response = await axios.get(`/api/v1/user/${username}`);
+    const response = await axios.get(`/api/v1/user/${id}`);
     return response;
   } catch (error) {
     console.log(error);

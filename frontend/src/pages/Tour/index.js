@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import DefaultLayout from "../../components/Layout/DefaultLayout/index";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "../../utils/axios";
 import currencyVnd from "../../utils/curencyVnd";
 import Dialog from "../../components/Dialog";
 import { getUserLocal } from "../../utils/getLocalStorage";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../components/Notification/index";
 import cityLabels from "../../utils/citys";
-import { get as getTour } from "../../Services/TourServices";
+import { get as getTour, bookTour } from "../../Services/TourServices";
 
 const Tour = () => {
   const userData = getUserLocal();
@@ -20,8 +19,7 @@ const Tour = () => {
 
   const areUSureOrder = (choose) => {
     if (choose) {
-      axios
-        .post(`/api/v1/users/tour/${userData._id}`, data)
+      bookTour(userData._id, data)
         .then(() => {
           handleNotify("success", "Hoàn tất", "Đặt tour thành công!");
         })

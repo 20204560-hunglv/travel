@@ -12,7 +12,7 @@ import {
 
 const HistoryBooking = () => {
   const [modal, setModal] = useState(false);
-  const username = getUserLocal().username;
+  const userData = getUserLocal();
   const [data, setData] = useState([]);
   const [rate, setRate] = useState(0);
   const [indexRate, setIndexRate] = useState();
@@ -22,14 +22,14 @@ const HistoryBooking = () => {
   };
 
   useEffect(() => {
-    getBooking(username)
+    getBooking(userData._id)
       .then((res) => setData(res.data))
       .catch((err) => console.log(err));
-  }, [username]);
+  }, [userData._id]);
 
   const handleDelete = (index) => {
     const dataUpdate = data.filter((user, i) => i !== index);
-    updateTour(username, dataUpdate)
+    updateTour(userData._id, dataUpdate)
       .then(() => {
         setData((prevData) => prevData.filter((user, i) => i !== index));
         handleNotify("success", "Thành công", "Xóa thành công");
@@ -48,7 +48,7 @@ const HistoryBooking = () => {
         user.rate = rate;
         return user;
       });
-      updateTour(username, dataUpdate)
+      updateTour(userData._id, dataUpdate)
         .then(() => {
           handleNotify("success", "Thành công", "Đánh giá thành công");
         })
