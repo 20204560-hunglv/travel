@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import DefaultLayout from "../../components/Layout/DefaultLayout/index";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "../../utils/axios";
 import currencyVnd from "../../utils/curencyVnd";
 import Dialog from "../../components/Dialog";
@@ -11,12 +11,17 @@ import cityLabels from "../../utils/citys";
 import { get as getTour } from "../../Services/TourServices";
 
 const Tour = () => {
-  const username = getUserLocal().username;
+  const userData = getUserLocal();
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   const [dialog, setDialog] = useState(false);
+  const [data, setData] = useState({});
+
   const areUSureOrder = (choose) => {
     if (choose) {
       axios
-        .post(`/api/v1/users/tour/${username}`, data)
+        .post(`/api/v1/users/tour/${userData._id}`, data)
         .then(() => {
           handleNotify("success", "Hoàn tất", "Đặt tour thành công!");
         })
@@ -27,8 +32,6 @@ const Tour = () => {
     }
   };
 
-  const { id } = useParams();
-  const [data, setData] = useState({});
   useEffect(() => {
     getTour(id)
       .then((res) => {
@@ -36,10 +39,18 @@ const Tour = () => {
       })
       .catch((err) => console.log(err));
   }, [id]);
+
   const selectCity = (value) => {
     const city = cityLabels.find((item) => item.value === value);
     return city.label;
   };
+
+  const handleBookTour = () => {
+    if (!userData) {
+      navigate("/login");
+    } else setDialog(true);
+  };
+
   return (
     <DefaultLayout>
       <ReactNotifications />
@@ -75,8 +86,9 @@ const Tour = () => {
             </p>
           </div>
           <div
-            onClick={() => setDialog(true)}
-            className="font-bold cursor-pointer text-white text-base leading-5 rounded-lg py-5 px-28 bg-gradient-to-br from-red-500 to-red-700"
+            onClick={() => handleBookTour()}
+            className="font-bold cursor-pointer text-white text-base leading-5 
+            rounded-lg py-5 px-28 bg-gradient-to-br from-red-500 to-red-700"
           >
             ĐẶT NGAY
           </div>
@@ -92,4 +104,5 @@ const Tour = () => {
     </DefaultLayout>
   );
 };
+
 export default Tour;

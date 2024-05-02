@@ -65,3 +65,11 @@ export async function update(id, data) {
     throw error;
   }
 }
+
+export async function bookTour(id, tours) {
+  try {
+    await axios.post(`/api/v1/users/tour/${id}`, tours);
+  } catch (error) {
+    throw error;
+  }
+}

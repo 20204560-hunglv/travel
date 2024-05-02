@@ -1,11 +1,11 @@
 import { getUserLocal } from "../../utils/getLocalStorage";
-import NotFound from "../NotFound/notFound";
 import { Outlet } from "react-router-dom";
+import Login from "../../pages/Login/Login";
 
 const ProtectRouterUser = () => {
   const dataUser = getUserLocal();
 
-  return dataUser ? <Outlet /> : <NotFound />;
+  return dataUser ? <Outlet /> : <Login />;
 };
 
 export default ProtectRouterUser;

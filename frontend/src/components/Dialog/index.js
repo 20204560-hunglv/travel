@@ -27,7 +27,9 @@ function Dialog({ message, onDialog, nameProduct }) {
           borderRadius: "10px",
         }}
       >
-        <h3 className="text-lg leading-6 font-medium text-gray-900">{message}</h3>
+        <h3 className="text-lg leading-6 font-medium text-gray-900">
+          {message}
+        </h3>
         <div className="mt-2">
           <p className="text-sm leading-5 text-gray-500">{nameProduct}</p>
         </div>
@@ -49,4 +51,5 @@ function Dialog({ message, onDialog, nameProduct }) {
     </div>
   );
 }
+
 export default Dialog;
