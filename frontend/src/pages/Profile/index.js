@@ -15,11 +15,13 @@ import {
   RadioGroup,
   TextField,
 } from "@mui/material";
+import dayjs from "dayjs";
 
 const Profile = () => {
   const userData = getUserLocal();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
+  const [numberPhone, setNumberPhone] = useState("");
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
   const [birthDate, setBirthDate] = useState(null);
@@ -30,6 +32,9 @@ const Profile = () => {
   const handleEmail = (event) => {
     setEmail(event.target.value);
   };
+  const handleNumberPhone = (event) => {
+    setNumberPhone(event.target.value);
+  };
   const handleAddress = (event) => {
     setAddress(event.target.value);
   };
@@ -37,12 +42,14 @@ const Profile = () => {
     setGender(event.target.value);
   };
 
-  const handleSave = () => {
-    saveProfile(userData._id, {
-      fullName: fullName,
-      email: email,
-      address: address,
-      gender: gender,
+  const handleSave = async () => {
+    await saveProfile(userData._id, {
+      fullName,
+      email,
+      numberPhone,
+      address,
+      gender,
+      birthDate: birthDate ? birthDate.format() : birthDate,
     })
       .then(() => {
         handleNotify("success", "Thành công", "Lưu thông tin thành công!");
@@ -53,10 +60,14 @@ const Profile = () => {
   useEffect(() => {
     getProfile(userData._id)
       .then((response) => {
-        if (response.data.fullname) setFullName(response.data.fullname);
+        if (response.data.fullName) setFullName(response.data.fullName);
         if (response.data.email) setEmail(response.data.email);
+        if (response.data.numberPhone)
+          setNumberPhone(response.data.numberPhone);
         if (response.data.address) setAddress(response.data.address);
         if (response.data.gender) setGender(response.data.gender);
+        if (response.data.birthDate)
+          setBirthDate(dayjs(response.data.birthDate));
       })
       .catch((error) => {
         console.error(error);
@@ -78,7 +89,7 @@ const Profile = () => {
                   <p className="block uppercase tracking-wide text-gray-700 text-xs content-center text-end">
                     Tên tài khoản
                   </p>
-                  <p className="col-span-2  block w-full bg-white text-gray-900  rounded-md py-3 leading-tight focus:outline-none  focus:border-gray-500">
+                  <p className="col-span-3  block w-5/6 bg-white text-gray-900  rounded-md py-3 leading-tight focus:outline-none  focus:border-gray-500">
                     {userData.username}
                   </p>
                 </div>
@@ -90,7 +101,7 @@ const Profile = () => {
                     Họ và tên
                   </label>
                   <TextField
-                    className="col-span-2 w-full"
+                    className="col-span-3 w-5/6"
                     id="full-name"
                     variant="outlined"
                     type="text"
@@ -107,7 +118,7 @@ const Profile = () => {
                     Email
                   </label>
                   <TextField
-                    className="col-span-2 w-full"
+                    className="col-span-3 w-5/6"
                     id="email-input"
                     variant="outlined"
                     type="text"
@@ -118,13 +129,30 @@ const Profile = () => {
                 </div>
                 <div className="w-full md:w-full px-3 mb-6 grid grid-cols-4 gap-4">
                   <label
+                    className="content-center text-end block uppercase tracking-wide text-gray-700 text-xs"
+                    htmlFor="phone-input"
+                  >
+                    Email
+                  </label>
+                  <TextField
+                    className="col-span-3 w-5/6"
+                    id="phone-input"
+                    variant="outlined"
+                    type="text"
+                    placeholder="Số điện thoại"
+                    value={numberPhone}
+                    onChange={handleNumberPhone}
+                  />
+                </div>
+                <div className="w-full md:w-full px-3 mb-6 grid grid-cols-4 gap-4">
+                  <label
                     className="block content-center text-end uppercase tracking-wide text-gray-700 text-xs"
                     htmlFor="address-input"
                   >
                     Địa chỉ
                   </label>
                   <TextField
-                    className="col-span-2 w-full"
+                    className="col-span-3 w-5/6"
                     id="address-input"
                     variant="outlined"
                     type="text"
@@ -137,24 +165,7 @@ const Profile = () => {
                   <p className="content-center text-end block uppercase tracking-wide text-gray-700 text-xs">
                     Giới tính
                   </p>
-                  <div className="flex col-span-2">
-                    {/* <div className="flex items-center px-4">
-                      <input
-                        id="gender-radio-1"
-                        type="radio"
-                        value="nam"
-                        name="gender-radio"
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-                        onChange={handleGender}
-                        checked={gender === "nam"}
-                      />
-                      <label
-                        htmlFor="gender-radio-1"
-                        className="ms-2 text-sm font-medium text-gray-900"
-                      >
-                        Nam
-                      </label>
-                    </div> */}
+                  <div className="flex col-span-3">
                     <RadioGroup
                       id="radio-buttons-gender"
                       row
@@ -173,24 +184,12 @@ const Profile = () => {
                         control={<Radio />}
                         label="Nam"
                       />
-                    </RadioGroup>
-                    {/* <div className="flex items-center ml-4">
-                      <input
-                        id="gender-radio-2"
-                        type="radio"
-                        value="nu"
-                        checked={gender === "nu"}
-                        onChange={handleGender}
-                        name="gender-radio"
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
+                      <FormControlLabel
+                        value="khac"
+                        control={<Radio />}
+                        label="Khác"
                       />
-                      <label
-                        htmlFor="gender-radio-2"
-                        className="ms-2 text-sm font-medium text-gray-900"
-                      >
-                        Nữ
-                      </label>
-                    </div> */}
+                    </RadioGroup>
                   </div>
                 </div>
                 <div className="w-full md:w-full mt-4 px-3 grid grid-cols-4 gap-4">
@@ -199,8 +198,9 @@ const Profile = () => {
                       Ngày sinh
                     </p>
                   </div>
-                  <div className="content-center h-10 text-404040 col-span-2">
+                  <div className="content-center h-10 text-404040 col-span-3">
                     <DatePicker
+                      format="DD/MM/YYYY"
                       value={birthDate}
                       onChange={(newDate) => setBirthDate(newDate)}
                     />

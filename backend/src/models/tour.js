@@ -9,6 +9,13 @@ const Tour = new Schema({
   prices: String,
   addressFrom: String,
   addressTo: String,
+  describe: { type: String},
+  slotStill: { type: Number},
+  tourGuide: { type: Schema},
+  vehicle: { type: String},
+  visitLocation: { type: String},
+  slotMax: { type: Number},
+  favourite: { type: Number},
 }, {timestamps: true});
 
 module.exports = mongoose.model("Tour", Tour);

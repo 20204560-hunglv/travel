@@ -21,7 +21,6 @@ const userOrderTour = async (req, res) => {
   }
 };
 
-
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find({});
@@ -76,11 +75,11 @@ const userUpdateOrderTour = async (req, res) => {
 const updateUser = async (req, res) => {
   const id = req.params.id;
   const request = req.body;
+
+
   try {
-    const resp = await User.updateOne(
-      { _id: id },
-      { ...request }
-    );
+    await User.updateOne({ _id: id }, { ...request });
+    
     return res.status(200).json({
       message: "update ok",
     });
@@ -134,7 +133,7 @@ const updatePassword = async (req, res) => {
   const id = req.params.id;
   const { pass, newPass } = req.body;
   try {
-    const isPass = await User.findOne({ _id: id, password: pass});
+    const isPass = await User.findOne({ _id: id, password: pass });
     // const isPass = await User.findOne({ username: username, password: pass });
     if (!isPass) return res.status(409).json({ error: "Password wrong" });
     await User.updateOne({ _id: id }, { password: newPass });
@@ -169,7 +168,7 @@ const deleteUser = async (req, res) => {
     const respUser = await User.deleteOne({ _id: id });
     return res.status(200).json({
       message: "delete ok",
-      data: respUser
+      data: respUser,
     });
   } catch (err) {
     console.error(err);

@@ -6,11 +6,11 @@ import Premium from "./Premium";
 const Home = () => {
   return (
     <DefaultLayout>
-      <main>
+      <div>
         <Banner />
         <Premium />
         <Favorite />
-      </main>
+      </div>
     </DefaultLayout>
   );
 };

@@ -2,12 +2,14 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const User = new Schema({
-  username: String,
+  userName: String,
   password: String,
-  fullname: String,
+  fullName: String,
   email: String,
+  numberPhone: { type: String},
   address: String,
   gender: String,
+  birthDate: { type: Date },
   tours: {type: Array},
 },{timestamps: true});
 

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import citys from "../../../utils/citys";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import dayjs from "dayjs";
 
 const Banner = () => {
   const cityLabels = citys;

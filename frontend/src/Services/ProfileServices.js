@@ -9,15 +9,9 @@ export async function get(id) {
   }
 }
 
-export async function save(id, { fullName, email, address, gender }) {
+export async function save(id, data) {
   try {
-    console.log(fullName, email, address, gender);
-    await axios.put(`/api/v1/user_crud/${id}`, {
-      fullname: fullName,
-      email: email,
-      address: address,
-      gender: gender,
-    });
+    await axios.put(`/api/v1/user_crud/${id}`, data);
   } catch (error) {
     console.log(error);
   }
