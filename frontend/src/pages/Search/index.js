@@ -56,30 +56,32 @@ const SearchItem = ({ item }) => {
         <CardMedia
           component="img"
           sx={{
-            height: 160,
+            height: 200,
           }}
           image={item.main_image_url}
           alt={item.main_image_url}
         />
       </div>
-      <div onClick={handleToBooking} className="cursor-pointer">
-        <CardContent>
-          <Typography variant="h6" component="div">
-            {shorten45Chart(item.name)}
+      <div className="flex flex-col justify-between h-full">
+        <div onClick={handleToBooking} className="cursor-pointer">
+          <CardContent>
+            <Typography variant="h6" component="div">
+              {shorten45Chart(item.name)}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {convertDay(item.start_time)}
+            </Typography>
+          </CardContent>
+        </div>
+        <CardActions className="flex justify-between">
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
+          </IconButton>
+          <Typography className="text-red-500" variant="h6" component="p">
+            {currencyVnd(item.prices)}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {convertDay(item.start_time)}
-          </Typography>
-        </CardContent>
+        </CardActions>
       </div>
-      <CardActions className="flex justify-between">
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <Typography className="text-red-500" variant="h6" component="p">
-          {currencyVnd(item.prices)}
-        </Typography>
-      </CardActions>
     </Card>
   );
 };

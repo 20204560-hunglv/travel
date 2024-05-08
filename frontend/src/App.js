@@ -14,11 +14,13 @@ import ChangePass from "./pages/ChangePass";
 import LoginAdmin from "./pages/Admin/LoginAdmin";
 import HistoryBooking from "./pages/HistoryBooking";
 import ScrollToTop from "./components/ScrollToTop";
+import CssBaseline from '@mui/material/CssBaseline';
 
 const App = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <CssBaseline />
 
       <Routes>
         <Route path="/login" element={<Login />} />
