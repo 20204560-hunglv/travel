@@ -116,8 +116,8 @@ const Icons = {
 
   FaceBook: () => (
     <svg
-      width="30px"
-      height="30px"
+      width="20px"
+      height="20px"
       viewBox="0 0 32 32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -161,8 +161,8 @@ const Icons = {
 
   Instagram: () => (
     <svg
-      width="30px"
-      height="30px"
+      width="20px"
+      height="20px"
       viewBox="0 0 32 32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -264,8 +264,8 @@ const Icons = {
 
   Messenger: () => (
     <svg
-      width="30px"
-      height="30px"
+      width="20px"
+      height="20px"
       viewBox="0 0 48 48"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
@@ -310,8 +310,8 @@ const Icons = {
 
   Youtube: () => (
     <svg
-      width="30px"
-      height="30px"
+      width="20px"
+      height="20px"
       viewBox="0 0 16 16"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"

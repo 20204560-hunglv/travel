@@ -3,7 +3,7 @@ import Icons from "../../../Icons";
 const Footer = () => {
   return (
     <footer>
-      <div className="flex flex-col space-y-5 py-5  justify-center w-11/12 mx-auto border-t border-dfe3e6">
+      <div className="flex flex-col space-y-2 py-4  justify-center w-11/12 mx-auto border-t border-dfe3e6">
         <div className="flex justify-center space-x-5">
           <a
             href="https://facebook.com"

@@ -27,7 +27,7 @@ import { shorten45Chart } from "../../utils/shortenString";
 const Choose = (props) => {
   return (
     <div className="font-semibold text-sm mb-4">
-      <h5>{props.label}</h5>
+      <p>{props.label}</p>
       <Select className="w-full" value={props.value} onChange={props.onChange}>
         {citys.map((city, index) => (
           <MenuItem key={index} value={city.value}>
@@ -48,18 +48,20 @@ const SearchItem = ({ item }) => {
 
   const convertDay = (day) => {
     return dayjs(day).format("DD/MM/YYYY");
-  }
+  };
 
   return (
     <Card className="h-96 flex flex-col">
-      <CardMedia
-        component="img"
-        sx={{
-          height: "50%",
-        }}
-        image={item.main_image_url}
-        alt={item.main_image_url}
-      />
+      <div>
+        <CardMedia
+          component="img"
+          sx={{
+            height: 160,
+          }}
+          image={item.main_image_url}
+          alt={item.main_image_url}
+        />
+      </div>
       <div onClick={handleToBooking} className="cursor-pointer">
         <CardContent>
           <Typography variant="h6" component="div">
@@ -126,8 +128,8 @@ const Search = () => {
 
   return (
     <DefaultLayout>
-      <div className="flex min-h-630 m-auto w-11/12">
-        <div className="bg-gray-100 w-1/4 pt-12">
+      <div className="flex min-h-630 m-auto w-11/12 py-10">
+        <div className="bg-gray-100 w-1/4 pt-12 h-fit">
           <div className="w-4/5 mx-auto">
             <p className={`font-bold text-xl mb-6 text-center`}>Lọc kết quả</p>
             <Choose label="ĐIỂM ĐI" value={countryFrom} onChange={handleFrom} />
@@ -158,7 +160,7 @@ const Search = () => {
                 className="w-full"
               />
             </div>
-            <div className="text-center mt-6 cursor-pointer">
+            <div className="text-center mt-6 cursor-pointer mb-6">
               <Button variant="contained">Tìm kiếm</Button>
             </div>
           </div>
@@ -171,14 +173,14 @@ const Search = () => {
             <Grid
               container
               spacing={{ xs: 2, md: 3 }}
-              columns={{ xs: 4, sm: 8, md: 12 }}
+              columns={{ xs: 4, sm: 8, md: 3 }}
             >
               {data
                 .filter((item) => {
                   return compareItem(item);
                 })
                 .map((item, index) => (
-                  <Grid xs={2} sm={4} md={4} key={index}>
+                  <Grid xs={2} sm={4} md={1} key={index}>
                     <SearchItem item={item} />
                   </Grid>
                 ))}
