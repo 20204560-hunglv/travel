@@ -24,6 +24,7 @@ import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import Grid from "@mui/material/Unstable_Grid2";
 import dayjs from "dayjs";
 import { truncateString } from "../../utils/shortenString";
+import {formatDate} from "../../utils/formatTime"
 
 const SearchItem = ({ item }) => {
   const navigate = useNavigate();
@@ -212,7 +213,7 @@ const Tour = () => {
                 gutterBottom
               >
                 <span className="font-normal">Khởi hành lúc: </span>
-                {`${data.start_time}`}
+                {formatDate(data.start_time, "DD/MM/YYYY HH:mm")}
               </Typography>
               <Typography
                 sx={{ fontWeight: 700 }}

@@ -14,39 +14,52 @@ import ChangePass from "./pages/ChangePass";
 import LoginAdmin from "./pages/Admin/LoginAdmin";
 import HistoryBooking from "./pages/HistoryBooking";
 import ScrollToTop from "./components/ScrollToTop";
-import CssBaseline from '@mui/material/CssBaseline';
+import CssBaseline from "@mui/material/CssBaseline";
+import { createTheme, ThemeProvider, useTheme } from "@mui/material/styles";
+import { viVN } from "@mui/material/locale";
 
 const App = () => {
+  const theme = createTheme(
+    {
+      palette: {
+        primary: { main: "#1976d2" },
+      },
+    },
+    viVN
+  );
+
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <CssBaseline />
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <ScrollToTop />
+        <CssBaseline />
 
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/tour/:id" element={<Tour />} />
-        <Route path="/search" element={<Search />} />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/tour/:id" element={<Tour />} />
+          <Route path="/search" element={<Search />} />
 
-        <Route element={<ProtectRouterUser />}>
-          <Route path="/history-booking" element={<HistoryBooking />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/change-pass" element={<ChangePass />} />
-        </Route>
-
-        <Route path="/admin">
-          <Route index element={<LoginAdmin />} />
-          <Route element={<ProtectRouterAdmin />}>
-            <Route path="crud-user" element={<CrudUser />} />
-            <Route path="crud-tour" element={<CrudTour />} />
+          <Route element={<ProtectRouterUser />}>
+            <Route path="/history-booking" element={<HistoryBooking />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/change-pass" element={<ChangePass />} />
           </Route>
-        </Route>
 
-        <Route path="/404" element={<NotFound />} />
-        <Route path="/" element={<Home />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+          <Route path="/admin">
+            <Route index element={<LoginAdmin />} />
+            <Route element={<ProtectRouterAdmin />}>
+              <Route path="crud-user" element={<CrudUser />} />
+              <Route path="crud-tour" element={<CrudTour />} />
+            </Route>
+          </Route>
+
+          <Route path="/404" element={<NotFound />} />
+          <Route path="/" element={<Home />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 };
 

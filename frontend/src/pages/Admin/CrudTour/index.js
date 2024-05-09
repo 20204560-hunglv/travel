@@ -57,7 +57,7 @@ const CrudTour = () => {
       return str;
     }
   }
-  
+
   return (
     <div>
       <ReactNotifications />
@@ -134,7 +134,7 @@ const CrudTour = () => {
               ))}
             </tbody>
           </table> */}
-          <TableTour />
+          <TableTour data = {data} />
           {showDeletePopup && (
             <ConfirmDelete setShow={setDeletePopup} setDel={setDel} />
           )}
