@@ -15,7 +15,7 @@ import LoginAdmin from "./pages/Admin/LoginAdmin";
 import HistoryBooking from "./pages/HistoryBooking";
 import ScrollToTop from "./components/ScrollToTop";
 import CssBaseline from "@mui/material/CssBaseline";
-import { createTheme, ThemeProvider, useTheme } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { viVN } from "@mui/material/locale";
 
 const App = () => {

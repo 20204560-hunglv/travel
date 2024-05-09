@@ -1,5 +1,4 @@
 import SideBar from "./SideBar";
-import HeaderResult from "./HeaderResult";
 import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { useNavigate } from "react-router-dom";

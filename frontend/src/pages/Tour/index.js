@@ -6,7 +6,7 @@ import Dialog from "../../components/Dialog";
 import { getUserLocal } from "../../utils/getLocalStorage";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../components/Notification/index";
-import cityLabels from "../../utils/citys";
+import {selectNameCity} from "../../utils/citys";
 import { get as getTour, bookTour } from "../../Services/TourServices";
 import {
   Button,
@@ -148,11 +148,6 @@ const Tour = () => {
       .catch((err) => console.log(err));
   }, [id]);
 
-  const selectCity = (value) => {
-    const city = cityLabels.find((item) => item.value === value);
-    return city.label;
-  };
-
   const handleBookTour = () => {
     if (!userData) {
       navigate("/login");
@@ -197,7 +192,7 @@ const Tour = () => {
                 gutterBottom
               >
                 <span className="font-normal">Nơi khởi hành: </span>
-                {`${data.addressFrom && selectCity(data.addressFrom)}`}
+                {`${data.addressFrom && selectNameCity(data.addressFrom)}`}
               </Typography>
               <Typography
                 sx={{ fontWeight: 700 }}
@@ -205,7 +200,7 @@ const Tour = () => {
                 gutterBottom
               >
                 <span className="font-normal">Nơi đến: </span>
-                {`${data.addressTo && selectCity(data.addressTo)}`}
+                {`${data.addressTo && selectNameCity(data.addressTo)}`}
               </Typography>
               <Typography
                 sx={{ fontWeight: 700 }}

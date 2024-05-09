@@ -49,15 +49,6 @@ const CrudTour = () => {
     }
   }, [del, id]);
 
-  // Neu >= 45 ky tu, thi thay the bang 3 cham
-  function truncateString(str) {
-    if (str && str.length >= 45) {
-      return str.slice(0, 42) + "...";
-    } else {
-      return str;
-    }
-  }
-
   return (
     <div>
       <ReactNotifications />

@@ -19,7 +19,9 @@ import Tooltip from "@mui/material/Tooltip";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
-import {formatDate} from "../../../utils/formatTime"
+import {formatDate} from "../../../utils/formatTime";
+import {selectNameCity} from "../../../utils/citys";
+import currencyVnd from "../../../utils/curencyVnd"
 
 function createData(id, name, calories, fat, carbs, protein) {
   return {
@@ -287,7 +289,7 @@ export default function TableTour({data}) {
 
   const visibleRows = React.useMemo(
     () =>
-      stableSort(rows, getComparator(order, orderBy)).slice(
+      stableSort(data, getComparator(order, orderBy)).slice(
         page * rowsPerPage,
         page * rowsPerPage + rowsPerPage
       ),
@@ -343,9 +345,9 @@ export default function TableTour({data}) {
                       {row.name}
                     </TableCell>
                     <TableCell align="right">{formatDate(row.start_time)}</TableCell>
-                    <TableCell align="right">{row.addressFrom}</TableCell>
-                    <TableCell align="right">{row.addressTo}</TableCell>
-                    <TableCell align="right">{row.prices}</TableCell>
+                    <TableCell align="right">{selectNameCity(row.addressFrom)}</TableCell>
+                    <TableCell align="right">{selectNameCity(row.addressTo)}</TableCell>
+                    <TableCell align="right">{currencyVnd(row.prices)}</TableCell>
                   </TableRow>
                 );
               })}
