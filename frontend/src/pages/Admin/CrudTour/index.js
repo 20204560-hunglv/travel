@@ -5,6 +5,8 @@ import { handleNotify } from "../../../components/Notification/index";
 import CrudTourModal from "../../../components/Modal/CRUDTourModal";
 import ConfirmDelete from "../../../components/Modal/ConfirmDelete";
 import { getAll, deleteTour } from "../../../Services/TourServices";
+import HeaderResult from "../../../components/Layout/LayoutAdmin/HeaderResult";
+import TableTour from "../../../components/Table/TableTour"
 
 const CrudTour = () => {
   const [data, setData] = useState([]);
@@ -55,6 +57,7 @@ const CrudTour = () => {
       return str;
     }
   }
+  
   return (
     <div>
       <ReactNotifications />
@@ -66,45 +69,8 @@ const CrudTour = () => {
         />
       ) : (
         <LayoutAdmin>
-          <div className="flex items-center justify-end my-7">
-            <div className="px-4 ">
-              <button
-                onClick={() => {
-                  setDataEdit({
-                    name: "",
-                    period: "",
-                    startTime: "",
-                    urlImage: "",
-                    prices: "",
-                    addressFrom: "",
-                    addressTo: "",
-                  });
-                  setTypeChange("add");
-                  setChange(true);
-                }}
-                className="bg-green-400 hover:bg-green-500 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="feather feather-plus-circle"
-                >
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <line x1="12" y1="8" x2="12" y2="16"></line>
-                  <line x1="8" y1="12" x2="16" y2="12"></line>
-                </svg>
-                <span className="pl-2">Thêm</span>
-              </button>
-            </div>
-          </div>
-          <table className="mr-0 pr-0 max-w-6xl w-full divide-y divide-gray-200">
+          <HeaderResult setChange={() => setChange(true)} />
+          {/* <table className="mr-0 pr-0 max-w-6xl w-full divide-y divide-gray-200">
             <thead>
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -167,7 +133,8 @@ const CrudTour = () => {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table> */}
+          <TableTour />
           {showDeletePopup && (
             <ConfirmDelete setShow={setDeletePopup} setDel={setDel} />
           )}

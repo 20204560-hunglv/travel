@@ -22,7 +22,7 @@ import {
 import dayjs from "dayjs";
 import Grid from "@mui/material/Unstable_Grid2";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { shorten45Chart } from "../../utils/shortenString";
+import { truncateString } from "../../utils/shortenString";
 
 const Choose = (props) => {
   return (
@@ -66,7 +66,7 @@ const SearchItem = ({ item }) => {
         <div onClick={handleToBooking} className="cursor-pointer">
           <CardContent>
             <Typography variant="h6" component="div">
-              {shorten45Chart(item.name)}
+              {truncateString(item.name)}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {convertDay(item.start_time)}

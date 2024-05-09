@@ -1,7 +1,7 @@
-export function shorten45Chart(value) {
-  let newValue = value;
-  if (newValue.length > 45) {
-    newValue = newValue.slice(0, 44);
+export function truncateString(str, length = 45) {
+  if (str && str.length > length) {
+    return str.slice(0, 44) + "...";
+  } else {
+    return str;
   }
-  return newValue;
 }

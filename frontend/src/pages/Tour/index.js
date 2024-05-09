@@ -23,7 +23,7 @@ import MapIcon from "@mui/icons-material/Map";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import Grid from "@mui/material/Unstable_Grid2";
 import dayjs from "dayjs";
-import { shorten45Chart } from "../../utils/shortenString";
+import { truncateString } from "../../utils/shortenString";
 
 const SearchItem = ({ item }) => {
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ const SearchItem = ({ item }) => {
       <div onClick={handleToBooking} className="cursor-pointer">
         <CardContent>
           <Typography variant="h6" component="div">
-            {shorten45Chart(item.name)}
+            {truncateString(item.name)}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {convertDay(item.start_time)}

@@ -1,8 +1,9 @@
 import SideBar from "./SideBar";
-import Search from "./Search";
+import HeaderResult from "./HeaderResult";
 import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { useNavigate } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const LayoutAdmin = ({ children }) => {
   const navigate = useNavigate();
@@ -21,7 +22,11 @@ const LayoutAdmin = ({ children }) => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Admin
             </Typography>
-            <Button onClick={() => handleLogout()} color="inherit">
+            <Button
+              startIcon={<LogoutIcon />}
+              onClick={() => handleLogout()}
+              color="inherit"
+            >
               Đăng xuất
             </Button>
           </Toolbar>
@@ -33,9 +38,9 @@ const LayoutAdmin = ({ children }) => {
         </div>
         <div className={`w-full col-span-5`}>
           <div className="mx-5">
-            <div>
-              <Search />
-            </div>
+            {/* <div>
+              <HeaderResult />
+            </div> */}
             <div>{children}</div>
           </div>
         </div>

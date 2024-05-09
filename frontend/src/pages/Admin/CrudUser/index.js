@@ -5,6 +5,8 @@ import { handleNotify } from "../../../components/Notification/index";
 import CrudUserModal from "../../../components/Modal/CRUDUserModal";
 import ConfirmDelete from "../../../components/Modal/ConfirmDelete";
 import { getAll, deleteUser } from "../../../Services/UserServices";
+import HeaderResult from "../../../components/Layout/LayoutAdmin/HeaderResult";
+import TableUser from "../../../components/Table/TableUser"
 
 const CrudUser = () => {
   const [data, setData] = useState([]);
@@ -71,33 +73,8 @@ const CrudUser = () => {
         <CrudUserModal data={dataEdit} handleChangeFalse={handleChangeFalse} />
       ) : (
         <LayoutAdmin>
-          <div className="flex items-center justify-end my-7">
-            <div className="px-4">
-              <button
-                onClick={() => setChange(true)}
-                className="bg-green-400 hover:bg-green-500 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="feather feather-plus-circle"
-                >
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <line x1="12" y1="8" x2="12" y2="16"></line>
-                  <line x1="8" y1="12" x2="16" y2="12"></line>
-                </svg>
-                <span className="pl-2">Thêm</span>
-              </button>
-            </div>
-          </div>
-          <table className="max-w-6xl divide-y divide-gray-200">
+          <HeaderResult setChange={() => setChange(true)} />
+          {/* <table className="max-w-6xl divide-y divide-gray-200">
             <thead>
               <tr>
                 <th className="w-1/4 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -164,7 +141,8 @@ const CrudUser = () => {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table> */}
+          <TableUser />
           {showDeletePopup && (
             <ConfirmDelete setShow={setDeletePopup} setDel={setDel} />
           )}
