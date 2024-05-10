@@ -6,23 +6,19 @@ import CrudTourModal from "../../../components/Modal/CRUDTourModal";
 import ConfirmDelete from "../../../components/Modal/ConfirmDelete";
 import { getAll, deleteTour } from "../../../Services/TourServices";
 import HeaderResult from "../../../components/Layout/LayoutAdmin/HeaderResult";
-import TableTour from "../../../components/Table/TableTour"
+import TableTour from "../../../components/Table/TableTour";
 
 const CrudTour = () => {
   const [data, setData] = useState([]);
   const [change, setChange] = useState(false);
-  const [typeChange, setTypeChange] = useState("");
+  const [typeChange] = useState("");
   const [showDeletePopup, setDeletePopup] = useState(false);
-  const [id, setId] = useState();
-  const [dataEdit, setDataEdit] = useState({});
+  const [id] = useState();
+  const [dataEdit] = useState({});
   const [del, setDel] = useState(false);
 
   const handleChangeFalse = () => {
     setChange(false);
-  };
-  const handleDelete = (_id) => {
-    setDeletePopup(true);
-    setId(_id);
   };
 
   const fetchData = async () => {
@@ -50,7 +46,7 @@ const CrudTour = () => {
   }, [del, id]);
 
   return (
-    <div>
+    <LayoutAdmin>
       <ReactNotifications />
       {change ? (
         <CrudTourModal
@@ -59,7 +55,7 @@ const CrudTour = () => {
           handleChangeFalse={handleChangeFalse}
         />
       ) : (
-        <LayoutAdmin>
+        <>
           <HeaderResult setChange={() => setChange(true)} />
           {/* <table className="mr-0 pr-0 max-w-6xl w-full divide-y divide-gray-200">
             <thead>
@@ -125,13 +121,13 @@ const CrudTour = () => {
               ))}
             </tbody>
           </table> */}
-          <TableTour data = {data} />
+          <TableTour data={data} />
           {showDeletePopup && (
             <ConfirmDelete setShow={setDeletePopup} setDel={setDel} />
           )}
-        </LayoutAdmin>
+        </>
       )}
-    </div>
+    </LayoutAdmin>
   );
 };
 export default CrudTour;

@@ -23,34 +23,8 @@ import {formatDate} from "../../../utils/formatTime";
 import {selectNameCity} from "../../../utils/citys";
 import currencyVnd from "../../../utils/curencyVnd"
 
-function createData(id, name, calories, fat, carbs, protein) {
-  return {
-    id,
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-  };
-}
-
-const rows = [
-  createData(1, "Cupcake", 305, 3.7, 67, 4.3),
-  createData(2, "Donut", 452, 25.0, 51, 4.9),
-  createData(3, "Eclair", 262, 16.0, 24, 6.0),
-  createData(4, "Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData(5, "Gingerbread", 356, 16.0, 49, 3.9),
-  createData(6, "Honeycomb", 408, 3.2, 87, 6.5),
-  createData(7, "Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData(8, "Jelly Bean", 375, 0.0, 94, 0.0),
-  createData(9, "KitKat", 518, 26.0, 65, 7.0),
-  createData(10, "Lollipop", 392, 0.2, 98, 0.0),
-  createData(11, "Marshmallow", 318, 0, 81, 2.0),
-  createData(12, "Nougat", 360, 19.0, 9, 37.0),
-  createData(13, "Oreo", 437, 18.0, 63, 4.0),
-];
-
 function descendingComparator(a, b, orderBy) {
+  
   if (b[orderBy] < a[orderBy]) {
     return -1;
   }
@@ -86,7 +60,7 @@ const headCells = [
     label: "Tên",
   },
   {
-    id: "dayStart",
+    id: "start_time",
     numeric: true,
     disablePadding: false,
     label: "Thời gian đi",
@@ -133,9 +107,9 @@ function EnhancedTableHead(props) {
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
-            // inputProps={{
-            //   "aria-label": "select all desserts",
-            // }}
+            inputProps={{
+              "aria-label": "select all tours",
+            }}
           />
         </TableCell>
         {headCells.map((headCell) => (
@@ -233,7 +207,7 @@ EnhancedTableToolbar.propTypes = {
 
 export default function TableTour({data}) {
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("calories");
+  const [orderBy, setOrderBy] = React.useState("");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -246,7 +220,7 @@ export default function TableTour({data}) {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.id);
+      const newSelected = data.map((n) => n._id);
       setSelected(newSelected);
       return;
     }
@@ -285,7 +259,7 @@ export default function TableTour({data}) {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
   const visibleRows = React.useMemo(
     () =>
@@ -293,7 +267,7 @@ export default function TableTour({data}) {
         page * rowsPerPage,
         page * rowsPerPage + rowsPerPage
       ),
-    [order, orderBy, page, rowsPerPage]
+    [order, orderBy, page, rowsPerPage, data]
   );
 
   return (
@@ -308,11 +282,11 @@ export default function TableTour({data}) {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={data.length}
             />
             <TableBody>
               {/* {visibleRows.map((row, index) => { */}
-              {data.map((row, index) => {
+              {visibleRows.map((row, index) => {
                 const isItemSelected = isSelected(row._id);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -366,7 +340,7 @@ export default function TableTour({data}) {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

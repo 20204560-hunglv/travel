@@ -6,15 +6,15 @@ import CrudUserModal from "../../../components/Modal/CRUDUserModal";
 import ConfirmDelete from "../../../components/Modal/ConfirmDelete";
 import { getAll, deleteUser } from "../../../Services/UserServices";
 import HeaderResult from "../../../components/Layout/LayoutAdmin/HeaderResult";
-import TableUser from "../../../components/Table/TableUser"
+import TableUser from "../../../components/Table/TableUser";
 
 const CrudUser = () => {
   const [data, setData] = useState([]);
   const [change, setChange] = useState(false);
-  const [dataEdit, setDataEdit] = useState({});
+  const [dataEdit] = useState({});
   const [showDeletePopup, setDeletePopup] = useState(false);
   const [del, setDel] = useState(false);
-  const [id, setId] = useState();
+  const [id] = useState();
 
   const handleChangeFalse = () => {
     setChange(false);
@@ -36,9 +36,7 @@ const CrudUser = () => {
     if (del) {
       deleteUser(id)
         .then(() => {
-          setData((prevData) =>
-            prevData.filter((user) => user._id !== id)
-          );
+          setData((prevData) => prevData.filter((user) => user._id !== id));
           handleNotify("success", "Thành công", "Xóa thành công");
         })
         .catch((err) => console.log(err));
@@ -46,33 +44,13 @@ const CrudUser = () => {
     }
   }, [del, id]);
 
-  const handleDelete = (id) => {
-    setDeletePopup(true);
-    setId(id);
-  };
-
-  function truncateString(str) {
-    if (str && str.length >= 45) {
-      return str.slice(0, 42) + "...";
-    } else {
-      return str;
-    }
-  }
-  function truncateStringEmail(str) {
-    if (str && str.length > 25) {
-      return str.slice(0, 24) + "...";
-    } else {
-      return str;
-    }
-  }
-
   return (
-    <div>
+    <LayoutAdmin>
       <ReactNotifications />
       {change ? (
         <CrudUserModal data={dataEdit} handleChangeFalse={handleChangeFalse} />
       ) : (
-        <LayoutAdmin>
+        <>
           <HeaderResult setChange={() => setChange(true)} />
           {/* <table className="max-w-6xl divide-y divide-gray-200">
             <thead>
@@ -142,13 +120,13 @@ const CrudUser = () => {
               ))}
             </tbody>
           </table> */}
-          <TableUser />
+          <TableUser data={data} />
           {showDeletePopup && (
             <ConfirmDelete setShow={setDeletePopup} setDel={setDel} />
           )}
-        </LayoutAdmin>
+        </>
       )}
-    </div>
+    </LayoutAdmin>
   );
 };
 export default CrudUser;
