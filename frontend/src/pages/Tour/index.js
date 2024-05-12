@@ -24,7 +24,7 @@ import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import Grid from "@mui/material/Unstable_Grid2";
 import dayjs from "dayjs";
 import { truncateString } from "../../utils/shortenString";
-import {formatDate} from "../../utils/formatTime"
+import {formatDate} from "../../utils/resolveTime"
 
 const SearchItem = ({ item }) => {
   const navigate = useNavigate();

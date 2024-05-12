@@ -19,12 +19,23 @@ import Tooltip from "@mui/material/Tooltip";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
-import {formatDate} from "../../../utils/formatTime";
-import {selectNameCity} from "../../../utils/citys";
-import currencyVnd from "../../../utils/curencyVnd"
+import { formatDate, compareDate } from "../../../utils/resolveTime";
+import { selectNameCity } from "../../../utils/citys";
+import currencyVnd from "../../../utils/curencyVnd";
+import EditIcon from "@mui/icons-material/Edit";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { Button } from "@mui/material";
 
 function descendingComparator(a, b, orderBy) {
-  
+  // sort by date startTime
+  if(orderBy === "start_time"){
+    return compareDate(b[orderBy], a[orderBy]);
+  }
+
   if (b[orderBy] < a[orderBy]) {
     return -1;
   }
@@ -133,6 +144,7 @@ function EnhancedTableHead(props) {
             </TableSortLabel>
           </TableCell>
         ))}
+        <TableCell></TableCell>
       </TableRow>
     </TableHead>
   );
@@ -205,12 +217,30 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function TableTour({data}) {
+export default function TableTour({ data, handleDeleteTour }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const [idChange, setIdChange] = React.useState("");
+
+  const handleIdChange = (id) => {
+    setIdChange(id);
+  }
+  const handleClickOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+  const handleClickAgree = async () => {
+    await handleDeleteTour(idChange);
+    handleCloseDialog();
+    handleIdChange("")
+  }
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -271,6 +301,7 @@ export default function TableTour({data}) {
   );
 
   return (
+    <>
     <Box sx={{ width: "100%", marginTop: 4 }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
@@ -318,10 +349,38 @@ export default function TableTour({data}) {
                     >
                       {row.name}
                     </TableCell>
-                    <TableCell align="right">{formatDate(row.start_time)}</TableCell>
-                    <TableCell align="right">{selectNameCity(row.addressFrom)}</TableCell>
-                    <TableCell align="right">{selectNameCity(row.addressTo)}</TableCell>
-                    <TableCell align="right">{currencyVnd(row.prices)}</TableCell>
+                    <TableCell align="right">
+                      {formatDate(row.start_time)}
+                    </TableCell>
+                    <TableCell align="right">
+                      {selectNameCity(row.addressFrom)}
+                    </TableCell>
+                    <TableCell align="right">
+                      {selectNameCity(row.addressTo)}
+                    </TableCell>
+                    <TableCell align="right">
+                      {currencyVnd(row.prices)}
+                    </TableCell>
+                    <TableCell>
+                      <IconButton
+                        color="primary"
+                        onClick={(event) => {
+                          event.stopPropagation();
+                        }}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton
+                        color="error"
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          handleIdChange(row._id);
+                          handleClickOpenDialog();
+                        }}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
                   </TableRow>
                 );
               })}
@@ -348,5 +407,27 @@ export default function TableTour({data}) {
         />
       </Paper>
     </Box>
+    <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Thông báo"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Bạn có muốn xóa tour này không ?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button color="error" onClick={handleCloseDialog}>Hủy</Button>
+          <Button onClick={()=>{
+            handleClickAgree()
+          }} autoFocus>
+            Đồng ý
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }
