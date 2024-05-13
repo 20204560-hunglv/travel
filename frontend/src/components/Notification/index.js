@@ -1,6 +1,12 @@
 import { Store } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css'
 
+/**
+ * 
+ * @param {String} type 
+ * @param {String} title 
+ * @param {String} message 
+ */
 export function handleNotify(type, title, message){
     Store.addNotification({
         title: title,

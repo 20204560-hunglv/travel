@@ -37,9 +37,6 @@ const LayoutAdmin = ({ children }) => {
         </div>
         <div className={`w-full col-span-5`}>
           <div className="mx-5">
-            {/* <div>
-              <HeaderResult />
-            </div> */}
             <div>{children}</div>
           </div>
         </div>

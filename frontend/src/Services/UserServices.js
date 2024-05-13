@@ -30,3 +30,9 @@ export const update = async (id, data) => {
     throw error;
   }
 };
+
+export async function create(data) {
+  return await axios.post("/api/v1/users", {
+    ...data,
+  });
+}

@@ -3,13 +3,18 @@ import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../Notification/index";
 import { update as updateUser } from "../../../Services/UserServices";
 
-const CrudUserModal = ({ handleChangeFalse, data }) => {
-  const [fullName, setFullName] = useState(data.fullName || "");
-  const [userName, setUserName] = useState(data.userName || "");
-  const [password, setPassword] = useState(data.password || "");
-  const [email, setEmail] = useState(data.email || "");
-  const [address, setAddress] = useState(data.address || "");
-  const [gender, setGender] = useState(data.gender || "");
+const CrudUserModal = ({
+  handleSaveData,
+  handleChangeFalse,
+  data,
+  title = "Thêm tài khoản",
+}) => {
+  const [fullName, setFullName] = useState((data && data.fullName) || "");
+  const [username, setUserName] = useState((data && data.userName) || "");
+  const [password, setPassword] = useState((data && data.password) || "");
+  const [email, setEmail] = useState((data && data.email) || "");
+  const [address, setAddress] = useState((data && data.address) || "");
+  const [gender, setGender] = useState((data && data.gender) || "");
 
   const handleFullName = (event) => {
     setFullName(event.target.value);
@@ -29,27 +34,27 @@ const CrudUserModal = ({ handleChangeFalse, data }) => {
   const handleGender = (event) => {
     setGender(event.target.value);
   };
+
   const handleSave = () => {
-    updateUser(data._id, {
-      passWord: password,
-      fullName: fullName,
-      email: email,
-      address: address,
-      gender: gender,
-    })
-      .then(() => {
-        handleNotify("success", "Thành công", "Lưu thông tin thành công!");
-      })
-      .catch((err) => console.log(err));
+    handleSaveData({ fullName, username, password, email, address, gender });
+    // updateUser(data._id, {
+    //   passWord: password,
+    //   fullName: fullName,
+    //   email: email,
+    //   address: address,
+    //   gender: gender,
+    // })
+    //   .then(() => {
+    //     handleNotify("success", "Thành công", "Lưu thông tin thành công!");
+    //   })
+    //   .catch((err) => console.log(err));
   };
 
   return (
     <div className="flex items-center">
       <ReactNotifications />
       <div className="w-full max-w-sm container mx-auto py-10">
-        <h2 className="text-2xl text-center text-gray-900 pb-5">
-          Thông tin tài khoản
-        </h2>
+        <h2 className="text-2xl text-center text-gray-900 pb-5">{title}</h2>
         <div className="w-full mb-5">
           <label
             className="block uppercase tracking-wide text-gray-700 text-xs
@@ -61,7 +66,7 @@ const CrudUserModal = ({ handleChangeFalse, data }) => {
             className="shadow appearance-none border rounded w-full py-2 px-3 
             text-gray-700 leading-tight focus:outline-none focus:text-gray-600"
             type="text"
-            value={userName}
+            value={username}
             onChange={handleUserName}
           />
         </div>
@@ -180,7 +185,7 @@ const CrudUserModal = ({ handleChangeFalse, data }) => {
           </button>
         </div>
         <div
-          onClick={() => handleChangeFalse()}
+          onClick={() => handleChangeFalse(false)}
           className="text-center mt-4 text-gray-500 cursor-pointer"
         >
           <div>Hủy</div>

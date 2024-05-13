@@ -1,5 +1,29 @@
 const User = require("../models/users");
 
+const createUser = async (req, res) => {
+  try {
+    const userData = req.body;
+    const username = userData.username;
+
+    const findUser = User.findOne({username: username});
+    if(findUser){
+      throw new Error('Tên tài khoản đã tồi tại')
+    }
+    await User.create(userData);
+
+    return res.status(201).json({
+      success: true
+    })
+  } catch (error) {
+    return res.status(404).json(
+      {
+        success: false,
+        message: error
+      }
+    )
+  }
+}
+
 const userOrderTour = async (req, res) => {
   const id = req.params.id;
   const tours = req.body;
@@ -234,4 +258,5 @@ module.exports = {
   userOrderTour,
   userGetOrderTour,
   userUpdateOrderTour,
+  createUser
 };

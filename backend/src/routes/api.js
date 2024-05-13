@@ -16,6 +16,7 @@ router.post("/users/tour/:id", UserController.userOrderTour);
 router.get("/users/tour/:id", UserController.userGetOrderTour);
 router.put("/users/tour/:id", UserController.userUpdateOrderTour);
 router.get("/users", UserController.getAllUsers);
+router.post("/users", UserController.createUser);
 router.get("/user/:id", UserController.getUser);
 router.put("/user_crud/:id", UserController.updateUser);
 router.put("/user_crud", UserController.updateUserByAdmin);
