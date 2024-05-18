@@ -5,10 +5,11 @@ const createUser = async (req, res) => {
     const userData = req.body;
     const username = userData.username;
 
-    const findUser = User.findOne({username: username});
+    const findUser = await User.findOne({username: username});
     if(findUser){
       throw new Error('Tên tài khoản đã tồi tại')
     }
+    
     await User.create(userData);
 
     return res.status(201).json({
@@ -18,7 +19,7 @@ const createUser = async (req, res) => {
     return res.status(404).json(
       {
         success: false,
-        message: error
+        message: error.message
       }
     )
   }

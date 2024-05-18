@@ -7,6 +7,7 @@ import {
   getAll,
   deleteUser,
   create as createUser,
+  update as editUser,
 } from "../../../Services/UserServices";
 import HeaderResult from "../../../components/Layout/LayoutAdmin/HeaderResult";
 import TableUser from "../../../components/Table/TableUser";
@@ -14,10 +15,22 @@ import TableUser from "../../../components/Table/TableUser";
 const CrudUser = () => {
   const [data, setData] = useState([]);
   const [isAdd, setIsAdd] = useState(false);
-  const [dataEdit] = useState({});
+  const [isEdit, setIsEdit] = useState(false);
+  const [userEdit, setUserEdit] = useState({});
 
   const handleChangeIsAdd = (value) => {
     setIsAdd(value);
+  };
+  const handleChangeIsEdit = (value) => {
+    setIsEdit(value);
+  };
+  const handleUserEdit = (data) => {
+    setUserEdit(data);
+  };
+
+  const handleEditUser = (user) => {
+    handleUserEdit(user);
+    handleChangeIsEdit(true);
   };
 
   const fetchData = async () => {
@@ -36,20 +49,22 @@ const CrudUser = () => {
   const handleDeleteUser = async (id) => {
     try {
       await deleteUser(id);
-      setData((prevData) => prevData.filter((user) => user._id !== id));
+      await fetchData();
       handleNotify("success", "Thành công", "Xóa thành công");
     } catch (error) {
       console.log(error);
     }
   };
-  
+
   const handleAddData = async ({
     fullName,
     username,
     password,
     email,
+    numberPhone,
     address,
     gender,
+    birthDate,
   }) => {
     try {
       await createUser({
@@ -57,9 +72,12 @@ const CrudUser = () => {
         username,
         password,
         email,
+        numberPhone,
         address,
         gender,
+        birthDate,
       });
+      handleChangeIsAdd(false);
       handleNotify("success", "", "Tạo tài khoản thành công");
     } catch (error) {
       console.log(error);
@@ -67,19 +85,69 @@ const CrudUser = () => {
     }
   };
 
+  const handleEditData = async ({
+    fullName,
+    username,
+    password,
+    email,
+    numberPhone,
+    address,
+    gender,
+    birthDate,
+  }) => {
+    try {
+      await editUser(userEdit._id, {
+        fullName,
+        username,
+        password,
+        email,
+        numberPhone,
+        address,
+        gender,
+        birthDate
+      });
+      handleNotify("success", " ", "Chỉnh sửa tài khoản thành công");
+    } catch (error) {
+      console.log(error);
+      handleNotify("warning", "", error);
+    }
+  };
+
+  const handleBackFromAdd = (value) => {
+    handleChangeIsAdd(value);
+    fetchData();
+  };
+  const handleBackFromEdit = (value) => {
+    handleChangeIsEdit(value);
+    fetchData();
+  };
+
   return (
     <>
       <ReactNotifications />
       <LayoutAdmin>
-        {isAdd ? (
+        {isAdd && (
           <CrudUserModal
             handleSaveData={handleAddData}
-            handleChangeFalse={handleChangeIsAdd}
+            handleBack={handleBackFromAdd}
           />
-        ) : (
+        )}
+        {isEdit && (
+          <CrudUserModal
+            title="Thông tin tài khoản"
+            handleSaveData={handleEditData}
+            handleBack={handleBackFromEdit}
+            data={userEdit}
+          />
+        )}
+        {!isAdd && !isEdit && (
           <>
             <HeaderResult handleClickAdd={() => handleChangeIsAdd(true)} />
-            <TableUser data={data} handleDeleteUser={handleDeleteUser} />
+            <TableUser
+              data={data}
+              handleDeleteUser={handleDeleteUser}
+              handleEditUser={handleEditUser}
+            />
           </>
         )}
       </LayoutAdmin>

@@ -132,7 +132,7 @@ const Profile = () => {
                     className="content-center text-end block uppercase tracking-wide text-gray-700 text-xs"
                     htmlFor="phone-input"
                   >
-                    Email
+                    SĐT
                   </label>
                   <TextField
                     className="col-span-3 w-5/6"

@@ -209,24 +209,29 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function TableUser({ data, handleDeleteUser }) {
+export default function TableUser({ data, handleDeleteUser, handleEditUser }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [openDialog, setOpenDialog] = React.useState(false);
+  //Id của row bị edit/ delete
   const [idChange, setIdChange] = React.useState("");
 
   const handleIdChange = (id) => {
     setIdChange(id);
   };
+
+  //Mở dialog
   const handleClickOpenDialog = () => {
     setOpenDialog(true);
   };
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
+    //Gỡ id khi Hủy delete
+    handleIdChange("");
   };
   const handleClickAgree = async () => {
     await handleDeleteUser(idChange);
@@ -357,6 +362,7 @@ export default function TableUser({ data, handleDeleteUser }) {
                           color="primary"
                           onClick={(event) => {
                             event.stopPropagation();
+                            handleEditUser(row);
                           }}
                         >
                           <EditIcon />

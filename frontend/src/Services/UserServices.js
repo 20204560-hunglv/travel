@@ -20,11 +20,7 @@ export const deleteUser = async (id) => {
 export const update = async (id, data) => {
   try {
     await axios.put(`/api/v1/user_crud/${id}`, {
-      password: data.passWord,
-      fullname: data.fullName,
-      email: data.email,
-      address: data.address,
-      gender: data.gender,
+      ...data
     });
   } catch (error) {
     throw error;

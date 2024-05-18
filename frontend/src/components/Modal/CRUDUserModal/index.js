@@ -1,20 +1,27 @@
 import { useState } from "react";
-import { ReactNotifications } from "react-notifications-component";
-import { handleNotify } from "../../Notification/index";
 import { update as updateUser } from "../../../Services/UserServices";
+import { FormControlLabel, Radio, RadioGroup, TextField } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 
 const CrudUserModal = ({
   handleSaveData,
-  handleChangeFalse,
+  handleBack,
   data,
   title = "Thêm tài khoản",
 }) => {
   const [fullName, setFullName] = useState((data && data.fullName) || "");
-  const [username, setUserName] = useState((data && data.userName) || "");
+  const [username, setUserName] = useState((data && data.username) || "");
   const [password, setPassword] = useState((data && data.password) || "");
   const [email, setEmail] = useState((data && data.email) || "");
+  const [numberPhone, setNumberPhone] = useState(
+    (data && data.numberPhone) || ""
+  );
   const [address, setAddress] = useState((data && data.address) || "");
   const [gender, setGender] = useState((data && data.gender) || "");
+  const [birthDate, setBirthDate] = useState(
+    (data && data.birthDate && dayjs(data.birthDate)) || null
+  );
 
   const handleFullName = (event) => {
     setFullName(event.target.value);
@@ -28,6 +35,9 @@ const CrudUserModal = ({
   const handleEmail = (event) => {
     setEmail(event.target.value);
   };
+  const handleNumberPhone = (event) => {
+    setNumberPhone(event.target.value);
+  };
   const handleAddress = (event) => {
     setAddress(event.target.value);
   };
@@ -36,23 +46,20 @@ const CrudUserModal = ({
   };
 
   const handleSave = () => {
-    handleSaveData({ fullName, username, password, email, address, gender });
-    // updateUser(data._id, {
-    //   passWord: password,
-    //   fullName: fullName,
-    //   email: email,
-    //   address: address,
-    //   gender: gender,
-    // })
-    //   .then(() => {
-    //     handleNotify("success", "Thành công", "Lưu thông tin thành công!");
-    //   })
-    //   .catch((err) => console.log(err));
+    handleSaveData({
+      fullName,
+      username,
+      password,
+      email,
+      numberPhone,
+      address,
+      gender,
+      birthDate: birthDate ? birthDate.format() : birthDate,
+    });
   };
 
   return (
     <div className="flex items-center">
-      <ReactNotifications />
       <div className="w-full max-w-sm container mx-auto py-10">
         <h2 className="text-2xl text-center text-gray-900 pb-5">{title}</h2>
         <div className="w-full mb-5">
@@ -108,41 +115,18 @@ const CrudUserModal = ({
             Giới tính
           </label>
           <div className="flex">
-            <div className="flex items-center mb-4">
-              <input
-                id="gender-radio-1"
-                type="radio"
-                value="nam"
-                name="gender-radio"
-                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-                onChange={handleGender}
-                checked={gender === "nam"}
-              />
-              <label
-                htmlFor="gender-radio-1"
-                className="ms-2 text-sm font-medium text-gray-900"
-              >
-                Nam
-              </label>
-            </div>
-            <div className="flex items-center mb-4 ml-4">
-              <input
-                id="gender-radio-2"
-                type="radio"
-                value="nu"
-                checked={gender === "nu"}
-                onChange={handleGender}
-                name="gender-radio"
-                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300
-                 focus:ring-blue-500"
-              />
-              <label
-                htmlFor="gender-radio-2"
-                className="ms-2 text-sm font-medium text-gray-900"
-              >
-                Nữ
-              </label>
-            </div>
+            <RadioGroup
+              id="radio-buttons-gender"
+              row
+              aria-labelledby="radio-buttons-gender"
+              name="gender-radio-buttons-group"
+              value={gender}
+              onChange={handleGender}
+            >
+              <FormControlLabel value="nu" control={<Radio />} label="Nữ" />
+              <FormControlLabel value="nam" control={<Radio />} label="Nam" />
+              <FormControlLabel value="khac" control={<Radio />} label="Khác" />
+            </RadioGroup>
           </div>
         </div>
         <div className="w-full mb-5">
@@ -162,6 +146,24 @@ const CrudUserModal = ({
         </div>
         <div className="w-full mb-5">
           <label
+            className="block uppercase tracking-wide text-gray-700 text-xs 
+          font-bold mb-2"
+            htmlFor="phone-input"
+          >
+            SĐT
+          </label>
+          <TextField
+            className="w-full"
+            id="phone-input"
+            variant="outlined"
+            type="text"
+            placeholder="Số điện thoại"
+            value={numberPhone}
+            onChange={handleNumberPhone}
+          />
+        </div>
+        <div className="w-full mb-5">
+          <label
             className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
             htmlFor="location"
           >
@@ -175,6 +177,19 @@ const CrudUserModal = ({
             onChange={handleAddress}
           />
         </div>
+        <div className="w-full mb-5">
+          <p className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-3">
+            Ngày sinh
+          </p>
+          <div className="content-center h-10 text-404040 w-full">
+            <DatePicker
+              format="DD/MM/YYYY"
+              value={birthDate}
+              onChange={(newDate) => setBirthDate(newDate)}
+            />
+          </div>
+        </div>
+
         <div className="flex items-center justify-between">
           <button
             className="mt-5 bg-green-400 w-full hover:bg-green-500 
@@ -185,10 +200,10 @@ const CrudUserModal = ({
           </button>
         </div>
         <div
-          onClick={() => handleChangeFalse(false)}
+          onClick={() => handleBack(false)}
           className="text-center mt-4 text-gray-500 cursor-pointer"
         >
-          <div>Hủy</div>
+          <div>Quay lại</div>
         </div>
       </div>
     </div>
