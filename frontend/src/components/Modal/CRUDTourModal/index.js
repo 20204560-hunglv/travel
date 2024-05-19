@@ -1,75 +1,47 @@
 import { useState } from "react";
-import { ReactNotifications } from "react-notifications-component";
-import { handleNotify } from "../../Notification/index";
-import citys from "../../../utils/citys";
-import {
-  add as addTour,
-  update as updateTour,
-} from "../../../Services/TourServices";
+import cites from "../../../utils/cites";
+import { Button, MenuItem, Select, TextField } from "@mui/material";
 
-const CrudTourModal = ({ handleChangeFalse, data, type }) => {
-  const cityLabels = citys;
+const CrudTourModal = ({
+  handleSaveData,
+  handleBack,
+  data,
+  title = "Thêm chuyến du lịch",
+}) => {
+  const [period, setPeriod] = useState((data && data.period) || "");
+  const [name, setName] = useState((data && data.name) || "");
+  const [start_time, setStartTime] = useState((data && data.start_time) || "");
+  const [main_image_url, setUrlImage] = useState((data && data.main_image_url) || "");
+  const [prices, setPrices] = useState((data && data.prices) || "");
+  const [addressFrom, setAddressFrom] = useState((data && data.addressFrom) || "");
+  const [addressTo, setAddressTo] = useState((data && data.addressTo) || "");
+  const [describe, setDescribe] = useState((data && data.describe) || "");
+  const [tourGuide, setTourGuide] = useState((data && data.tourGuide) || "");
+  const [vehicle, setVehicle] = useState((data && data.vehicle) || "");
+  const [visitLocation, setVisitLocation] = useState((data && data.visitLocation) || "");
+  const [slotMax, setSlotMax] = useState((data && data.slotMax) || "");
 
-  const [period, setPeriod] = useState(data.period);
-  const [name, setName] = useState(data.name);
-  const [startTime, setStartTime] = useState(data.startTime);
-  const [urlImage, setUrlImage] = useState(data.urlImage);
-  const [prices, setPrices] = useState(data.prices);
-  const [countryFrom, setCountryFrom] = useState(data.addressFrom);
-  const [countryTo, setCountryTo] = useState(data.addressTo);
-
-  const handleFrom = (event) => {
-    setCountryFrom(event.target.value);
-  };
-  const handleTo = (event) => {
-    setCountryTo(event.target.value);
-  };
-  const handlePeriod = (event) => {
-    setPeriod(event.target.value);
-  };
-  const handleName = (event) => {
-    setName(event.target.value);
-  };
-  const handleStartTime = (event) => {
-    setStartTime(event.target.value);
-  };
-  const handleUrlImage = (event) => {
-    setUrlImage(event.target.value);
-  };
-  const handlePrices = (event) => {
-    setPrices(event.target.value);
-  };
   const handleSave = () => {
-    if (type === "add") {
-      addTour(name, startTime, period, urlImage, prices, countryFrom, countryTo)
-        .then(() => {
-          handleNotify("success", "Thành công", "Lưu thông tin thành công!");
-        })
-        .catch((err) => console.log(err));
-    } else if (type === "edit") {
-      updateTour(data._id, {
-        name: name,
-        start_time: startTime,
-        period: period,
-        main_image_url: urlImage,
-        prices: prices,
-        addressFrom: countryFrom,
-        addressTo: countryTo,
-      })
-        .then(() => {
-          handleNotify("success", "Thành công", "Lưu thông tin thành công!");
-        })
-        .catch((err) => console.log(err));
-    }
+    handleSaveData({
+      name,
+      tourGuide,
+      vehicle,
+      visitLocation,
+      slotMax,
+      start_time,
+      period,
+      main_image_url,
+      prices,
+      addressFrom,
+      addressTo,
+      describe,
+    });
   };
 
   return (
     <div className="flex items-center">
-      <ReactNotifications />
       <div className="w-full max-w-sm container mx-auto py-10">
-        <h2 className="text-2xl text-center text-gray-900 pb-5">
-          Thông tin Tour du lịch
-        </h2>
+        <h2 className="text-2xl text-center text-gray-900 pb-5">{title}</h2>
         <div className="w-full mb-5">
           <label
             className="block uppercase tracking-wide text-gray-700 text-xs
@@ -77,12 +49,12 @@ const CrudTourModal = ({ handleChangeFalse, data, type }) => {
           >
             Tên
           </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 
-            text-gray-700 leading-tight focus:outline-none focus:text-gray-600"
-            type="text"
+          <TextField
+            fullWidth
             value={name}
-            onChange={handleName}
+            onChange={(event) => setName(event.target.value)}
+            multiline
+            type="text"
           />
         </div>
         <div className="w-full mb-5">
@@ -96,8 +68,8 @@ const CrudTourModal = ({ handleChangeFalse, data, type }) => {
             className="shadow appearance-none border rounded w-full py-2 px-3 
             text-gray-700 leading-tight focus:outline-none focus:text-gray-600"
             type="text"
-            value={startTime}
-            onChange={handleStartTime}
+            value={start_time}
+            onChange={event => setStartTime(event.target.value)}
           />
         </div>
         <div className="w-full mb-5">
@@ -112,45 +84,47 @@ const CrudTourModal = ({ handleChangeFalse, data, type }) => {
             text-gray-700 leading-tight focus:outline-none focus:text-gray-600"
             type="text"
             value={period}
-            onChange={handlePeriod}
+            onChange={event => setPeriod(event.target.value)}
           />
         </div>
-        <div className="w-full mb-5 flex justify-between">
+        <div className="w-full mb-5 space-y-4">
           <div>
-            <label
-              htmlFor="countriesFrom"
-              className=" ml-4 mb-2 text-sm font-medium"
+            <p
+              className="block uppercase tracking-wide text-gray-700 text-xs 
+          font-bold mb-2"
             >
               Điểm đi
-            </label>
-            <select
-              value={countryFrom}
-              onChange={handleFrom}
-              id="countriesFrom"
-              className="bg-gray-50 outline-none border-b border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+            </p>
+            <Select
+              className="w-full"
+              value={addressFrom}
+              onChange={(event) => setAddressFrom(event.target.value)}
             >
-              <option value="">Chọn địa phương</option>
-              {cityLabels.map((item, index) => (
-                <option key={index} value={item.value}>
-                  {item.label}
-                </option>
+              {cites.map((city, index) => (
+                <MenuItem key={index} value={city.value}>
+                  {city.label}
+                </MenuItem>
               ))}
-            </select>
+            </Select>
           </div>
           <div>
-            <label className=" ml-4 mb-2 text-sm font-medium">Điểm đến</label>
-            <select
-              value={countryTo}
-              onChange={handleTo}
-              className="bg-gray-50 outline-none border-b border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+            <p
+              className="block uppercase tracking-wide text-gray-700 text-xs 
+          font-bold mb-2"
             >
-              <option value="">Chọn địa phương</option>
-              {cityLabels.map((item, index) => (
-                <option key={index} value={item.value}>
-                  {item.label}
-                </option>
+              Điểm đến
+            </p>
+            <Select
+              className="w-full"
+              value={addressTo}
+              onChange={(event) => setAddressTo(event.target.value)}
+            >
+              {cites.map((city, index) => (
+                <MenuItem key={index} value={city.value}>
+                  {city.label}
+                </MenuItem>
               ))}
-            </select>
+            </Select>
           </div>
         </div>
         <div className="w-full mb-5">
@@ -164,8 +138,8 @@ const CrudTourModal = ({ handleChangeFalse, data, type }) => {
             className="shadow appearance-none border rounded w-full py-2 px-3 
             text-gray-700 leading-tight focus:outline-none focus:text-gray-600"
             type="text"
-            value={urlImage}
-            onChange={handleUrlImage}
+            value={main_image_url}
+            onChange={event => setUrlImage(event.target.value)}
           />
         </div>
         <div className="w-full mb-5">
@@ -180,23 +154,100 @@ const CrudTourModal = ({ handleChangeFalse, data, type }) => {
             text-gray-700 leading-tight focus:outline-none focus:text-gray-600"
             type="number"
             value={prices}
-            onChange={handlePrices}
+            onChange={event => setPrices(event.target.value)}
           />
         </div>
+        <div className="w-full mb-5">
+          <label
+            className="block uppercase tracking-wide text-gray-700 text-xs 
+          font-bold mb-2"
+          >
+            Hướng dẫn viên
+          </label>
+          <TextField
+            value={tourGuide}
+            onChange={(event) => setTourGuide(event.target.value)}
+            fullWidth
+            type="text"
+            multiline
+          />
+        </div>
+        <div className="w-full mb-5">
+          <label
+            className="block uppercase tracking-wide text-gray-700 text-xs 
+          font-bold mb-2"
+          >
+            Phương tiện
+          </label>
+          <TextField
+            value={vehicle}
+            onChange={(event) => setVehicle(event.target.value)}
+            fullWidth
+            type="text"
+            multiline
+          />
+        </div>
+        <div className="w-full mb-5">
+          <label
+            className="block uppercase tracking-wide text-gray-700 text-xs 
+          font-bold mb-2"
+          >
+            Điểm tham quan
+          </label>
+          <TextField
+            value={visitLocation}
+            onChange={(event) => setVisitLocation(event.target.value)}
+            fullWidth
+            type="text"
+            multiline
+          />
+        </div>
+        <div className="w-full mb-5">
+          <label
+            className="block uppercase tracking-wide text-gray-700 text-xs 
+          font-bold mb-2"
+          >
+            Số lượng
+          </label>
+          <TextField
+            value={slotMax}
+            onChange={(event) => setSlotMax(event.target.value)}
+            fullWidth
+            type="text"
+            multiline
+          />
+        </div>
+        <div className="w-full mb-5">
+          <label
+            className="block uppercase tracking-wide text-gray-700 text-xs 
+          font-bold mb-2"
+          >
+            Mô tả
+          </label>
+          <TextField
+            value={describe}
+            onChange={(event) => setDescribe(event.target.value)}
+            fullWidth
+            type="text"
+            multiline
+          />
+        </div>
+
         <div className="flex items-center justify-between">
-          <button
-            className="mt-5 bg-green-400 w-full hover:bg-green-500 
-          text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          <Button
+            fullWidth
+            variant="contained"
+            sx={{ marginTop: 4 }}
             onClick={() => handleSave()}
           >
             Lưu
-          </button>
+          </Button>
         </div>
         <div
-          onClick={() => handleChangeFalse()}
+          onClick={() => handleBack(false)}
           className="text-center mt-4 text-gray-500 cursor-pointer"
         >
-          <div>Hủy</div>
+          <div>Quay lại</div>
         </div>
       </div>
     </div>

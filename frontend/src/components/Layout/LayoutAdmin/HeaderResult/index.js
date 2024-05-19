@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 
-const HeaderResult = ({handleClickAdd}) => {
+const HeaderResult = ({ handleClickAdd }) => {
   const [name, setName] = useState("");
 
   return (
@@ -24,8 +24,11 @@ const HeaderResult = ({handleClickAdd}) => {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <Button
-            onClick={() => handleClickAdd()}
-            variant="contained" color="success" startIcon={<AddIcon />}>
+              onClick={() => handleClickAdd()}
+              variant="contained"
+              color="success"
+              startIcon={<AddIcon />}
+            >
               Thêm
             </Button>
           </Box>

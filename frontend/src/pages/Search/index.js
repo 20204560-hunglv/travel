@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import DefaultLayout from "../../components/Layout/DefaultLayout";
-import citys from "../../utils/citys";
+import citys from "../../utils/cites";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import currencyVnd from "../../utils/curencyVnd";

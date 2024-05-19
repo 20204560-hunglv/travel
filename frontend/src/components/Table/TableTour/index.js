@@ -20,7 +20,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import { formatDate, compareDate } from "../../../utils/resolveTime";
-import { selectNameCity } from "../../../utils/citys";
+import { selectNameCity } from "../../../utils/cites";
 import currencyVnd from "../../../utils/curencyVnd";
 import EditIcon from "@mui/icons-material/Edit";
 import Dialog from '@mui/material/Dialog';
@@ -217,13 +217,14 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function TableTour({ data, handleDeleteTour }) {
+export default function TableTour({ data, handleDeleteTour, handleEditTour }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [openDialog, setOpenDialog] = React.useState(false);
+  //id của row cần edit/ delete
   const [idChange, setIdChange] = React.useState("");
 
   const handleIdChange = (id) => {
@@ -235,6 +236,7 @@ export default function TableTour({ data, handleDeleteTour }) {
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
+    handleIdChange("")
   };
   const handleClickAgree = async () => {
     await handleDeleteTour(idChange);
@@ -366,6 +368,7 @@ export default function TableTour({ data, handleDeleteTour }) {
                         color="primary"
                         onClick={(event) => {
                           event.stopPropagation();
+                          handleEditTour(row);
                         }}
                       >
                         <EditIcon />

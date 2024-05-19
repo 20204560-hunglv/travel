@@ -92,40 +92,9 @@ const updateTour = async (req, res) => {
 };
 
 const createTour = async (req, res) => {
-  const {
-    name,
-    start_time,
-    period,
-    main_image_url,
-    prices,
-    addressFrom,
-    addressTo,
-  } = req.body;
-  const newTour = {
-    name: name,
-    start_time: start_time,
-    period: period,
-    main_image_url: main_image_url,
-    prices: prices,
-    addressFrom,
-    addressTo,
-  };
-
-  if (
-    !name ||
-    !start_time ||
-    !period ||
-    !main_image_url ||
-    !prices ||
-    !addressFrom ||
-    !addressTo
-  ) {
-    return res.status(200).json({
-      message: "invaild",
-    });
-  } else {
     try {
-      await Tour.create(newTour);
+      const data = req.body;
+      await Tour.create(data);
       return res.status(200).json({
         message: "ok",
       });
@@ -135,7 +104,6 @@ const createTour = async (req, res) => {
         message: "error",
       });
     }
-  }
 };
 
 module.exports = {

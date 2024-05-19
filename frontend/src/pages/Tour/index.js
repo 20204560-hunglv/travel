@@ -6,7 +6,7 @@ import Dialog from "../../components/Dialog";
 import { getUserLocal } from "../../utils/getLocalStorage";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../components/Notification/index";
-import {selectNameCity} from "../../utils/citys";
+import {selectNameCity} from "../../utils/cites";
 import { get as getTour, bookTour } from "../../Services/TourServices";
 import {
   Button,

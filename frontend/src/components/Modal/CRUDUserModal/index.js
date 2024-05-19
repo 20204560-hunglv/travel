@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { update as updateUser } from "../../../Services/UserServices";
-import { FormControlLabel, Radio, RadioGroup, TextField } from "@mui/material";
+import { Button, FormControlLabel, Radio, RadioGroup, TextField } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 
@@ -45,8 +44,8 @@ const CrudUserModal = ({
     setGender(event.target.value);
   };
 
-  const handleSave = () => {
-    handleSaveData({
+  const handleSave = async () => {
+    await handleSaveData({
       fullName,
       username,
       password,
@@ -191,13 +190,23 @@ const CrudUserModal = ({
         </div>
 
         <div className="flex items-center justify-between">
-          <button
+          {/* <button
             className="mt-5 bg-green-400 w-full hover:bg-green-500 
           text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             onClick={() => handleSave()}
           >
             Lưu
-          </button>
+          </button> */}
+          <Button
+          fullWidth
+          sx={{
+            marginTop: 4,
+          }}
+          variant="contained"
+          onClick={() => handleSave()}
+          >
+            Lưu
+          </Button>
         </div>
         <div
           onClick={() => handleBack(false)}

@@ -6,15 +6,23 @@ import CrudTourModal from "../../../components/Modal/CRUDTourModal";
 import { getAll, deleteTour } from "../../../Services/TourServices";
 import HeaderResult from "../../../components/Layout/LayoutAdmin/HeaderResult";
 import TableTour from "../../../components/Table/TableTour";
+import { update as EditTour, add as addTour } from "../../../Services/TourServices";
 
 const CrudTour = () => {
   const [data, setData] = useState([]);
-  const [change, setChange] = useState(false);
-  const [typeChange] = useState("");
-  const [dataEdit] = useState({});
+  const [isAdd, setIsAdd] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [tourEdit, setTourEdit] = useState({});
 
-  const handleChangeFalse = () => {
-    setChange(false);
+  const handleChangeIsAdd = (value) => {
+    setIsAdd(value);
+  };
+  const handleChangeIsEdit = (value) => {
+    setIsEdit(value);
+  };
+  const handleEditTour = (data) => {
+    setTourEdit(data);
+    handleChangeIsEdit(true);
   };
 
   const fetchData = async () => {
@@ -27,32 +35,124 @@ const CrudTour = () => {
   };
   useEffect(() => {
     fetchData();
-  }, [change]);
+  }, [isAdd]);
 
   const handleDeleteTour = async (id) => {
     try {
       await deleteTour(id);
-      setData((prevData) => prevData.filter((user) => user._id !== id));
+      await fetchData();
       handleNotify("success", "Thành công", "Xóa thành công");
     } catch (error) {
       console.log(error);
     }
+  };
+  const handleAddData = async ({
+    name,
+    tourGuide,
+    vehicle,
+    visitLocation,
+    slotMax,
+    start_time,
+    period,
+    main_image_url,
+    prices,
+    addressFrom,
+    addressTo,
+    describe,
+  }) => {
+    try {
+      await addTour({
+        name,
+        tourGuide,
+        vehicle,
+        visitLocation,
+        slotMax,
+        start_time,
+        period,
+        main_image_url,
+        prices,
+        addressFrom,
+        addressTo,
+        describe,
+      });
+      handleChangeIsAdd(false);
+      handleNotify("success", "", "Tạo tài tour thành công");
+    } catch (error) {
+      console.log(error);
+      handleNotify("warning", "", error);
+    }
+  };
+  const handleEditData = async ({
+    name,
+    tourGuide,
+    vehicle,
+    visitLocation,
+    slotMax,
+    start_time,
+    period,
+    main_image_url,
+    prices,
+    addressFrom,
+    addressTo,
+    describe,
+  }) => {
+    try {
+      await EditTour(tourEdit._id, {
+        name,
+        tourGuide,
+        vehicle,
+        visitLocation,
+        slotMax,
+        start_time,
+        period,
+        main_image_url,
+        prices,
+        addressFrom,
+        addressTo,
+        describe,
+      });
+      handleNotify("success", " ", "Chỉnh sửa tài khoản thành công");
+    } catch (error) {
+      console.log(error);
+      handleNotify("warning", "", error);
+    }
+  };
+
+  const handleBackFromAdd = (value) => {
+    handleChangeIsAdd(value);
+    fetchData();
+  };
+  const handleBackFromEdit = (value) => {
+    handleChangeIsEdit(value);
+    fetchData();
   };
 
   return (
     <>
       <ReactNotifications />
       <LayoutAdmin>
-        {change ? (
+        {isAdd && (
           <CrudTourModal
-            type={typeChange}
-            data={dataEdit}
-            handleChangeFalse={handleChangeFalse}
+            handleBack={handleBackFromAdd}
+            handleSaveData={handleAddData}
           />
-        ) : (
+        )}
+        {isEdit && (
+          <CrudTourModal
+            title="Thông tin chuyến du lịch"
+            data={tourEdit}
+            handleSaveData={handleEditData}
+            handleBack={handleBackFromEdit}
+          />
+        )}
+        {!isAdd && !isEdit && (
           <>
-            <HeaderResult setChange={() => setChange(true)} />
-            <TableTour data={data} handleDeleteTour={handleDeleteTour} />
+            <HeaderResult handleClickAdd={() => handleChangeIsAdd(true)} />
+            <TableTour
+              data={data}
+              handleDeleteTour={handleDeleteTour}
+              handleEditTour={handleEditTour}
+            />
           </>
         )}
       </LayoutAdmin>

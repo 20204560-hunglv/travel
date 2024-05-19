@@ -18,25 +18,9 @@ export async function getAll() {
   }
 }
 
-export async function add(
-  name,
-  startTime,
-  period,
-  urlImage,
-  prices,
-  countryFrom,
-  countryTo
-) {
+export async function add(data) {
   try {
-    await axios.post(`/api/v1/tours`, {
-      name: name,
-      start_time: startTime,
-      period: period,
-      main_image_url: urlImage,
-      prices: prices,
-      addressFrom: countryFrom,
-      addressTo: countryTo,
-    });
+    await axios.post(`/api/v1/tours`, {...data});
   } catch (error) {
     throw error;
   }
@@ -52,15 +36,7 @@ export async function deleteTour(id) {
 
 export async function update(id, data) {
   try {
-    await axios.put(`/api/v1/tour/${id}`, {
-      name: data.name,
-      start_time: data.start_time,
-      period: data.period,
-      main_image_url: data.main_image_url,
-      prices: data.prices,
-      addressFrom: data.addressFrom,
-      addressTo: data.addressTo,
-    });
+    await axios.put(`/api/v1/tour/${id}`, { ...data });
   } catch (error) {
     throw error;
   }

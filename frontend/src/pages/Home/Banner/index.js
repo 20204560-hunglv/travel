@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import citys from "../../../utils/citys";
+import citys from "../../../utils/cites";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 const Banner = () => {
