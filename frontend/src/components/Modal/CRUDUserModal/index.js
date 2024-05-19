@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, FormControlLabel, Radio, RadioGroup, TextField } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 const CrudUserModal = ({
   handleSaveData,
@@ -58,6 +59,13 @@ const CrudUserModal = ({
   };
 
   return (
+    <>
+    <Button
+        startIcon={<ArrowBackIosIcon fontSize="small" />}
+        onClick={() => handleBack(false)}
+      >
+        Quay lại
+      </Button>
     <div className="flex items-center">
       <div className="w-full max-w-sm container mx-auto py-10">
         <h2 className="text-2xl text-center text-gray-900 pb-5">{title}</h2>
@@ -208,14 +216,9 @@ const CrudUserModal = ({
             Lưu
           </Button>
         </div>
-        <div
-          onClick={() => handleBack(false)}
-          className="text-center mt-4 text-gray-500 cursor-pointer"
-        >
-          <div>Quay lại</div>
-        </div>
       </div>
     </div>
+    </>
   );
 };
 
