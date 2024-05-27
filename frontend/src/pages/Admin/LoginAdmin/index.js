@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../../components/Notification/index";
 import { useState } from "react";
-import { loginAdmin } from "../../../Services/AuthServices";
+import { loginAdmin } from "../../../services/AuthServices";
 
 const LoginAdmin = () => {
   const navigate = useNavigate();

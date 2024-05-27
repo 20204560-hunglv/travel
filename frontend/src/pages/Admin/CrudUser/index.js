@@ -8,7 +8,7 @@ import {
   deleteUser,
   create as createUser,
   update as editUser,
-} from "../../../Services/UserServices";
+} from "../../../services/UserServices";
 import HeaderResult from "../../../components/Layout/LayoutAdmin/HeaderResult";
 import TableUser from "../../../components/Table/TableUser";
 

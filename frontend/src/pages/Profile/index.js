@@ -6,7 +6,7 @@ import { handleNotify } from "../../components/Notification/index";
 import {
   get as getProfile,
   save as saveProfile,
-} from "../../Services/ProfileServices";
+} from "../../services/ProfileServices";
 import { DatePicker } from "@mui/x-date-pickers";
 import {
   Button,

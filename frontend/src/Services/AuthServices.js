@@ -14,12 +14,13 @@ export async function login(username, password) {
 
 export async function signUp(username, password) {
   try {
-    await axios.post("/api/v1/signup", {
-      username: username,
-      password: password,
-    });
-  } catch (error) {
-    throw error;
+  await axios.post("/api/v1/signup", {
+    username: username,
+    password: password,
+  });
+  }
+  catch (e) {
+    throw new Error(e.response.data.error)
   }
 }
 

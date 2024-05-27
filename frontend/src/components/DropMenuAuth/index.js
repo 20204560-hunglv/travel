@@ -9,23 +9,21 @@ function classNames(...classes) {
 }
 export default function DropMenuAuth() {
   const location = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleClick = () => {
     localStorage.removeItem("userData");
-    if (location.pathname === '/') navigate('/login');
-    else navigate('/login')
+    if (location.pathname === "/") navigate("/login");
+    else navigate("/login");
   };
   const handleProfile = () => {
-    navigate('/profile')
-  }
+    navigate("/profile");
+  };
   return (
     <Menu as="div" className="relative inline-block mr-2">
       <div>
         <Menu.Button className="inline-flex justify-center shadow-sm">
           <div>
-            <i
-              className={`fa-regular fa-circle-user text-2xl`}
-            ></i>
+            <i className={`fa-regular fa-circle-user text-2xl`}></i>
           </div>
         </Menu.Button>
       </div>
@@ -60,7 +58,9 @@ export default function DropMenuAuth() {
             <Menu.Item>
               {({ active }) => (
                 <button
-                  onClick={()=>{navigate("/history-booking")}}
+                  onClick={() => {
+                    navigate("/history-booking");
+                  }}
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block w-full px-4 py-2 text-left text-sm"
@@ -76,7 +76,9 @@ export default function DropMenuAuth() {
             <Menu.Item>
               {({ active }) => (
                 <button
-                  onClick={()=>{navigate("/change-pass")}}
+                  onClick={() => {
+                    navigate("/change-pass");
+                  }}
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block w-full px-4 py-2 text-left text-sm"

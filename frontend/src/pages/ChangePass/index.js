@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../components/Notification/index";
 import { getUserLocal } from "../../utils/getLocalStorage";
-import { changePass } from "../../Services/AuthServices";
+import { changePass } from "../../services/AuthServices";
 import DefaultLayout from "../../components/Layout/DefaultLayout";
 
 const ChangePass = () => {

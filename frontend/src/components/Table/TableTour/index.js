@@ -29,6 +29,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Button } from "@mui/material";
+import {truncateString} from '../../../utils/shortenString'
 
 function descendingComparator(a, b, orderBy) {
   // sort by date startTime
@@ -349,7 +350,7 @@ export default function TableTour({ data, handleDeleteTour, handleEditTour }) {
                       scope="row"
                       padding="none"
                     >
-                      {row.name}
+                      {truncateString(row.name, 70)}
                     </TableCell>
                     <TableCell align="right">
                       {formatDate(row.start_time)}

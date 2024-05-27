@@ -5,25 +5,23 @@ const createUser = async (req, res) => {
     const userData = req.body;
     const username = userData.username;
 
-    const findUser = await User.findOne({username: username});
-    if(findUser){
-      throw new Error('Tên tài khoản đã tồi tại')
+    const findUser = await User.findOne({ username: username });
+    if (findUser) {
+      throw new Error("Tên tài khoản đã tồi tại");
     }
-    
+
     await User.create(userData);
 
     return res.status(201).json({
-      success: true
-    })
+      success: true,
+    });
   } catch (error) {
-    return res.status(404).json(
-      {
-        success: false,
-        message: error.message
-      }
-    )
+    return res.status(404).json({
+      success: false,
+      message: error.message,
+    });
   }
-}
+};
 
 const userOrderTour = async (req, res) => {
   const id = req.params.id;
@@ -101,10 +99,9 @@ const updateUser = async (req, res) => {
   const id = req.params.id;
   const request = req.body;
 
-
   try {
     await User.updateOne({ _id: id }, { ...request });
-    
+
     return res.status(200).json({
       message: "update ok",
     });
@@ -206,18 +203,18 @@ const signUp = async (req, res) => {
   if (!username || !password) {
     return res
       .status(400)
-      .json({ error: "Username and password are required" });
+      .json({ error: "Username hoặc password bị thiếu" });
   }
   try {
     const findUser = await User.findOne({ username: username });
     if (findUser) {
-      return res.status(409).json({ error: "Username already in use" });
+      return res.status(409).json({ error: "Tên đăng nhập đã tồn tại" });
     } else {
       const newUser = { username, password };
       await User.create(newUser);
       return res
         .status(201)
-        .json({ message: "Registration successful", user: newUser });
+        .json({ message: "Đăng ký thành công", user: newUser });
     }
   } catch (error) {
     return res.status(401).json({ error: error });
@@ -259,5 +256,5 @@ module.exports = {
   userOrderTour,
   userGetOrderTour,
   userUpdateOrderTour,
-  createUser
+  createUser,
 };

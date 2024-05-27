@@ -8,7 +8,7 @@ import ModalRate from "../../components/ModalRate";
 import {
   get as getBooking,
   update as updateTour,
-} from "../../Services/BookingServices";
+} from "../../services/BookingServices";
 
 const HistoryBooking = () => {
   const [modal, setModal] = useState(false);

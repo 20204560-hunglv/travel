@@ -4,7 +4,7 @@ import citys from "../../utils/cites";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import currencyVnd from "../../utils/curencyVnd";
-import { get as getTours } from "../../Services/SearchServices";
+import { get as getTours } from "../../services/SearchServices";
 import Button from "@mui/material/Button";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import TextField from "@mui/material/TextField";
