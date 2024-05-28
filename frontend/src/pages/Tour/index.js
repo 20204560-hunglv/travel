@@ -3,7 +3,7 @@ import DefaultLayout from "../../components/Layout/DefaultLayout/index";
 import { useNavigate, useParams } from "react-router-dom";
 import currencyVnd from "../../utils/curencyVnd";
 import Dialog from "../../components/Dialog";
-import { getUserLocal } from "../../utils/getLocalStorage";
+import { getUserLocal } from "../../utils/LocalStorage";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../components/Notification/index";
 import {selectNameCity} from "../../utils/cites";

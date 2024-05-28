@@ -1,4 +1,4 @@
-import { getUserLocal } from "../../utils/getLocalStorage";
+import { getUserLocal } from "../../utils/LocalStorage";
 import { Outlet } from "react-router-dom";
 import Login from "../../pages/Login/Login";
 

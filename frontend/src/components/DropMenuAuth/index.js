@@ -1,19 +1,18 @@
 "use client";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Icons from "../Icons";
+import { removeLocalStorage } from "../../utils/LocalStorage";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 export default function DropMenuAuth() {
-  const location = useLocation();
   const navigate = useNavigate();
   const handleClick = () => {
-    localStorage.removeItem("userData");
-    if (location.pathname === "/") navigate("/login");
-    else navigate("/login");
+    removeLocalStorage("userData");
+    navigate("/login");
   };
   const handleProfile = () => {
     navigate("/profile");

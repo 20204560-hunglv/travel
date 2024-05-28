@@ -1,4 +1,4 @@
-import { getAdminLocal } from "../../utils/getLocalStorage";
+import { getAdminLocal } from "../../utils/LocalStorage";
 import NotFound from "../NotFound/notFound";
 import { Outlet } from "react-router-dom";
 

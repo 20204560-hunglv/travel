@@ -2,9 +2,11 @@ import DefaultLayout from "../../components/Layout/DefaultLayout";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../components/Notification/index";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { login } from "../../services/AuthServices";
 import { Button, TextField } from "@mui/material";
+import LoginValidate from "./../../validators/LoginValidate";
+import { setLocalStorage } from "../../utils/LocalStorage";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,46 +20,38 @@ const Login = () => {
   const changePass = (event) => {
     setPass(event.target.value);
   };
-  const handleToSubmit = () => {
-    if (!name || !pass)
-      handleNotify("Warning", "Warning", "Cần nhập đầy đủ thông tin");
-    else
-      login(name, pass)
-        .then((response) => {
-          if (response.status === 200) {
-            // console.log(response.data.user)
-            localStorage.setItem(
-              "userData",
-              JSON.stringify(response.data.user)
-            );
-            navigate("/");
-          } else console.log("Tai khoan khong dung");
-        })
-        .catch((error) => {
-          if (error.response) {
-            // Trường hợp máy chủ trả về mã trạng thái 401 (Unauthorized)
-            if (error.response.status === 401) {
-              handleNotify("warning", "Warning", "Login failed: Unauthorized");
-            } else {
-              console.log(
-                "An error occurred with status code:",
-                error.response.status
-              );
-            }
-          } else if (error.request) {
-            // Trường hợp yêu cầu được gửi đi nhưng không có phản hồi từ máy chủ
-            console.error("No response received from the server");
-          } else {
-            // Lỗi xảy ra trong quá trình thiết lập yêu cầu
-            console.error("An error occurred:", error.message);
-          }
-        });
-  };
+  const handleToSubmit = useCallback(async () => {
+    try {
+      LoginValidate({ name, pass });
+      const response = await login(name, pass);
+      setLocalStorage({
+        key: "userData",
+        value: JSON.stringify(response.data.user),
+      });
+      navigate("/");
+    } catch (error) {
+      handleNotify("warning", "", error.message);
+    }
+  }, [name, navigate, pass]);
+
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === "Enter") {
+        handleToSubmit();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [handleToSubmit]);
 
   return (
     <>
-      <ReactNotifications />
       <DefaultLayout>
+        <ReactNotifications />
         <div className={`calc-64 flex items-center`}>
           <div
             className={`text-666666 m-auto flex flex-col justify-center w-max rounded-lg `}
@@ -77,7 +71,7 @@ const Login = () => {
                   </div>
                 </div>
               </div>
-              <div>
+              <form>
                 <fieldset
                   className={`border-none flex flex-col h-48 justify-between`}
                 >
@@ -118,7 +112,7 @@ const Login = () => {
                     Đăng nhập
                   </Button>
                 </fieldset>
-              </div>
+              </form>
             </div>
           </div>
         </div>

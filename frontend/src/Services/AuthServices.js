@@ -8,19 +8,18 @@ export async function login(username, password) {
     });
     return response;
   } catch (error) {
-    throw error;
+    throw new Error(error.response.data.error);
   }
 }
 
 export async function signUp(username, password) {
   try {
-  await axios.post("/api/v1/signup", {
-    username: username,
-    password: password,
-  });
-  }
-  catch (e) {
-    throw new Error(e.response.data.error)
+    await axios.post("/api/v1/signup", {
+      username: username,
+      password: password,
+    });
+  } catch (e) {
+    throw new Error(e.response.data.error);
   }
 }
 

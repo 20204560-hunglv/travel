@@ -236,7 +236,7 @@ const login = async (req, res) => {
     if (user) {
       return res.status(200).json({ message: "Login successful", user });
     } else {
-      return res.status(401).json({ error: "Account not found" });
+      return res.status(401).json({ error: "Tên đăng nhập hoặc mật khẩu không đúng" });
     }
   } catch (error) {
     return res.status(400).json({ error: error });

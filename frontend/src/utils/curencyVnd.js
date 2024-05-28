@@ -1,8 +1,12 @@
-const currencyVnd = (amout) => {
+/**
+ * @param {number} amount 
+ * @returns string
+ */
+const currencyVnd = (amount) => {
   return Intl.NumberFormat("vi-VN", {
     style: "currency",
     currency: "VND",
-  }).format(amout);
+  }).format(amount);
 };
 
 export default currencyVnd;

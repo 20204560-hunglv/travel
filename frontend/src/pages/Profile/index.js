@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import DefaultLayout from "../../components/Layout/DefaultLayout";
-import { getUserLocal } from "../../utils/getLocalStorage";
+import { getUserLocal } from "../../utils/LocalStorage";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../components/Notification/index";
 import {
