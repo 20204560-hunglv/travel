@@ -18,6 +18,10 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { viVN } from "@mui/material/locale";
 import Checkout from "./pages/Checkout";
+import CrudGuide from './pages/Admin/CrudGuide/index';
+import CrudHotel from './pages/Admin/CrudHotel/index';
+import CrudDiscount from './pages/Admin/CrudDiscount/index';
+import CrudOrder from './pages/Admin/CrudOrder/index';
 
 const App = () => {
   const theme = createTheme(
@@ -53,6 +57,10 @@ const App = () => {
             <Route element={<ProtectRouterAdmin />}>
               <Route path="crud-user" element={<CrudUser />} />
               <Route path="crud-tour" element={<CrudTour />} />
+              <Route path="crud-guide" element={<CrudGuide />} />
+              <Route path="crud-hotel" element={<CrudHotel />} />
+              <Route path="crud-discount" element={<CrudDiscount />} />
+              <Route path="crud-order" element={<CrudOrder />} />
             </Route>
           </Route>
 

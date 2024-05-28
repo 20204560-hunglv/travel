@@ -5,6 +5,7 @@ export const getAll = async () => {
     const response = await axios.get("/api/v1/users");
     return response;
   } catch (error) {
+    console.log(error);
     throw error;
   }
 };
@@ -13,6 +14,7 @@ export const deleteUser = async (id) => {
   try {
     await axios.delete(`/api/v1/user/${id}`);
   } catch (error) {
+    console.log(error);
     throw error;
   }
 };
@@ -20,9 +22,10 @@ export const deleteUser = async (id) => {
 export const update = async (id, data) => {
   try {
     await axios.put(`/api/v1/user_crud/${id}`, {
-      ...data
+      ...data,
     });
   } catch (error) {
+    console.log(error);
     throw error;
   }
 };

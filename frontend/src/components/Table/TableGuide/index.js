@@ -57,12 +57,6 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: "username",
-    numeric: false,
-    disablePadding: true,
-    label: "Tên tài khoản",
-  },
-  {
     id: "fullName",
     numeric: false,
     disablePadding: false,
@@ -209,7 +203,12 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function TableUser({ data, handleDeleteUser, handleEditUser, title = 'Danh sách khách hàng' }) {
+export default function TableGuide({
+  data,
+  handleDeleteUser,
+  handleEditUser,
+  title = "",
+}) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("");
   const [selected, setSelected] = React.useState([]);
@@ -337,26 +336,10 @@ export default function TableUser({ data, handleDeleteUser, handleEditUser, titl
                           }}
                         />
                       </TableCell>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                      >
-                        {row.username}
-                      </TableCell>
-                      <TableCell align="left">
-                        {row.fullName}
-                      </TableCell>
-                      <TableCell align="left">
-                        {row.address}
-                      </TableCell>
-                      <TableCell align="left">
-                        {row.numberPhone}
-                      </TableCell>
-                      <TableCell align="left">
-                        {row.email}
-                      </TableCell>
+                      <TableCell align="left">{row.fullName}</TableCell>
+                      <TableCell align="left">{row.address}</TableCell>
+                      <TableCell align="left">{row.numberPhone}</TableCell>
+                      <TableCell align="left">{row.email}</TableCell>
                       <TableCell>
                         <IconButton
                           color="primary"

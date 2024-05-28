@@ -1,8 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../../components/Notification/index";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { loginAdmin } from "../../../services/AuthServices";
+import { TextField } from "@mui/material";
 
 const LoginAdmin = () => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const LoginAdmin = () => {
     setPass(event.target.value);
   };
   const handleToSubmit = () => {
+    console.log({ name, pass });
     if (!name || !pass)
       handleNotify("Warning", "Warning", "Cần nhập đầy đủ thông tin");
     else
@@ -49,6 +51,17 @@ const LoginAdmin = () => {
           }
         });
   };
+
+  useEffect(() => {
+    const keyPress = (event) => {
+      if (event.key === "Enter") handleToSubmit();
+    };
+    window.addEventListener("keydown", keyPress);
+    return () => {
+      window.removeEventListener("keydown", keyPress);
+    };
+  }, [name, pass]);
+
   return (
     <div>
       <ReactNotifications />
@@ -62,41 +75,25 @@ const LoginAdmin = () => {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <div className="space-y-6">
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Tài khoản
-              </label>
               <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="text"
-                  // value={name}
+                <TextField
+                  fullWidth
+                  value={name}
                   onChange={changeName}
-                  className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  label="Tài khoản"
                 />
               </div>
             </div>
 
             <div>
-              <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Mật khẩu
-                </label>
-              </div>
+              <div className="flex items-center justify-between"></div>
               <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  // value={pass}
+                <TextField
+                  fullWidth
+                  label="Mật khẩu"
+                  value={pass}
                   onChange={changePass}
-                  className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  type="password"
                 />
               </div>
             </div>
@@ -110,12 +107,6 @@ const LoginAdmin = () => {
               </button>
             </div>
           </div>
-
-          <p className="mt-10 text-center text-sm text-gray-500">
-            <Link to="/login" className="underline">
-              Đăng nhập với vai trò khách hàng
-            </Link>
-          </p>
         </div>
       </div>
     </div>

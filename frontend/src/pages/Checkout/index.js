@@ -33,7 +33,7 @@ export default function Checkout() {
               src={data.main_image_url}
             />
           </div>
-          <div className="flex items-center col-span-7 px-4">
+          <div className="flex items-center col-span-7 px-10">
             <div className="">
               <Typography sx={{ fontWeight: 700 }} variant="h5" gutterBottom>
                 {data.name}
