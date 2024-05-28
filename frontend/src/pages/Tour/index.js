@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import DefaultLayout from "../../components/Layout/DefaultLayout/index";
 import { useNavigate, useParams } from "react-router-dom";
-import currencyVnd from "../../utils/curencyVnd";
+import currencyVnd from "../../utils/currencyVnd";
 import Dialog from "../../components/Dialog";
 import { getUserLocal } from "../../utils/LocalStorage";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../components/Notification/index";
-import {selectNameCity} from "../../utils/cites";
+import { selectNameCity } from "../../utils/cites";
 import { get as getTour, bookTour } from "../../services/TourServices";
 import {
   Button,
@@ -24,7 +24,7 @@ import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import Grid from "@mui/material/Unstable_Grid2";
 import dayjs from "dayjs";
 import { truncateString } from "../../utils/shortenString";
-import {formatDate} from "../../utils/resolveTime"
+import { formatDate } from "../../utils/resolveTime";
 
 const SearchItem = ({ item }) => {
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ const SearchItem = ({ item }) => {
         image={item.main_image_url}
         alt={item.main_image_url}
       />
-      <div onClick={handleToBooking} className="cursor-pointer">
+      <div onClick={() => handleToBooking()} className="cursor-pointer">
         <CardContent>
           <Typography variant="h6" component="div">
             {truncateString(item.name)}
@@ -151,9 +151,11 @@ const Tour = () => {
   const handleBookTour = () => {
     if (!userData) {
       navigate("/login");
-    } else setDialog(true);
+    } else {
+      navigate(`/checkout/${id}`);
+      // setDialog(true)};
+    }
   };
-
   return (
     <DefaultLayout>
       <ReactNotifications />
@@ -299,7 +301,12 @@ const Tour = () => {
           </div>
         </div>
         <div className="py-10">
-          <Typography sx={{marginBottom: 3}} align="center" variant="h5" gutterBottom>
+          <Typography
+            sx={{ marginBottom: 3 }}
+            align="center"
+            variant="h5"
+            gutterBottom
+          >
             Có thể bạn sẽ thích
           </Typography>
           <Grid
@@ -307,8 +314,8 @@ const Tour = () => {
             spacing={{ xs: 2, md: 3 }}
             columns={{ xs: 4, sm: 8, md: 12 }}
           >
-            {dataCanLike.map((item, index) => (
-              <Grid xs={2} sm={4} md={4} key={index}>
+            {dataCanLike.map((item) => (
+              <Grid xs={2} sm={4} md={4} key={item._id}>
                 <SearchItem item={item} />
               </Grid>
             ))}

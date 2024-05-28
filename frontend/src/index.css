@@ -40,6 +40,9 @@
 .calc-64{
   height: calc(100vh - 64px);
 }
+.vh-64-84{
+  min-height: calc(100vh - 148px);
+}
 .bg-image{
   background-image: url(./assets/images/background.jpg);
   background-position-y: 45%;

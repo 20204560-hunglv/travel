@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import DefaultLayout from "../../components/Layout/DefaultLayout";
 import { getUserLocal } from "../../utils/LocalStorage";
-import currencyVnd from "../../utils/curencyVnd";
+import currencyVnd from "../../utils/currencyVnd";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../components/Notification/index";
 import ModalRate from "../../components/ModalRate";

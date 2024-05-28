@@ -1,9 +1,8 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import DefaultLayout from "../../components/Layout/DefaultLayout";
-import citys from "../../utils/cites";
-import { useNavigate } from "react-router-dom";
+import cites from "../../utils/cites";
 import { useEffect, useState } from "react";
-import currencyVnd from "../../utils/curencyVnd";
+import currencyVnd from "../../utils/currencyVnd";
 import { get as getTours } from "../../services/SearchServices";
 import Button from "@mui/material/Button";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -29,7 +28,7 @@ const Choose = (props) => {
     <div className="font-semibold text-sm mb-4">
       <p>{props.label}</p>
       <Select className="w-full" value={props.value} onChange={props.onChange}>
-        {citys.map((city, index) => (
+        {cites.map((city, index) => (
           <MenuItem key={index} value={city.value}>
             {city.label}
           </MenuItem>
@@ -90,11 +89,11 @@ const Search = () => {
   let location = useLocation().state;
 
   const [data, setData] = useState([]);
-  const [countryFrom, setCountryFrom] = useState(location.from || "");
-  const [countryTo, setCountryTo] = useState(location.to || "");
-  const [numberDate, setNumberDate] = useState(location.period || "");
+  const [countryFrom, setCountryFrom] = useState(location?.from || "");
+  const [countryTo, setCountryTo] = useState(location?.to || "");
+  const [numberDate, setNumberDate] = useState(location?.period || "");
   const [date, setValue] = useState(
-    location.start ? dayjs(location.start) : null
+    location?.start ? dayjs(location.start) : null
   );
 
   const handleFrom = (event) => {

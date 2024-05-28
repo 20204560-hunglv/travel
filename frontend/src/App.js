@@ -17,6 +17,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { viVN } from "@mui/material/locale";
+import Checkout from "./pages/Checkout";
 
 const App = () => {
   const theme = createTheme(
@@ -44,6 +45,7 @@ const App = () => {
             <Route path="/history-booking" element={<HistoryBooking />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/change-pass" element={<ChangePass />} />
+            <Route path="/checkout/:tourId" element={<Checkout />} />
           </Route>
 
           <Route path="/admin">
