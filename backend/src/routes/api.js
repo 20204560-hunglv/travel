@@ -4,7 +4,8 @@ const router = express.Router();
 const UserController = require("../controllers/UserController");
 const AdminController = require("../controllers/AdminController");
 const TourController = require("../controllers/TourController");
-const GuideController = require('../controllers/GuideController')
+const GuideController = require('../controllers/GuideController');
+const HotelController = require('../controllers/HotelController');
 
 router.get("/tours", TourController.getAllTours);
 router.get("/tours/:id", TourController.getTour);
@@ -32,5 +33,10 @@ router.get('/guides', GuideController.get);
 router.post('/guides', GuideController.create);
 router.put('/guides', GuideController.update);
 router.delete('/guide/:id', GuideController.deleteGuide);
+
+router.get('/hotels', HotelController.get);
+router.post('/hotels', HotelController.create);
+router.put('/hotel/:id', HotelController.update);
+router.delete('/hotel/:id', HotelController.remove);
 
 module.exports = router;
