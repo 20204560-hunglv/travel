@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const User = new Schema({
+const Customer = new Schema({
   username: String,
   password: String,
   fullName: String,
@@ -13,4 +13,4 @@ const User = new Schema({
   tours: {type: Array},
 },{timestamps: true});
 
-module.exports = mongoose.model("User", User);
+module.exports = mongoose.model("Customer", Customer);

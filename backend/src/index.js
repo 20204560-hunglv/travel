@@ -1,7 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
-const route = require("./routes");
+const routes = require("./handlers/routes")
 const app = express();
 const port = 3003;
 const database = require("./config");
@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, "public")));
 //connect MongoDB
 database.connect();
 
-route(app);
+routes(app);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

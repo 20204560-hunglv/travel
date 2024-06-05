@@ -9,8 +9,6 @@ import {
   edit as editHotel,
   remove as removeHotel,
 } from "../../../services/HotelServices";
-import TableHotel from "../../../components/Table/TableHotel";
-import CRUDHotelModal from "../../../components/Modal/CRUDHotelModal";
 import TableDiscount from "./../../../components/Table/TableDiscount/index";
 import CRUDDiscountModal from "../../../components/Modal/CRUDDiscountModal";
 

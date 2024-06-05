@@ -3,10 +3,9 @@ import React, { useState, useEffect } from "react";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../../components/Notification/index";
 import CrudTourModal from "../../../components/Modal/CRUDTourModal";
-import { getAll, deleteTour } from "../../../services/TourServices";
+import { getAll, deleteTour , update as EditTour, add as addTour } from "../../../services/TourServices";
 import HeaderResult from "../../../components/Layout/LayoutAdmin/HeaderResult";
 import TableTour from "../../../components/Table/TableTour";
-import { update as EditTour, add as addTour } from "../../../services/TourServices";
 
 const CrudTour = () => {
   const [data, setData] = useState([]);

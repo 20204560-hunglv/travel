@@ -1,16 +1,17 @@
-const User = require("../models/users");
+const Customer = require("../models/customers");
+const CustomerRepository = require("../repositories/CustomerRepository");
 
 const createUser = async (req, res) => {
   try {
     const userData = req.body;
     const username = userData.username;
 
-    const findUser = await User.findOne({ username: username });
+    const findUser = await CustomerRepository.findUser({ username });
     if (findUser) {
       throw new Error("Tên tài khoản đã tồi tại");
     }
 
-    await User.create(userData);
+    await CustomerRepository.createUser(userData);
 
     return res.status(201).json({
       success: true,
@@ -24,29 +25,25 @@ const createUser = async (req, res) => {
 };
 
 const userOrderTour = async (req, res) => {
-  const id = req.params.id;
-  const tours = req.body;
   try {
-    const userUpdate = await User.findOneAndUpdate(
-      { _id: id },
-      { $push: { tours } },
-      { new: true }
-    ).sort();
+    const id = req.params.id;
+    const tours = req.body;
+    const userUpdate = await CustomerRepository.findOrderTour({ id, tours });
     return res.status(200).json({
-      message: "order tour ok",
+      success: true,
       userUpdate,
     });
   } catch (error) {
     console.log(error);
-    return res.status(200).json({
-      message: "error",
+    return res.status(404).json({
+      success: false,
     });
   }
 };
 
 const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find({});
+    const users = await CustomerRepository.get();
     return res.status(200).json(users);
   } catch (err) {
     console.error(err);
@@ -57,8 +54,8 @@ const getAllUsers = async (req, res) => {
 const userGetOrderTour = async (req, res) => {
   const id = req.params.id;
   try {
-    const user = await User.findOne({ _id: id });
-    return res.status(200).json(user.tours);
+    const customer = await CustomerRepository.findOrder(id);
+    return res.status(200).json(customer.tours);
   } catch (err) {
     console.error(err);
     return res.status(500).send("Internal Server Error");
@@ -68,7 +65,7 @@ const userGetOrderTour = async (req, res) => {
 const getUser = async (req, res) => {
   const id = req.params.id;
   try {
-    const user = await User.findOne({ _id: id });
+    const user = await CustomerRepository.findUser({ id });
     return res.status(200).json(user);
   } catch (err) {
     console.error(err);
@@ -80,12 +77,7 @@ const userUpdateOrderTour = async (req, res) => {
   const id = req.params.id;
   const dataUpdate = req.body;
   try {
-    await User.updateOne(
-      { _id: id },
-      {
-        tours: dataUpdate,
-      }
-    );
+    await CustomerRepository.updateOrder({ id, dataUpdate });
     return res.status(200).json({
       message: "update ok",
     });
@@ -100,7 +92,7 @@ const updateUser = async (req, res) => {
   const request = req.body;
 
   try {
-    await User.updateOne({ _id: id }, { ...request });
+    await CustomerRepository.updateUser({id, request})
 
     return res.status(200).json({
       message: "update ok",
@@ -114,11 +106,11 @@ const updateUser = async (req, res) => {
 const updateUserByAdmin = async (req, res) => {
   const { userName, passWord, fullName, email, address, gender } = req.body;
   try {
-    const userFind = await User.findOne({
+    const userFind = await Customer.findOne({
       username: userName,
     });
     if (userFind) {
-      await User.updateOne(
+      await Customer.updateOne(
         { username: userName },
         {
           password: passWord,
@@ -132,7 +124,7 @@ const updateUserByAdmin = async (req, res) => {
         message: "update ok",
       });
     } else {
-      const user = new User({
+      const user = new Customer({
         username: userName,
         password: passWord,
         fullname: fullName,
@@ -155,10 +147,9 @@ const updatePassword = async (req, res) => {
   const id = req.params.id;
   const { pass, newPass } = req.body;
   try {
-    const isPass = await User.findOne({ _id: id, password: pass });
-    // const isPass = await User.findOne({ username: username, password: pass });
+    const isPass = await Customer.findOne({ _id: id, password: pass });
     if (!isPass) return res.status(409).json({ error: "Password wrong" });
-    await User.updateOne({ _id: id }, { password: newPass });
+    await Customer.updateOne({ _id: id }, { password: newPass });
     return res.status(200).json({
       message: "update ok",
     });
@@ -187,7 +178,7 @@ const deleteTour = async (req, res) => {
 const deleteUser = async (req, res) => {
   const id = req.params.id;
   try {
-    const respUser = await User.deleteOne({ _id: id });
+    const respUser = await Customer.deleteOne({ _id: id });
     return res.status(200).json({
       message: "delete ok",
       data: respUser,
@@ -201,17 +192,15 @@ const deleteUser = async (req, res) => {
 const signUp = async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
-    return res
-      .status(400)
-      .json({ error: "Username hoặc password bị thiếu" });
+    return res.status(400).json({ error: "Username hoặc password bị thiếu" });
   }
   try {
-    const findUser = await User.findOne({ username: username });
+    const findUser = await Customer.findOne({ username: username });
     if (findUser) {
       return res.status(409).json({ error: "Tên đăng nhập đã tồn tại" });
     } else {
       const newUser = { username, password };
-      await User.create(newUser);
+      await Customer.create(newUser);
       return res
         .status(201)
         .json({ message: "Đăng ký thành công", user: newUser });
@@ -229,14 +218,16 @@ const login = async (req, res) => {
       .json({ error: "Username and password are required" });
   }
   try {
-    const user = await User.findOne({
+    const user = await Customer.findOne({
       username: username,
       password: password,
     });
     if (user) {
       return res.status(200).json({ message: "Login successful", user });
     } else {
-      return res.status(401).json({ error: "Tên đăng nhập hoặc mật khẩu không đúng" });
+      return res
+        .status(401)
+        .json({ error: "Tên đăng nhập hoặc mật khẩu không đúng" });
     }
   } catch (error) {
     return res.status(400).json({ error: error });

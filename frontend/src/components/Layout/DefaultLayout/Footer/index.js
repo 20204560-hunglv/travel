@@ -35,7 +35,7 @@ const Footer = () => {
           </a>
         </div>
         <p className="text-center text-gray-700 font-medium">
-          Copyright &copy; 2024 Company Ltd.
+          Copyright &copy; 2024 hung.lv204560
         </p>
       </div>
     </footer>
