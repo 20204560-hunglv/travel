@@ -65,7 +65,7 @@ const userGetOrderTour = async (req, res) => {
 const getUser = async (req, res) => {
   const id = req.params.id;
   try {
-    const user = await CustomerRepository.findUser({ id });
+    const user = await CustomerRepository.findUser({ _id: id });
     return res.status(200).json(user);
   } catch (err) {
     console.error(err);
@@ -92,7 +92,7 @@ const updateUser = async (req, res) => {
   const request = req.body;
 
   try {
-    await CustomerRepository.updateUser({id, request})
+    await CustomerRepository.updateUser({ id, request });
 
     return res.status(200).json({
       message: "update ok",
@@ -139,7 +139,9 @@ const updateUserByAdmin = async (req, res) => {
     }
   } catch (err) {
     console.error(err);
-    return res.status(500).send("Internal ServerError");
+    return res.status(404).json({
+      success: false,
+    });
   }
 };
 
@@ -155,7 +157,9 @@ const updatePassword = async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    return res.status(500).send("Internal ServerError");
+    return res.status(404).json({
+      success: false,
+    });
   }
 };
 
@@ -185,7 +189,9 @@ const deleteUser = async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    return res.status(500).send("Internal ServerError");
+    return res.status(404).json({
+      success: false,
+    });
   }
 };
 

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button, TextField } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { PropTypes } from "prop-types";
+import dayjs from "dayjs";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
 const CRUDDiscountModal = ({
   handleSaveData,
@@ -10,14 +12,18 @@ const CRUDDiscountModal = ({
   title = "",
 }) => {
   const [name, setName] = useState(data?.name || "");
-  const [image, setImage] = useState(data?.image || "");
-  const [address, setAddress] = useState(data?.address || "");
+  const [startDate, setStartDate] = useState(
+    (data?.startDate && dayjs(data.startDate)) || null
+  );
+  const [endDate, setEndDate] = useState(
+    (data?.endDate && dayjs(data.endDate)) || null
+  );
+  const [discountValue, setDiscountValue] = useState(data?.discountValue || "");
+  const [isActive, setIsActive] = useState(data?.isActive || false);
 
   const handleSave = async () => {
     await handleSaveData({
       name,
-      image,
-      address,
     });
   };
 
@@ -50,22 +56,36 @@ const CRUDDiscountModal = ({
               className="block uppercase tracking-wide text-gray-700 text-xs 
           font-bold mb-2"
             >
-              Hình ảnh
+              Giá trị khuyến mãi (%)
             </p>
             <TextField
               fullWidth
-              value={image}
-              onChange={(event) => setImage(event.target.value)}
+              value={discountValue}
+              onChange={(event) => setDiscountValue(event.target.value)}
+              type="number"
+            />
+          </div>
+          <div className="w-full mb-5">
+            <p
+              className="block uppercase tracking-wide text-gray-700 text-xs 
+          font-bold mb-2"
+            >
+              Ngày bắt đầu
+            </p>
+            <DateTimePicker
+              fullWidth
+              value={startDate}
+              onChange={(newValue) => setStartDate(newValue)}
             />
           </div>
           <div className="w-full mb-5">
             <p className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-              Địa chỉ
+              Ngày kết thúc
             </p>
-            <TextField
+            <DateTimePicker
               fullWidth
-              value={address}
-              onChange={(event) => setAddress(event.target.value)}
+              value={endDate}
+              onChange={(newValue) => setEndDate(newValue)}
             />
           </div>
 

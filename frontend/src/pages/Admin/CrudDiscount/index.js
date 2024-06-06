@@ -9,6 +9,7 @@ import {
   edit as editHotel,
   remove as removeHotel,
 } from "../../../services/HotelServices";
+import * as DiscountServices from "../../../services/DiscountServices"
 import TableDiscount from "./../../../components/Table/TableDiscount/index";
 import CRUDDiscountModal from "../../../components/Modal/CRUDDiscountModal";
 
@@ -35,7 +36,7 @@ export default function CrudDiscount() {
 
   const fetchData = async () => {
     try {
-      const response = await getAll();
+      const response = await DiscountServices.get();
       setData(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);

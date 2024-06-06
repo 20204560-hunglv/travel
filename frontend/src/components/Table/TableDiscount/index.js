@@ -26,6 +26,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Button } from "@mui/material";
+import { formatDate } from "../../../utils/resolveTime";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -57,16 +58,22 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: "fullName",
+    id: "name",
     numeric: false,
     disablePadding: false,
     label: "Tên",
   },
   {
-    id: "address",
+    id: "startDate",
     numeric: false,
     disablePadding: false,
-    label: "Địa chỉ",
+    label: "Ngày bắt đầu",
+  },
+  {
+    id: "endDate",
+    numeric: false,
+    disablePadding: false,
+    label: "Ngày kết thúc",
   }
 ];
 
@@ -325,11 +332,11 @@ export default function TableDiscount({
                           }}
                         />
                       </TableCell>
-                      <TableCell sx={{display: "flex", alignItems: "center" }} align="left">
-                        <img className="mr-2" width={60} height={60} src={row.image} alt="Hình ảnh" />
+                      <TableCell align="left">
                         {row.name}
                       </TableCell>
-                      <TableCell align="left">{row.address}</TableCell>
+                      <TableCell align="left">{formatDate(row.startDate)}</TableCell>
+                      <TableCell align="left">{formatDate(row.endDate)}</TableCell>
                       <TableCell align="center">
                         <IconButton
                           color="primary"
