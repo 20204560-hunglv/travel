@@ -3,12 +3,6 @@ import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../../components/Notification/index";
 import { useEffect, useState } from "react";
 import HeaderResult from "./../../../components/Layout/LayoutAdmin/HeaderResult/index";
-import {
-  get as getAll,
-  create as createHotel,
-  edit as editHotel,
-  remove as removeHotel,
-} from "../../../services/HotelServices";
 import * as DiscountServices from "../../../services/DiscountServices"
 import TableDiscount from "./../../../components/Table/TableDiscount/index";
 import CRUDDiscountModal from "../../../components/Modal/CRUDDiscountModal";
@@ -49,7 +43,7 @@ export default function CrudDiscount() {
 
   const handleDeleteUser = async (id) => {
     try {
-      await removeHotel(id);
+      await DiscountServices.remove(id);
       await fetchData();
       handleNotify("success", "Thành công", "Xóa thành công");
     } catch (error) {
@@ -59,9 +53,9 @@ export default function CrudDiscount() {
 
   const handleAddData = async (data) => {
     try {
-      await createHotel(data);
+      await DiscountServices.create(data);
       handleChangeIsAdd(false);
-      handleNotify("success", "", "Tạo khách sạn thành công");
+      handleNotify("success", "", "Tạo thành công");
     } catch (error) {
       console.log(error);
       handleNotify("warning", "", error);
@@ -70,8 +64,8 @@ export default function CrudDiscount() {
 
   const handleEditData = async (data) => {
     try {
-      await editHotel({ id: userEdit._id, data });
-      handleNotify("success", " ", "Chỉnh sửa tài khoản thành công");
+      await DiscountServices.edit({ id: userEdit._id, data });
+      handleNotify("success", " ", "Chỉnh sửa thành công");
     } catch (error) {
       console.log(error);
       handleNotify("warning", "", error);

@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Button, TextField } from "@mui/material";
+import {
+  Button,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  TextField,
+} from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { PropTypes } from "prop-types";
 import dayjs from "dayjs";
@@ -19,11 +25,15 @@ const CRUDDiscountModal = ({
     (data?.endDate && dayjs(data.endDate)) || null
   );
   const [discountValue, setDiscountValue] = useState(data?.discountValue || "");
-  const [isActive, setIsActive] = useState(data?.isActive || false);
+  const [isActive, setIsActive] = useState(data?.isActive || null);
 
   const handleSave = async () => {
     await handleSaveData({
       name,
+      startDate,
+      endDate,
+      discountValue,
+      isActive,
     });
   };
 
@@ -87,6 +97,27 @@ const CRUDDiscountModal = ({
               value={endDate}
               onChange={(newValue) => setEndDate(newValue)}
             />
+          </div>
+          <div className="w-full mb-5">
+            <p className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              Áp dụng khuyến mãi
+            </p>
+            <div className="flex">
+              <RadioGroup
+                id="radio-isActive"
+                row
+                name="gender-radio-isActive-group"
+                value={isActive}
+                onChange={(event) => setIsActive(event.target.value)}
+              >
+                <FormControlLabel value={true} control={<Radio />} label="Có" />
+                <FormControlLabel
+                  value={false}
+                  control={<Radio />}
+                  label="Không"
+                />
+              </RadioGroup>
+            </div>
           </div>
 
           <div className="flex items-center justify-between">
