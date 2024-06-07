@@ -1,7 +1,7 @@
-import { useState } from "react";
+import {useState} from "react";
 import cites from "../../../utils/cites";
-import { Button, MenuItem, Select, TextField } from "@mui/material";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import {Button, MenuItem, Select, TextField} from "@mui/material";
+import {DateTimePicker} from "@mui/x-date-pickers/DateTimePicker";
 import dayjs from "dayjs";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
@@ -89,18 +89,20 @@ const CrudTourModal = ({
             />
           </div>
           <div className="w-full mb-5">
-            <label
+            <p
               className="block uppercase tracking-wide text-gray-700 text-xs 
           font-bold mb-2"
             >
               Khoảng thời gian
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 
-            text-gray-700 leading-tight focus:outline-none focus:text-gray-600"
-              type="text"
+            </p>
+            <TextField
+              fullWidth
+              type="number"
               value={period}
               onChange={(event) => setPeriod(event.target.value)}
+              InputProps={{
+                inputProps: { min: 0 },
+              }}
             />
           </div>
           <div className="w-full mb-5 space-y-4">

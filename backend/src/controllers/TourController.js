@@ -1,4 +1,5 @@
 const Tour = require("../models/tour");
+const TourRepository = require("../repositories/TourRepository");
 
 const deleteTour = async (req, res) => {
   const _id = req.params.id;
@@ -18,11 +19,18 @@ const deleteTour = async (req, res) => {
 
 const getAllTours = async (req, res) => {
   try {
-    const tours = await Tour.find({});
-    return res.status(200).json(tours);
+    const query = req.query;
+    const [tours, totalPage] = await Promise.all([
+      TourRepository.get({ ...query }),
+      TourRepository.getTotalPage({})
+    ]);
+    return res.status(200).json({tours, totalPage});
   } catch (err) {
     console.error(err);
-    return res.status(500).send("Internal Server Error");
+    return res.status(404).json({
+      success: false,
+      error: err.message,
+    });
   }
 };
 
@@ -92,18 +100,18 @@ const updateTour = async (req, res) => {
 };
 
 const createTour = async (req, res) => {
-    try {
-      const data = req.body;
-      await Tour.create(data);
-      return res.status(200).json({
-        message: "ok",
-      });
-    } catch (error) {
-      console.log(error);
-      return res.status(200).json({
-        message: "error",
-      });
-    }
+  try {
+    const data = req.body;
+    await Tour.create(data);
+    return res.status(200).json({
+      message: "ok",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json({
+      message: "error",
+    });
+  }
 };
 
 module.exports = {
@@ -112,5 +120,5 @@ module.exports = {
   searchTour,
   updateTour,
   deleteTour,
-  createTour
+  createTour,
 };

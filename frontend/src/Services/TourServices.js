@@ -18,9 +18,19 @@ export async function getAll() {
   }
 }
 
+export async function getTopTour(limit = 3) {
+  try {
+    const response = await axios.get(`/api/v1/tours?limit=${limit}`);
+    return response;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
 export async function add(data) {
   try {
-    await axios.post(`/api/v1/tours`, {...data});
+    await axios.post(`/api/v1/tours`, { ...data });
   } catch (error) {
     throw error;
   }

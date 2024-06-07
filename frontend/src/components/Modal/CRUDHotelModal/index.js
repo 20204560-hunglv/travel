@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Button, TextField } from "@mui/material";
+import {useState} from "react";
+import {Button, TextField} from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { PropTypes } from "prop-types";
+import {PropTypes} from "prop-types";
 
 const CRUDHotelModal = ({
   handleSaveData,

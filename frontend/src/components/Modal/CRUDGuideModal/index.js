@@ -1,15 +1,9 @@
-import { useState } from "react";
-import {
-  Button,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  TextField,
-} from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers";
+import {useState} from "react";
+import {Button, FormControlLabel, Radio, RadioGroup, TextField,} from "@mui/material";
+import {DatePicker} from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { PropTypes } from "prop-types";
+import {PropTypes} from "prop-types";
 
 const CRUDGuideModal = ({
   handleSaveData,

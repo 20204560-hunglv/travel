@@ -18,10 +18,10 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { viVN } from "@mui/material/locale";
 import Checkout from "./pages/Checkout";
-import CrudGuide from './pages/Admin/CrudGuide/index';
-import CrudHotel from './pages/Admin/CrudHotel/index';
-import CrudDiscount from './pages/Admin/CrudDiscount/index';
-import CrudOrder from './pages/Admin/CrudOrder/index';
+import CrudGuide from "./pages/Admin/CrudGuide/index";
+import CrudHotel from "./pages/Admin/CrudHotel/index";
+import CrudDiscount from "./pages/Admin/CrudDiscount/index";
+import CrudOrder from "./pages/Admin/CrudOrder/index";
 
 const App = () => {
   const theme = createTheme(
@@ -43,7 +43,10 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/tour/:id" element={<Tour />} />
-          <Route path="/search" element={<Search />} />
+          <Route path="/search">
+            <Route index element={<Search />} />
+            <Route path="page/:page" element={<Search />} />
+          </Route>
 
           <Route element={<ProtectRouterUser />}>
             <Route path="/history-booking" element={<HistoryBooking />} />

@@ -26,6 +26,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import {Button} from "@mui/material";
+import {getStatusOrder} from '../../../utils/statusOrder'
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -57,35 +58,23 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: "username",
-    numeric: false,
-    disablePadding: true,
-    label: "Tên tài khoản",
-  },
-  {
-    id: "fullName",
+    id: "nameTour",
     numeric: false,
     disablePadding: false,
-    label: "Họ và tên",
+    label: "Tour du lịch",
   },
   {
-    id: "address",
+    id: "nameCustomer",
     numeric: false,
     disablePadding: false,
-    label: "Địa chỉ",
+    label: "Người đặt",
   },
   {
-    id: "numberPhone",
+    id: "status",
     numeric: false,
     disablePadding: false,
-    label: "Số điện thoại",
-  },
-  {
-    id: "email",
-    numeric: false,
-    disablePadding: false,
-    label: "Email",
-  },
+    label: "Trạng thái",
+  }
 ];
 
 function EnhancedTableHead(props) {
@@ -207,9 +196,15 @@ function EnhancedTableToolbar(props) {
 
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
+  title: PropTypes.string,
 };
 
-export default function TableUser({ data, handleDeleteUser, handleEditUser, title = 'Danh sách khách hàng' }) {
+export default function TableOrder({
+  data,
+  handleDeleteUser,
+  handleEditUser,
+  title = "",
+}) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("");
   const [selected, setSelected] = React.useState([]);
@@ -321,7 +316,7 @@ export default function TableUser({ data, handleDeleteUser, handleEditUser, titl
                     <TableRow
                       hover
                       onClick={(event) => handleClick(event, row._id)}
-                      role="checkbox"
+                      //   role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row._id}
@@ -337,27 +332,12 @@ export default function TableUser({ data, handleDeleteUser, handleEditUser, titl
                           }}
                         />
                       </TableCell>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                      >
-                        {row.username}
-                      </TableCell>
                       <TableCell align="left">
-                        {row.fullName}
+                        {row.tour.name}
                       </TableCell>
-                      <TableCell align="left">
-                        {row.address}
-                      </TableCell>
-                      <TableCell align="left">
-                        {row.numberPhone}
-                      </TableCell>
-                      <TableCell align="left">
-                        {row.email}
-                      </TableCell>
-                      <TableCell>
+                      <TableCell align="left">{row.customer.fullName}</TableCell>
+                      <TableCell align="left">{getStatusOrder(row.status)}</TableCell>
+                      <TableCell align="center">
                         <IconButton
                           color="primary"
                           onClick={(event) => {
@@ -428,3 +408,10 @@ export default function TableUser({ data, handleDeleteUser, handleEditUser, titl
     </>
   );
 }
+
+TableOrder.propTypes = {
+  data: PropTypes.array,
+  handleDeleteUser: PropTypes.func,
+  handleEditUser: PropTypes.func,
+  title: PropTypes.string,
+};

@@ -1,7 +1,7 @@
 import SideBar from "./SideBar";
-import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
+import {AppBar, Box, Button, Toolbar, Typography} from "@mui/material";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 const LayoutAdmin = ({ children }) => {

@@ -1,8 +1,8 @@
-import { useNavigate , useLocation } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {Box, List, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import PeopleIcon from '@mui/icons-material/People';
 import TourIcon from '@mui/icons-material/Tour';
-import { useState } from "react";
+import {useState} from "react";
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import HotelIcon from '@mui/icons-material/Hotel';
 import DiscountIcon from '@mui/icons-material/Discount';
