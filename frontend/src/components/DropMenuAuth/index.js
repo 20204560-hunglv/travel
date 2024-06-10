@@ -1,9 +1,9 @@
 "use client";
-import {Menu, Transition} from "@headlessui/react";
-import {Fragment} from "react";
-import {useNavigate} from "react-router-dom";
+import { Menu, Transition } from "@headlessui/react";
+import { Fragment } from "react";
+import { useNavigate } from "react-router-dom";
 import Icons from "../Icons";
-import {removeLocalStorage} from "../../utils/LocalStorage";
+import { removeLocalStorage } from "../../utils/LocalStorage";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");

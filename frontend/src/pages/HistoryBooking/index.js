@@ -1,13 +1,13 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import DefaultLayout from "../../components/Layout/DefaultLayout";
-import {getUserLocal} from "../../utils/LocalStorage";
+import { getUserLocal } from "../../utils/LocalStorage";
 import currencyVnd from "../../utils/currencyVnd";
-import {ReactNotifications} from "react-notifications-component";
-import {handleNotify} from "../../components/Notification/index";
+import { ReactNotifications } from "react-notifications-component";
+import { handleNotify } from "../../components/Notification/index";
 import ModalRate from "../../components/ModalRate";
 import {
-    get as getBooking,
-    update as updateTour,
+  get as getBooking,
+  update as updateTour,
 } from "../../services/BookingServices";
 
 const HistoryBooking = () => {

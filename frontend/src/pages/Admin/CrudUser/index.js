@@ -1,13 +1,13 @@
 import LayoutAdmin from "../../../components/Layout/LayoutAdmin";
-import React, {useState, useEffect} from "react";
-import {ReactNotifications} from "react-notifications-component";
-import {handleNotify} from "../../../components/Notification/index";
+import React, { useEffect, useState } from "react";
+import { ReactNotifications } from "react-notifications-component";
+import { handleNotify } from "../../../components/Notification/index";
 import CrudUserModal from "../../../components/Modal/CRUDUserModal";
 import {
-    getAll,
-    deleteUser,
-    create as createUser,
-    update as editUser,
+  create as createUser,
+  deleteUser,
+  getAll,
+  update as editUser,
 } from "../../../services/UserServices";
 import HeaderResult from "../../../components/Layout/LayoutAdmin/HeaderResult";
 import TableUser from "../../../components/Table/TableUser";

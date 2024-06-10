@@ -1,9 +1,9 @@
 import LayoutAdmin from "../../../components/Layout/LayoutAdmin";
-import {ReactNotifications} from "react-notifications-component";
-import {handleNotify} from "../../../components/Notification/index";
-import {useEffect, useState} from "react";
+import { ReactNotifications } from "react-notifications-component";
+import { handleNotify } from "../../../components/Notification/index";
+import { useEffect, useState } from "react";
 import HeaderResult from "./../../../components/Layout/LayoutAdmin/HeaderResult/index";
-import * as DiscountServices from "../../../services/DiscountServices"
+import * as DiscountServices from "../../../services/DiscountServices";
 import TableDiscount from "./../../../components/Table/TableDiscount/index";
 import CRUDDiscountModal from "../../../components/Modal/CRUDDiscountModal";
 

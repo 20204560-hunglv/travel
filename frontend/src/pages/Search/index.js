@@ -1,28 +1,28 @@
-import {useLocation, useNavigate, useParams} from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import DefaultLayout from "../../components/Layout/DefaultLayout";
 import cites from "../../utils/cites";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import currencyVnd from "../../utils/currencyVnd";
-import {get as getTours} from "../../services/SearchServices";
+import { get as getTours } from "../../services/SearchServices";
 import Button from "@mui/material/Button";
-import {DatePicker} from "@mui/x-date-pickers/DatePicker";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import TextField from "@mui/material/TextField";
 import {
-    Box,
-    Card,
-    CardActions,
-    CardContent,
-    CardMedia,
-    IconButton,
-    MenuItem,
-    Pagination,
-    Select,
-    Typography,
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  IconButton,
+  MenuItem,
+  Pagination,
+  Select,
+  Typography,
 } from "@mui/material";
 import dayjs from "dayjs";
 import Grid from "@mui/material/Unstable_Grid2";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import {truncateString} from "../../utils/shortenString";
+import { truncateString } from "../../utils/shortenString";
 
 const Choose = (props) => {
     return (

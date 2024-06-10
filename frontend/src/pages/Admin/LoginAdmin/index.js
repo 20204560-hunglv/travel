@@ -1,9 +1,9 @@
-import {useNavigate} from "react-router-dom";
-import {ReactNotifications} from "react-notifications-component";
-import {handleNotify} from "../../../components/Notification/index";
-import {useEffect, useState} from "react";
-import {loginAdmin} from "../../../services/AuthServices";
-import {TextField} from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { ReactNotifications } from "react-notifications-component";
+import { handleNotify } from "../../../components/Notification/index";
+import { useEffect, useState } from "react";
+import { loginAdmin } from "../../../services/AuthServices";
+import { TextField } from "@mui/material";
 
 const LoginAdmin = () => {
     const navigate = useNavigate();

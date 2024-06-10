@@ -1,8 +1,7 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import DropMenuAuth from "../../../DropMenuAuth";
 
 const Header = () => {
-
   const storedUserDataString = localStorage.getItem("userData");
 
   return (
@@ -25,15 +24,19 @@ const Header = () => {
         </nav>
         {!storedUserDataString ? (
           <div className="flex">
-            <div className=" py-2 px-3 bg-white rounded-lg border border-111111 
+            <div
+              className=" py-2 px-3 bg-white rounded-lg border border-111111 
             hover:bg-slate-300 hover:border-slate-300 transition-color 
-            duration-500 mr-3">
+            duration-500 mr-3"
+            >
               <Link to="/login">
                 <p>Đăng nhập</p>
               </Link>
             </div>
-            <div className="text-white py-2 px-3 rounded-lg bg-111111 
-            hover:bg-404040 transition-color duration-500">
+            <div
+              className="text-white py-2 px-3 rounded-lg bg-111111 
+            hover:bg-404040 transition-color duration-500"
+            >
               <Link to="/register">
                 <p>Đăng ký</p>
               </Link>

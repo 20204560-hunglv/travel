@@ -5,6 +5,7 @@ const GuideRouter = require("../routes/GuideRouter");
 const HotelRouter = require("../routes/HotelRouter");
 const DiscountRouter = require("../routes/DiscountRouter");
 const OrderRouter = require("../routes/OrderRouter");
+const AuthRouter = require("../routes/AuthRouter");
 
 const routes = (app) => {
   app.use("/api/v1", UserRouter);
@@ -14,5 +15,6 @@ const routes = (app) => {
   app.use("/api/v1", HotelRouter);
   app.use("/api/v1", DiscountRouter);
   app.use("/api/v1", OrderRouter);
+  app.use("/api/v1", AuthRouter);
 };
 module.exports = routes;

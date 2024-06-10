@@ -1,5 +1,5 @@
-import {Store} from 'react-notifications-component';
-import 'react-notifications-component/dist/theme.css'
+import { Store } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
 
 /**
  * 
@@ -18,7 +18,9 @@ export function handleNotify(type, title, message){
         animationOut: ["animate__animated", "animate__fadeOut"],
         dismiss: {
           duration: 1500,
-          onScreen: true
+          onScreen: true,
+          showIcon: true,
+          click: false
         }
       });
 }

@@ -1,14 +1,14 @@
 import LayoutAdmin from "../../../components/Layout/LayoutAdmin";
-import {ReactNotifications} from "react-notifications-component";
-import {handleNotify} from "../../../components/Notification/index";
-import {useEffect, useState} from "react";
+import { ReactNotifications } from "react-notifications-component";
+import { handleNotify } from "../../../components/Notification/index";
+import { useEffect, useState } from "react";
 import HeaderResult from "./../../../components/Layout/LayoutAdmin/HeaderResult/index";
 import TableGuide from "../../../components/Table/TableGuide";
 import {
-    get as getAll,
-    create as createGuide,
-    edit as editGuide,
-    remove as removeGuide,
+  create as createGuide,
+  edit as editGuide,
+  get as getAll,
+  remove as removeGuide,
 } from "../../../services/GuideServices";
 import CRUDGuideModal from "../../../components/Modal/CRUDGuideModal";
 

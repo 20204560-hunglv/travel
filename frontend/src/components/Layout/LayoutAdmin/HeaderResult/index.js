@@ -1,7 +1,7 @@
-import {Button, Toolbar} from "@mui/material";
+import { Button, Toolbar } from "@mui/material";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import {useState} from "react";
+import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 
 const HeaderResult = ({ handleClickAdd }) => {

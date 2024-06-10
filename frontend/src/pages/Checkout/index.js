@@ -1,10 +1,10 @@
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import DefaultLayout from "../../components/Layout/DefaultLayout";
-import {useEffect, useState} from "react";
-import {get as getTour} from "../../services/TourServices";
-import {Button, TextField, Typography} from "@mui/material";
-import {formatDate} from "../../utils/resolveTime";
-import {selectNameCity} from "../../utils/cites";
+import { useEffect, useState } from "react";
+import { get as getTour } from "../../services/TourServices";
+import { Button, TextField, Typography } from "@mui/material";
+import { formatDate } from "../../utils/resolveTime";
+import { selectNameCity } from "../../utils/cites";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import MoneyIcon from "@mui/icons-material/Money";

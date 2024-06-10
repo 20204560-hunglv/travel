@@ -1,33 +1,35 @@
 import DefaultLayout from "../../components/Layout/DefaultLayout";
-import {Link} from "react-router-dom";
-import {useCallback, useEffect, useState} from "react";
-import {handleNotify} from "../../components/Notification/index";
-import {ReactNotifications} from "react-notifications-component";
-import {signUp} from "../../services/AuthServices";
-import {RegisterValidate} from "../../validators/RegisterValidate";
-import {Button, TextField} from "@mui/material";
+import { Link } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { handleNotify } from "../../components/Notification/index";
+import { ReactNotifications } from "react-notifications-component";
+import { signUp } from "../../services/AuthServices";
+import { RegisterValidate } from "../../validators/RegisterValidate";
+import { Button, TextField } from "@mui/material";
 
-const LoginInputArea = ({title, change, value}) => {
-    return (
-        <div className={`flex flex-col m-auto`}>
-            <TextField
-                className="w-400"
-                sx={{
-                    mt: 1,
-                    mb: 4,
-                }}
-                type="password"
-                label={title}
-                value={value}
-                onChange={change}
-            />
-        </div>
-    );
+const LoginInputArea = ({ title, change, value }) => {
+  return (
+    <div className={`flex flex-col m-auto`}>
+      <TextField
+        className="w-400"
+        sx={{
+          mt: 1,
+          mb: 4,
+        }}
+        type="password"
+        label={title}
+        value={value}
+        onChange={change}
+      />
+    </div>
+  );
 };
 const Register = () => {
     const [name, setName] = useState("");
     const [pass, setPass] = useState("");
     const [newPass, setNewPass] = useState("");
+    const [email, setEmail] = useState("");
+
     const changeName = (event) => {
         setName(event.target.value);
     };
@@ -39,16 +41,17 @@ const Register = () => {
     };
     const handleToSubmit = useCallback(async () => {
         try {
-            RegisterValidate({name, pass, newPass});
-            await signUp(name, pass);
+            RegisterValidate({ name, pass, newPass, email });
+            await signUp({username: name, password: pass, email});
             setName("");
             setPass("");
             setNewPass("");
+            setEmail("");
             handleNotify("success", "Thành công", "Đăng ký thành công!");
         } catch (error) {
             handleNotify("warning", "", error.message);
         }
-    }, [name, newPass, pass]);
+    }, [name, newPass, pass, email]);
 
     useEffect(() => {
         const handleKeyPress = (event) => {
@@ -110,6 +113,19 @@ const Register = () => {
                                             change={changeNewPass}
                                             value={newPass}
                                         />
+                                        <div className={`flex flex-col m-auto `}>
+                                            <TextField
+                                                type="email"
+                                                className="w-400"
+                                                sx={{
+                                                    mt: 1,
+                                                    mb: 4,
+                                                }}
+                                                label="Email"
+                                                value={email}
+                                                onChange={(event) => setEmail(event.target.value)}
+                                            />
+                                        </div>
                                     </fieldset>
                                     <fieldset
                                         className={`h-10 ml-auto mr-auto justify-center mt-5`}

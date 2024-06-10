@@ -1,9 +1,9 @@
-import {useNavigate} from "react-router-dom";
-import {useState} from "react";
-import {ReactNotifications} from "react-notifications-component";
-import {handleNotify} from "../../components/Notification/index";
-import {getUserLocal} from "../../utils/LocalStorage";
-import {changePass} from "../../services/AuthServices";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { ReactNotifications } from "react-notifications-component";
+import { handleNotify } from "../../components/Notification/index";
+import { getUserLocal } from "../../utils/LocalStorage";
+import { changePass } from "../../services/AuthServices";
 import DefaultLayout from "../../components/Layout/DefaultLayout";
 
 const ChangePass = () => {

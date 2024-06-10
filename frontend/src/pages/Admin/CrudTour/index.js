@@ -1,9 +1,14 @@
 import LayoutAdmin from "../../../components/Layout/LayoutAdmin";
-import React, {useState, useEffect} from "react";
-import {ReactNotifications} from "react-notifications-component";
-import {handleNotify} from "../../../components/Notification/index";
+import React, { useEffect, useState } from "react";
+import { ReactNotifications } from "react-notifications-component";
+import { handleNotify } from "../../../components/Notification/index";
 import CrudTourModal from "../../../components/Modal/CRUDTourModal";
-import {getAll, deleteTour, update as EditTour, add as addTour} from "../../../services/TourServices";
+import {
+  add as addTour,
+  deleteTour,
+  getAll,
+  update as EditTour,
+} from "../../../services/TourServices";
 import HeaderResult from "../../../components/Layout/LayoutAdmin/HeaderResult";
 import TableTour from "../../../components/Table/TableTour";
 

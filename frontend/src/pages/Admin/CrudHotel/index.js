@@ -1,13 +1,13 @@
 import LayoutAdmin from "../../../components/Layout/LayoutAdmin";
-import {ReactNotifications} from "react-notifications-component";
-import {handleNotify} from "../../../components/Notification/index";
-import {useEffect, useState} from "react";
+import { ReactNotifications } from "react-notifications-component";
+import { handleNotify } from "../../../components/Notification/index";
+import { useEffect, useState } from "react";
 import HeaderResult from "./../../../components/Layout/LayoutAdmin/HeaderResult/index";
 import {
-    get as getAll,
-    create as createHotel,
-    edit as editHotel,
-    remove as removeHotel,
+  create as createHotel,
+  edit as editHotel,
+  get as getAll,
+  remove as removeHotel,
 } from "../../../services/HotelServices";
 import TableHotel from "../../../components/Table/TableHotel";
 import CRUDHotelModal from "../../../components/Modal/CRUDHotelModal";

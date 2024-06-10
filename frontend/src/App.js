@@ -9,7 +9,7 @@ import Search from "./pages/Search";
 import CrudUser from "./pages/Admin/CrudUser";
 import CrudTour from "./pages/Admin/CrudTour";
 import Profile from "./pages/Profile";
-import NotFound from "./components/NotFound/notFound";
+import NotFound from "./pages/NotFound/notFound";
 import ChangePass from "./pages/ChangePass";
 import LoginAdmin from "./pages/Admin/LoginAdmin";
 import HistoryBooking from "./pages/HistoryBooking";
@@ -30,7 +30,7 @@ const App = () => {
         primary: { main: "#1976d2" },
       },
     },
-    viVN
+    viVN,
   );
 
   return (

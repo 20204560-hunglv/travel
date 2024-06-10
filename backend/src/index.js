@@ -4,7 +4,7 @@ const path = require("path");
 const routes = require("./handlers/routes")
 const app = express();
 const port = 3003;
-const database = require("./config");
+const database = require("./config/database");
 const cors = require('cors');
 
 app.use(morgan("combined"));

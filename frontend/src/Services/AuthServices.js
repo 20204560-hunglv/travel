@@ -2,21 +2,28 @@ import axios from "../utils/axios";
 
 export async function login(username, password) {
   try {
-    const response = await axios.post("/api/v1/login", {
+    return await axios.post("/api/v1/login", {
       username: username,
       password: password,
     });
-    return response;
   } catch (error) {
     throw new Error(error.response.data.error);
   }
 }
 
-export async function signUp(username, password) {
+/**
+ *
+ * @param username
+ * @param password
+ * @param email
+ * @returns {Promise<void>}
+ */
+export async function signUp({ username, password, email }) {
   try {
     await axios.post("/api/v1/signup", {
-      username: username,
-      password: password,
+      username,
+      password,
+      email,
     });
   } catch (e) {
     throw new Error(e.response.data.error);
@@ -36,11 +43,10 @@ export async function changePass(_id, { pass, newPass }) {
 
 export async function loginAdmin(name, pass) {
   try {
-    const response = await axios.post("/api/v1/login_admin", {
+    return await axios.post("/api/v1/login_admin", {
       username: name,
       password: pass,
     });
-    return response;
   } catch (error) {
     throw error;
   }

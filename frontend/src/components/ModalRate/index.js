@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 import StarRatings from "react-star-ratings";
 
 function ModalRate({ message, onDialog, nameProduct, rated, setRating }) {

@@ -1,25 +1,27 @@
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Item = (props) => {
-    const navigate = useNavigate()
-    return (
-        <div
-            onClick={() => {
-                navigate('/search',
-                    {
-                        state: {
-                            from: '',
-                            to: props.to,
-                            start: '',
-                            period: '',
-                        },
-                    })
-            }}
-            className={`mt-4 w-24-100 cursor-pointer`}>
-            <img className="w-full h-56 rounded-xl" src={props.link} alt=""/>
-            <p className="block font-bold my-2 text-xs ml-2 text-blue-900">{props.title}</p>
-        </div>
-    );
+  const navigate = useNavigate();
+  return (
+    <div
+      onClick={() => {
+        navigate("/search", {
+          state: {
+            from: "",
+            to: props.to,
+            start: "",
+            period: "",
+          },
+        });
+      }}
+      className={`mt-4 w-24-100 cursor-pointer`}
+    >
+      <img className="w-full h-56 rounded-xl" src={props.link} alt="" />
+      <p className="block font-bold my-2 text-xs ml-2 text-blue-900">
+        {props.title}
+      </p>
+    </div>
+  );
 };
 const Favorite = () => {
 

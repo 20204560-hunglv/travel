@@ -1,21 +1,21 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import DefaultLayout from "../../components/Layout/DefaultLayout/index";
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import currencyVnd from "../../utils/currencyVnd";
 import Dialog from "../../components/Dialog";
-import {getUserLocal} from "../../utils/LocalStorage";
-import {ReactNotifications} from "react-notifications-component";
-import {handleNotify} from "../../components/Notification/index";
-import {selectNameCity} from "../../utils/cites";
-import {get as getTour, bookTour} from "../../services/TourServices";
+import { getUserLocal } from "../../utils/LocalStorage";
+import { ReactNotifications } from "react-notifications-component";
+import { handleNotify } from "../../components/Notification/index";
+import { selectNameCity } from "../../utils/cites";
+import { bookTour, get as getTour } from "../../services/TourServices";
 import {
-    Button,
-    Card,
-    CardActions,
-    CardContent,
-    CardMedia,
-    IconButton,
-    Typography,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  IconButton,
+  Typography,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
@@ -23,8 +23,8 @@ import MapIcon from "@mui/icons-material/Map";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import Grid from "@mui/material/Unstable_Grid2";
 import dayjs from "dayjs";
-import {truncateString} from "../../utils/shortenString";
-import {formatDate} from "../../utils/resolveTime";
+import { truncateString } from "../../utils/shortenString";
+import { formatDate } from "../../utils/resolveTime";
 
 const SearchItem = ({item}) => {
     const navigate = useNavigate();
@@ -153,7 +153,7 @@ const Tour = () => {
             navigate("/login");
         } else {
             navigate(`/checkout/${id}`);
-            // setDialog(true)};
+            setDialog(true);
         }
     };
     return (

@@ -1,7 +1,7 @@
 import LayoutAdmin from "../../../components/Layout/LayoutAdmin";
-import {ReactNotifications} from "react-notifications-component";
-import {handleNotify} from "../../../components/Notification/index";
-import {useEffect, useState} from "react";
+import { ReactNotifications } from "react-notifications-component";
+import { handleNotify } from "../../../components/Notification/index";
+import { useEffect, useState } from "react";
 import HeaderResult from "./../../../components/Layout/LayoutAdmin/HeaderResult/index";
 import * as OrderServices from "../../../services/OrderServices";
 import TableOrder from "./../../../components/Table/TableOrder/index";

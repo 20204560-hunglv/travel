@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .flex-grow-3 {
   flex-grow: 3;
 }
@@ -11,52 +10,49 @@
   margin: 0;
   box-sizing: border-box;
 }
-.ml-20percen{
-    margin-left: 20%;
+.ml-20percen {
+  margin-left: 20%;
 }
-.mx-4-1-percen{
+.mx-4-1-percen {
   margin-left: 4.1%;
   margin-right: 4.1%;
 }
-.min-h-630{
+.min-h-630 {
   min-height: 630px;
 }
-.w-1div3{
+.w-1div3 {
   width: 30%;
 }
-.px-10percen{
+.px-10percen {
   padding-left: 10%;
   padding-right: 10%;
 }
-.minw-120{
+.minw-120 {
   min-width: 120px;
 }
-.bottom-4p{
+.bottom-4p {
   bottom: 4%;
 }
-.h-2px{
+.h-2px {
   height: 2px;
 }
-.calc-64{
+.calc-64 {
   height: calc(100vh - 64px);
 }
-.vh-64-84{
+.vh-64-84 {
   min-height: calc(100vh - 148px);
 }
-.bg-image{
+.bg-image {
   background-image: url(./assets/images/background.jpg);
   background-position-y: 45%;
   background-repeat: no-repeat;
 }
-.w-24-100{
+.w-24-100 {
   width: 24%;
 }
-.w-400{
+.w-400 {
   width: 400px;
 }
-.w-300{
+.w-300 {
   width: 300px;
-}
-.w-9-10{
-  width: 90;
 }
