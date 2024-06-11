@@ -51,3 +51,15 @@ export async function loginAdmin(name, pass) {
     throw error;
   }
 }
+
+export async function requestVerify(customerId, email) {
+  await axios.post(`/api/v1/verify-email/${customerId}`, {
+    email,
+  });
+}
+
+export async function checkVerify(customerId, OTP) {
+  return await axios.post(`/api/v1/check-otp-email/${customerId}`, {
+    OTP,
+  });
+}

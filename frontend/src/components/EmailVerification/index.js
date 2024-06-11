@@ -1,6 +1,8 @@
 import * as React from "react";
+import { Button } from "@mui/material";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
-const EmailVerification = ({ email }) => {
+const EmailVerification = ({ email, handleVerify, handleBack }) => {
   const [code, setCode] = React.useState({
     one: "",
     two: "",
@@ -9,10 +11,19 @@ const EmailVerification = ({ email }) => {
   });
   const handleSubmit = () => {
     const otp = code.one + code.two + code.three + code.four;
-    console.log({ otp });
+    handleVerify(otp);
   };
   return (
-    <div>
+    <div className="bg-gray-50">
+      <div className='px-20'>
+        <Button
+            startIcon={<ArrowBackIosIcon fontSize="small" />}
+            onClick={() => handleBack(false)}
+
+        >
+          Quay lại
+        </Button>
+      </div>
       <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-12">
         <div className="relative bg-white px-6 pt-10 pb-9 shadow-xl mx-auto w-full max-w-lg rounded-2xl">
           <div className="mx-auto flex w-full max-w-md flex-col space-y-16">
@@ -93,12 +104,16 @@ const EmailVerification = ({ email }) => {
 
                   <div className="flex flex-col space-y-5">
                     <div>
-                      <button
+                      <Button
                         onClick={() => handleSubmit()}
-                        className="flex flex-row items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-blue-700 border-none text-white text-sm shadow-sm"
+                        fullWidth
+                        variant="contained"
+                        sx={{
+                          paddingY: 2,
+                        }}
                       >
                         Xác thực tài khoản
-                      </button>
+                      </Button>
                     </div>
 
                     <div className="flex flex-row items-center justify-center text-center text-sm font-medium space-x-1 text-gray-500">
