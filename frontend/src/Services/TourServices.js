@@ -12,7 +12,7 @@ export async function get(id) {
 export async function getAll() {
   try {
     const response = await axios.get("/api/v1/tours");
-    return response;
+    return response.data;
   } catch (error) {
     throw error;
   }

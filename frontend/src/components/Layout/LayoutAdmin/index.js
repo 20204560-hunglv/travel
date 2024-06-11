@@ -3,6 +3,7 @@ import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
+import LogoWhite from "../../Icons/logoWhite";
 
 const LayoutAdmin = ({ children }) => {
   const navigate = useNavigate();
@@ -17,17 +18,22 @@ const LayoutAdmin = ({ children }) => {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
-            <AdminPanelSettingsIcon fontSize="large" sx={{ mr: 2 }} />
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Admin
-            </Typography>
-            <Button
-              startIcon={<LogoutIcon />}
-              onClick={() => handleLogout()}
-              color="inherit"
-            >
-              Đăng xuất
-            </Button>
+            {/*<AdminPanelSettingsIcon fontSize="large" sx={{ mr: 2 }} />*/}
+            {/*<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>*/}
+            {/*  Admin*/}
+            {/*</Typography>*/}
+            <div className='w-10/12 mx-auto flex'>
+              <Box sx={{ flexGrow: 1 }}>
+                <LogoWhite />
+              </Box>
+              <Button
+                  startIcon={<LogoutIcon />}
+                  onClick={() => handleLogout()}
+                  color="inherit"
+              >
+                Đăng xuất
+              </Button>
+            </div>
           </Toolbar>
         </AppBar>
       </Box>
