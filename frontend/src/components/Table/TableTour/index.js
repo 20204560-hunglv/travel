@@ -33,7 +33,7 @@ import { truncateString } from "../../../utils/shortenString";
 
 function descendingComparator(a, b, orderBy) {
   // sort by date startTime
-  if(orderBy === "start_time"){
+  if (orderBy === "start_time") {
     return compareDate(b[orderBy], a[orderBy]);
   }
 
@@ -172,7 +172,7 @@ function EnhancedTableToolbar(props) {
           bgcolor: (theme) =>
             alpha(
               theme.palette.primary.main,
-              theme.palette.action.activatedOpacity
+              theme.palette.action.activatedOpacity,
             ),
         }),
       }}
@@ -192,9 +192,7 @@ function EnhancedTableToolbar(props) {
           variant="h6"
           id="tableTitle"
           component="div"
-        >
-          Danh sách tour
-        </Typography>
+        ></Typography>
       )}
 
       {numSelected > 0 ? (
@@ -230,20 +228,20 @@ export default function TableTour({ data, handleDeleteTour, handleEditTour }) {
 
   const handleIdChange = (id) => {
     setIdChange(id);
-  }
+  };
   const handleClickOpenDialog = () => {
     setOpenDialog(true);
   };
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
-    handleIdChange("")
+    handleIdChange("");
   };
   const handleClickAgree = async () => {
     await handleDeleteTour(idChange);
     handleCloseDialog();
-    handleIdChange("")
-  }
+    handleIdChange("");
+  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -273,7 +271,7 @@ export default function TableTour({ data, handleDeleteTour, handleEditTour }) {
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
+        selected.slice(selectedIndex + 1),
       );
     }
     setSelected(newSelected);
@@ -298,136 +296,136 @@ export default function TableTour({ data, handleDeleteTour, handleEditTour }) {
     () =>
       stableSort(data, getComparator(order, orderBy)).slice(
         page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage
+        page * rowsPerPage + rowsPerPage,
       ),
-    [order, orderBy, page, rowsPerPage, data]
+    [order, orderBy, page, rowsPerPage, data],
   );
 
   return (
     <>
-    <Box sx={{ width: "100%", marginTop: 4 }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
-        <TableContainer>
-          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={data.length}
-            />
-            <TableBody>
-              {/* {visibleRows.map((row, index) => { */}
-              {visibleRows.map((row, index) => {
-                const isItemSelected = isSelected(row._id);
-                const labelId = `enhanced-table-checkbox-${index}`;
+      <Box sx={{ width: "100%", marginTop: 4, paddingX: 3 }}>
+        <Paper sx={{ width: "100%", mb: 2 }}>
+          <EnhancedTableToolbar numSelected={selected.length} />
+          <TableContainer>
+            <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
+              <EnhancedTableHead
+                numSelected={selected.length}
+                order={order}
+                orderBy={orderBy}
+                onSelectAllClick={handleSelectAllClick}
+                onRequestSort={handleRequestSort}
+                rowCount={data.length}
+              />
+              <TableBody>
+                {/* {visibleRows.map((row, index) => { */}
+                {visibleRows.map((row, index) => {
+                  const isItemSelected = isSelected(row._id);
+                  const labelId = `enhanced-table-checkbox-${index}`;
 
-                return (
-                  <TableRow
-                    hover
-                    onClick={(event) => handleClick(event, row._id)}
-                    role="checkbox"
-                    aria-checked={isItemSelected}
-                    tabIndex={-1}
-                    key={row._id}
-                    selected={isItemSelected}
-                    sx={{ cursor: "pointer" }}
-                  >
-                    <TableCell padding="checkbox">
-                      <Checkbox
-                        color="primary"
-                        checked={isItemSelected}
-                        inputProps={{
-                          "aria-labelledby": labelId,
-                        }}
-                      />
-                    </TableCell>
-                    <TableCell
-                      component="th"
-                      id={labelId}
-                      scope="row"
-                      padding="none"
+                  return (
+                    <TableRow
+                      hover
+                      onClick={(event) => handleClick(event, row._id)}
+                      role="checkbox"
+                      aria-checked={isItemSelected}
+                      tabIndex={-1}
+                      key={row._id}
+                      selected={isItemSelected}
+                      sx={{ cursor: "pointer" }}
                     >
-                      {truncateString(row.name, 70)}
-                    </TableCell>
-                    <TableCell align="right">
-                      {formatDate(row.start_time)}
-                    </TableCell>
-                    <TableCell align="right">
-                      {selectNameCity(row.addressFrom)}
-                    </TableCell>
-                    <TableCell align="right">
-                      {selectNameCity(row.addressTo)}
-                    </TableCell>
-                    <TableCell align="right">
-                      {currencyVnd(row.prices)}
-                    </TableCell>
-                    <TableCell>
-                      <IconButton
-                        color="primary"
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          handleEditTour(row);
-                        }}
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          color="primary"
+                          checked={isItemSelected}
+                          inputProps={{
+                            "aria-labelledby": labelId,
+                          }}
+                        />
+                      </TableCell>
+                      <TableCell
+                        component="th"
+                        id={labelId}
+                        scope="row"
+                        padding="none"
                       >
-                        <EditIcon />
-                      </IconButton>
-                      <IconButton
-                        color="error"
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          handleIdChange(row._id);
-                          handleClickOpenDialog();
-                        }}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </TableCell>
+                        {truncateString(row.name, 70)}
+                      </TableCell>
+                      <TableCell align="right">
+                        {formatDate(row.start_time)}
+                      </TableCell>
+                      <TableCell align="right">
+                        {selectNameCity(row.addressFrom)}
+                      </TableCell>
+                      <TableCell align="right">
+                        {selectNameCity(row.addressTo)}
+                      </TableCell>
+                      <TableCell align="right">
+                        {currencyVnd(row.prices)}
+                      </TableCell>
+                      <TableCell>
+                        <IconButton
+                          color="primary"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            handleEditTour(row);
+                          }}
+                        >
+                          <EditIcon />
+                        </IconButton>
+                        <IconButton
+                          color="error"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            handleIdChange(row._id);
+                            handleClickOpenDialog();
+                          }}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+                {emptyRows > 0 && (
+                  <TableRow
+                    style={{
+                      height: 53 * emptyRows,
+                    }}
+                  >
+                    <TableCell colSpan={6} />
                   </TableRow>
-                );
-              })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: 53 * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={data.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
-    </Box>
-    <Dialog
-        open={openDialog}
-        onClose={handleCloseDialog}
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"Thông báo"}
-        </DialogTitle>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={data.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+      </Box>
+      <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle id="alert-dialog-title">{"Thông báo"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Bạn có muốn xóa tour này không ?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button color="error" onClick={handleCloseDialog}>Hủy</Button>
-          <Button onClick={()=>{
-            handleClickAgree()
-          }} autoFocus>
+          <Button color="error" onClick={handleCloseDialog}>
+            Hủy
+          </Button>
+          <Button
+            onClick={() => {
+              handleClickAgree();
+            }}
+            autoFocus
+          >
             Đồng ý
           </Button>
         </DialogActions>

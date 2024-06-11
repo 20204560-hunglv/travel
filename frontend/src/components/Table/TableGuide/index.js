@@ -146,7 +146,7 @@ EnhancedTableHead.propTypes = {
 };
 
 function EnhancedTableToolbar(props) {
-  const { numSelected, title } = props;
+  const { numSelected } = props;
 
   return (
     <Toolbar
@@ -157,7 +157,7 @@ function EnhancedTableToolbar(props) {
           bgcolor: (theme) =>
             alpha(
               theme.palette.primary.main,
-              theme.palette.action.activatedOpacity
+              theme.palette.action.activatedOpacity,
             ),
         }),
       }}
@@ -177,9 +177,7 @@ function EnhancedTableToolbar(props) {
           variant="h6"
           id="tableTitle"
           component="div"
-        >
-          {title}
-        </Typography>
+        ></Typography>
       )}
 
       {numSelected > 0 ? (
@@ -203,12 +201,7 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function TableGuide({
-  data,
-  handleDeleteUser,
-  handleEditUser,
-  title = "",
-}) {
+export default function TableGuide({ data, handleDeleteUser, handleEditUser }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("");
   const [selected, setSelected] = React.useState([]);
@@ -266,7 +259,7 @@ export default function TableGuide({
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
+        selected.slice(selectedIndex + 1),
       );
     }
     setSelected(newSelected);
@@ -291,16 +284,16 @@ export default function TableGuide({
     () =>
       stableSort(data, getComparator(order, orderBy)).slice(
         page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage
+        page * rowsPerPage + rowsPerPage,
       ),
-    [order, orderBy, page, rowsPerPage, data]
+    [order, orderBy, page, rowsPerPage, data],
   );
 
   return (
     <>
-      <Box sx={{ width: "100%", marginTop: 4 }}>
+      <Box sx={{ width: "100%", marginTop: 4, paddingX: 3 }}>
         <Paper sx={{ width: "100%", mb: 2 }}>
-          <EnhancedTableToolbar title={title} numSelected={selected.length} />
+          <EnhancedTableToolbar numSelected={selected.length} />
           <TableContainer>
             <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
               <EnhancedTableHead

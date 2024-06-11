@@ -1,14 +1,10 @@
 import { Button, Toolbar } from "@mui/material";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import * as React from "react";
 import AddIcon from "@mui/icons-material/Add";
 import Typography from "@mui/material/Typography";
-import * as React from "react";
 
 const HeaderResult = ({ handleClickAdd, title = "" }) => {
-  const [name, setName] = useState("");
-
   return (
     <>
       <Box sx={{ paddingX: 0 }}>
@@ -30,7 +26,7 @@ const HeaderResult = ({ handleClickAdd, title = "" }) => {
               color="success"
               startIcon={<AddIcon />}
               sx={{
-                  textTransform: 'none'
+                textTransform: "none",
               }}
             >
               Thêm

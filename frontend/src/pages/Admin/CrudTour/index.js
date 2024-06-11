@@ -151,7 +151,7 @@ const CrudTour = () => {
         )}
         {!isAdd && !isEdit && (
           <>
-            <HeaderResult handleClickAdd={() => handleChangeIsAdd(true)} />
+            <HeaderResult title="Danh sách tour" handleClickAdd={() => handleChangeIsAdd(true)} />
             <TableTour
               data={data}
               handleDeleteTour={handleDeleteTour}

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import DropMenuAuth from "../../../DropMenuAuth";
+import LogoBlue from "../../../Icons/LogoBlue";
 
 const Header = () => {
   const storedUserDataString = localStorage.getItem("userData");
@@ -7,7 +8,8 @@ const Header = () => {
   return (
     <header className="border-b border-dfe3e6">
       <div className="h-16 m-auto flex justify-between items-center w-11/12">
-        <nav className="h-full">
+        <nav className="h-full flex items-center space-x-5">
+          <LogoBlue />
           <ul className="list-none h-full flex items-center pl-0">
             <li
               className={`float-left text-sm font-bold h-full flex items-center
