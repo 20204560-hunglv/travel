@@ -20,15 +20,16 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import EditIcon from "@mui/icons-material/Edit";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+// import Dialog from "@mui/material/Dialog";
+// import DialogActions from "@mui/material/DialogActions";
+// import DialogContent from "@mui/material/DialogContent";
+// import DialogContentText from "@mui/material/DialogContentText";
+// import DialogTitle from "@mui/material/DialogTitle";
 import { Button, Tab, Tabs } from "@mui/material";
 import { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import Search from "../../../components/Search/Search";
+import DialogCustom from '../../../components/Dialog'
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -417,27 +418,11 @@ export default function TableUser({
           />
         </Paper>
       </Box>
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle id="alert-dialog-title">{"Thông báo"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Bạn có muốn xóa người dùng này không ?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button color="error" onClick={handleCloseDialog}>
-            Hủy
-          </Button>
-          <Button
-            onClick={() => {
-              handleClickAgree();
-            }}
-            autoFocus
-          >
-            Đồng ý
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <DialogCustom message='Bạn có muốn xóa người dùng này không ?'
+      openDialog={openDialog}
+              handleCloseDialog={handleCloseDialog}
+              handleClickAgree={handleClickAgree}
+      />
     </>
   );
 }
