@@ -1,7 +1,7 @@
-import {Box, IconButton} from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-const Search = ({ handleClose }) => {
+const Search = ({ handleClose, value, setValue }) => {
   return (
     <div className="relative w-3/4">
       <input
@@ -9,6 +9,8 @@ const Search = ({ handleClose }) => {
         id="username"
         type="text"
         placeholder="Tìm kiếm..."
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
       />
       <Box className="absolute right-0 inset-y-0 flex items-center">
         <IconButton onClick={() => handleClose()}>

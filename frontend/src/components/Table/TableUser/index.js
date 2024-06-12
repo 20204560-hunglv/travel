@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -17,7 +18,6 @@ import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import DeleteIcon from "@mui/icons-material/Delete";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import EditIcon from "@mui/icons-material/Edit";
 // import Dialog from "@mui/material/Dialog";
@@ -25,11 +25,10 @@ import EditIcon from "@mui/icons-material/Edit";
 // import DialogContent from "@mui/material/DialogContent";
 // import DialogContentText from "@mui/material/DialogContentText";
 // import DialogTitle from "@mui/material/DialogTitle";
-import { Button, Tab, Tabs } from "@mui/material";
-import { useState } from "react";
+import { Tab, Tabs } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import Search from "../../../components/Search/Search";
-import DialogCustom from '../../../components/Dialog'
+import DialogCustom from "../../../components/Dialog";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -198,7 +197,14 @@ function EnhancedTableToolbar(props) {
       )}
 
       {isSearch ? (
-        <Search handleClose={() => setIsSearch(false)} />
+        <Search
+          value={props.valueSearch}
+          setValue={props.setValueSearch}
+          handleClose={() => {
+            props.setValueSearch('')
+            setIsSearch(false);
+          }}
+        />
       ) : (
         <Tooltip title="Search">
           <IconButton onClick={() => setIsSearch(true)}>
@@ -217,12 +223,7 @@ EnhancedTableToolbar.propTypes = {
   setTab: PropTypes.func.isRequired,
 };
 
-export default function TableUser({
-  data,
-  handleDeleteUser,
-  handleEditUser,
-  title = "Danh sách khách hàng",
-}) {
+export default function TableUser({ data, handleDeleteUser, handleEditUser }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("");
   const [selected, setSelected] = React.useState([]);
@@ -232,6 +233,7 @@ export default function TableUser({
   //Id của row bị edit/ delete
   const [idChange, setIdChange] = React.useState("");
   const [tab, setTab] = useState(0);
+  const [valueSearch, setValueSearch] = useState("");
 
   const handleIdChange = (id) => {
     setIdChange(id);
@@ -306,14 +308,23 @@ export default function TableUser({
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
-  const visibleRows = React.useMemo(
-    () =>
-      stableSort(data, getComparator(order, orderBy)).slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage,
-      ),
-    [order, orderBy, page, rowsPerPage, data],
-  );
+  const searchTable = (data) => {
+    return data.filter((elem) => {
+      if (elem.username.includes(valueSearch)) return true;
+      if (elem.fullName.includes(valueSearch)) return true;
+      if (elem.address.includes(valueSearch)) return true;
+      if (elem.numberPhone.includes(valueSearch)) return true;
+      return !!elem.email.includes(valueSearch);
+    });
+  };
+
+  const visibleRows = React.useMemo(() => {
+    const dataAfterSearch = searchTable(data);
+    return stableSort(dataAfterSearch, getComparator(order, orderBy)).slice(
+      page * rowsPerPage,
+      page * rowsPerPage + rowsPerPage,
+    );
+  }, [order, orderBy, page, rowsPerPage, data, valueSearch]);
 
   return (
     <>
@@ -323,6 +334,8 @@ export default function TableUser({
             tab={tab}
             setTab={setTab}
             numSelected={selected.length}
+            valueSearch={valueSearch}
+            setValueSearch = {setValueSearch}
           />
           <TableContainer>
             <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
@@ -418,10 +431,11 @@ export default function TableUser({
           />
         </Paper>
       </Box>
-      <DialogCustom message='Bạn có muốn xóa người dùng này không ?'
-      openDialog={openDialog}
-              handleCloseDialog={handleCloseDialog}
-              handleClickAgree={handleClickAgree}
+      <DialogCustom
+        message="Bạn có muốn xóa người dùng này không ?"
+        openDialog={openDialog}
+        handleCloseDialog={handleCloseDialog}
+        handleClickAgree={handleClickAgree}
       />
     </>
   );
