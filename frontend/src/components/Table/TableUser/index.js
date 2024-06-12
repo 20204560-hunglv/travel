@@ -25,7 +25,10 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Button } from "@mui/material";
+import { Button, Tab, Tabs } from "@mui/material";
+import { useState } from "react";
+import SearchIcon from "@mui/icons-material/Search";
+import Search from "../../../components/Search/Search";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -153,6 +156,7 @@ EnhancedTableHead.propTypes = {
 
 function EnhancedTableToolbar(props) {
   const { numSelected } = props;
+  const [isSearch, setIsSearch] = useState(false);
 
   return (
     <Toolbar
@@ -169,33 +173,36 @@ function EnhancedTableToolbar(props) {
       }}
     >
       {numSelected > 0 ? (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
+        <Box
+          sx={{ flex: "1 1 100%", display: "flex" }}
+          className="items-center space-x-5"
         >
-          {numSelected} lựa chọn
-        </Typography>
+          <Typography color="inherit" variant="subtitle1" component="div">
+            {numSelected} lựa chọn
+          </Typography>
+          <Tooltip title="Delete">
+            <IconButton>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        </Box>
       ) : (
-        <Typography
+        <Tabs
           sx={{ flex: "1 1 100%" }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        ></Typography>
+          value={props.tab}
+          onChange={props.setTab}
+        >
+          <Tab sx={{ fontSize: 12 }} label="Tất cả" />
+        </Tabs>
       )}
 
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
+      {isSearch ? (
+        <Search handleClose={() => setIsSearch(false)} />
       ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
+        <Tooltip title="Search">
+          <IconButton onClick={() => setIsSearch(true)}>
+            {/*<FilterListIcon />*/}
+            <SearchIcon />
           </IconButton>
         </Tooltip>
       )}
@@ -205,6 +212,8 @@ function EnhancedTableToolbar(props) {
 
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
+  tab: PropTypes.number.isRequired,
+  setTab: PropTypes.func.isRequired,
 };
 
 export default function TableUser({
@@ -221,6 +230,7 @@ export default function TableUser({
   const [openDialog, setOpenDialog] = React.useState(false);
   //Id của row bị edit/ delete
   const [idChange, setIdChange] = React.useState("");
+  const [tab, setTab] = useState(0);
 
   const handleIdChange = (id) => {
     setIdChange(id);
@@ -237,9 +247,13 @@ export default function TableUser({
     handleIdChange("");
   };
   const handleClickAgree = async () => {
-    await handleDeleteUser(idChange);
-    handleCloseDialog();
-    handleIdChange("");
+    try {
+      await handleDeleteUser(idChange);
+      handleCloseDialog();
+      handleIdChange("");
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const handleRequestSort = (event, property) => {
@@ -304,7 +318,11 @@ export default function TableUser({
     <>
       <Box sx={{ width: "100%", marginTop: 4, paddingX: 3 }}>
         <Paper sx={{ width: "100%", mb: 2 }}>
-          <EnhancedTableToolbar title={title} numSelected={selected.length} />
+          <EnhancedTableToolbar
+            tab={tab}
+            setTab={setTab}
+            numSelected={selected.length}
+          />
           <TableContainer>
             <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
               <EnhancedTableHead
