@@ -1,9 +1,13 @@
 import moment from "moment";
 
+/**
+ * @param time
+ * @param format
+ * @returns {string}
+ */
 export function formatDate(time, format = "DD/MM/YYYY") {
   const inputTime = new Date(time);
-  const result = moment(inputTime).format(format);
-  return result;
+  return moment(inputTime).format(format);
 }
 
 /**

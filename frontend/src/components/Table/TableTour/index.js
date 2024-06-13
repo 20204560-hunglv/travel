@@ -28,8 +28,11 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Button } from "@mui/material";
+import { Button, Tab, Tabs } from "@mui/material";
 import { truncateString } from "../../../utils/shortenString";
+import { useState } from "react";
+import Search from "../../Search/Search";
+import SearchIcon from "@mui/icons-material/Search";
 
 function descendingComparator(a, b, orderBy) {
   // sort by date startTime
@@ -161,7 +164,8 @@ EnhancedTableHead.propTypes = {
 };
 
 function EnhancedTableToolbar(props) {
-  const { numSelected } = props;
+  const { numSelected, tab, setTab, valueSearch, setValueSearch } = props;
+  const [isSearch, setIsSearch] = useState(false);
 
   return (
     <Toolbar
@@ -177,34 +181,69 @@ function EnhancedTableToolbar(props) {
         }),
       }}
     >
+      {/*{numSelected > 0 ? (*/}
+      {/*  <Typography*/}
+      {/*    sx={{ flex: "1 1 100%" }}*/}
+      {/*    color="inherit"*/}
+      {/*    variant="subtitle1"*/}
+      {/*    component="div"*/}
+      {/*  >*/}
+      {/*    {numSelected} lựa chọn*/}
+      {/*  </Typography>*/}
+      {/*) : (*/}
+      {/*  <Typography*/}
+      {/*    sx={{ flex: "1 1 100%" }}*/}
+      {/*    variant="h6"*/}
+      {/*    id="tableTitle"*/}
+      {/*    component="div"*/}
+      {/*  ></Typography>*/}
+      {/*)}*/}
       {numSelected > 0 ? (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
+        <Box
+          sx={{ flex: "1 1 100%", display: "flex" }}
+          className="items-center space-x-5"
         >
-          {numSelected} lựa chọn
-        </Typography>
+          <Typography color="inherit" variant="subtitle1" component="div">
+            {numSelected} lựa chọn
+          </Typography>
+          <Tooltip title="Delete">
+            <IconButton>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        </Box>
       ) : (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        ></Typography>
+        <Tabs sx={{ flex: "1 1 100%" }} value={tab} onChange={setTab}>
+          <Tab sx={{ fontSize: 12 }} label="Tất cả" />
+        </Tabs>
       )}
 
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
+      {/*{numSelected > 0 ? (*/}
+      {/*  <Tooltip title="Delete">*/}
+      {/*    <IconButton>*/}
+      {/*      <DeleteIcon />*/}
+      {/*    </IconButton>*/}
+      {/*  </Tooltip>*/}
+      {/*) : (*/}
+      {/*  <Tooltip title="Filter list">*/}
+      {/*    <IconButton>*/}
+      {/*      <FilterListIcon />*/}
+      {/*    </IconButton>*/}
+      {/*  </Tooltip>*/}
+      {/*)}*/}
+      {isSearch ? (
+        <Search
+          value={valueSearch}
+          setValue={setValueSearch}
+          handleClose={() => {
+            setValueSearch("");
+            setIsSearch(false);
+          }}
+        />
       ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
+        <Tooltip title="Search">
+          <IconButton onClick={() => setIsSearch(true)}>
+            <SearchIcon />
           </IconButton>
         </Tooltip>
       )}
@@ -225,6 +264,8 @@ export default function TableTour({ data, handleDeleteTour, handleEditTour }) {
   const [openDialog, setOpenDialog] = React.useState(false);
   //id của row cần edit/ delete
   const [idChange, setIdChange] = React.useState("");
+  const [tab, setTab] = useState(0);
+  const [valueSearch, setValueSearch] = useState("");
 
   const handleIdChange = (id) => {
     setIdChange(id);
@@ -292,20 +333,35 @@ export default function TableTour({ data, handleDeleteTour, handleEditTour }) {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
-  const visibleRows = React.useMemo(
-    () =>
-      stableSort(data, getComparator(order, orderBy)).slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage,
-      ),
-    [order, orderBy, page, rowsPerPage, data],
-  );
+  const searchTable = (data) => {
+    return data.filter((elem) => {
+      if (truncateString(elem.name, 70).includes(valueSearch)) return true;
+      if (formatDate(elem.start_time).includes(valueSearch)) return true;
+      if (selectNameCity(elem.addressFrom).includes(valueSearch)) return true;
+      if (selectNameCity(elem.addressTo).includes(valueSearch)) return true;
+      return !!currencyVnd(elem.prices).includes(valueSearch);
+    });
+  };
+
+  const visibleRows = React.useMemo(() => {
+    const dataAfterSearch = searchTable(data);
+    return stableSort(dataAfterSearch, getComparator(order, orderBy)).slice(
+      page * rowsPerPage,
+      page * rowsPerPage + rowsPerPage,
+    );
+  }, [order, orderBy, page, rowsPerPage, data, valueSearch]);
 
   return (
     <>
       <Box sx={{ width: "100%", marginTop: 4, paddingX: 3 }}>
         <Paper sx={{ width: "100%", mb: 2 }}>
-          <EnhancedTableToolbar numSelected={selected.length} />
+          <EnhancedTableToolbar
+            tab={tab}
+            setTab={setTab}
+            numSelected={selected.length}
+            valueSearch={valueSearch}
+            setValueSearch={setValueSearch}
+          />
           <TableContainer>
             <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
               <EnhancedTableHead
