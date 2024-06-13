@@ -26,6 +26,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Button } from "@mui/material";
+import TableToolbar from "../../TableToolbar";
+import { useState } from "react";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -190,11 +192,7 @@ EnhancedTableToolbar.propTypes = {
   title: PropTypes.string,
 };
 
-export default function TableHotel({
-  data,
-  handleDeleteUser,
-  handleEditUser,
-}) {
+export default function TableHotel({ data, handleDeleteUser, handleEditUser }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("");
   const [selected, setSelected] = React.useState([]);
@@ -203,6 +201,8 @@ export default function TableHotel({
   const [openDialog, setOpenDialog] = React.useState(false);
   //Id của row bị edit/ delete
   const [idChange, setIdChange] = React.useState("");
+  const [tab, setTab] = useState(0);
+  const [valueSearch, setValueSearch] = useState("");
 
   const handleIdChange = (id) => {
     setIdChange(id);
@@ -273,20 +273,32 @@ export default function TableHotel({
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
-  const visibleRows = React.useMemo(
-    () =>
-      stableSort(data, getComparator(order, orderBy)).slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage,
-      ),
-    [order, orderBy, page, rowsPerPage, data],
-  );
+  const searchTable = (data) => {
+    return data.filter((elem) => {
+      if (elem.name.includes(valueSearch)) return true;
+      return !!elem.address.includes(valueSearch);
+    });
+  };
+
+  const visibleRows = React.useMemo(() => {
+    const dataAfterSearch = searchTable(data);
+    return stableSort(dataAfterSearch, getComparator(order, orderBy)).slice(
+      page * rowsPerPage,
+      page * rowsPerPage + rowsPerPage,
+    );
+  }, [order, orderBy, page, rowsPerPage, data, valueSearch]);
 
   return (
     <>
       <Box sx={{ width: "100%", marginTop: 4, paddingX: 3 }}>
         <Paper sx={{ width: "100%", mb: 2 }}>
-          <EnhancedTableToolbar numSelected={selected.length} />
+          <TableToolbar
+            tab={tab}
+            setTab={setTab}
+            numSelected={selected.length}
+            valueSearch={valueSearch}
+            setValueSearch={setValueSearch}
+          />
           <TableContainer>
             <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
               <EnhancedTableHead
