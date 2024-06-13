@@ -17,7 +17,6 @@ import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import DeleteIcon from "@mui/icons-material/Delete";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import EditIcon from "@mui/icons-material/Edit";
 import Dialog from "@mui/material/Dialog";
@@ -25,7 +24,15 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Button } from "@mui/material";
+import { Button, Tab, Tabs } from "@mui/material";
+import { useState } from "react";
+import Search from "../../Search/Search";
+import SearchIcon from "@mui/icons-material/Search";
+import TableToolbar from "../../../components/TableToolbar";
+import { truncateString } from "../../../utils/shortenString";
+import { formatDate } from "../../../utils/resolveTime";
+import { selectNameCity } from "../../../utils/cites";
+import currencyVnd from "../../../utils/currencyVnd";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -145,62 +152,6 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-function EnhancedTableToolbar(props) {
-  const { numSelected } = props;
-
-  return (
-    <Toolbar
-      sx={{
-        pl: { sm: 2 },
-        pr: { xs: 1, sm: 1 },
-        ...(numSelected > 0 && {
-          bgcolor: (theme) =>
-            alpha(
-              theme.palette.primary.main,
-              theme.palette.action.activatedOpacity,
-            ),
-        }),
-      }}
-    >
-      {numSelected > 0 ? (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
-        >
-          {numSelected} lựa chọn
-        </Typography>
-      ) : (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        ></Typography>
-      )}
-
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
-    </Toolbar>
-  );
-}
-
-EnhancedTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-};
-
 export default function TableGuide({ data, handleDeleteUser, handleEditUser }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("");
@@ -210,6 +161,8 @@ export default function TableGuide({ data, handleDeleteUser, handleEditUser }) {
   const [openDialog, setOpenDialog] = React.useState(false);
   //Id của row bị edit/ delete
   const [idChange, setIdChange] = React.useState("");
+  const [tab, setTab] = useState(0);
+  const [valueSearch, setValueSearch] = useState("");
 
   const handleIdChange = (id) => {
     setIdChange(id);
@@ -280,20 +233,34 @@ export default function TableGuide({ data, handleDeleteUser, handleEditUser }) {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
-  const visibleRows = React.useMemo(
-    () =>
-      stableSort(data, getComparator(order, orderBy)).slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage,
-      ),
-    [order, orderBy, page, rowsPerPage, data],
-  );
+  const searchTable = (data) => {
+    return data.filter((elem) => {
+      if (elem.fullName.includes(valueSearch)) return true;
+      if (elem.address.includes(valueSearch)) return true;
+      if (elem.numberPhone.includes(valueSearch)) return true;
+      return !!elem.email.includes(valueSearch);
+    });
+  };
+
+  const visibleRows = React.useMemo(() => {
+    const dataAfterSearch = searchTable(data);
+    return stableSort(dataAfterSearch, getComparator(order, orderBy)).slice(
+      page * rowsPerPage,
+      page * rowsPerPage + rowsPerPage,
+    );
+  }, [order, orderBy, page, rowsPerPage, data, valueSearch]);
 
   return (
     <>
       <Box sx={{ width: "100%", marginTop: 4, paddingX: 3 }}>
         <Paper sx={{ width: "100%", mb: 2 }}>
-          <EnhancedTableToolbar numSelected={selected.length} />
+          <TableToolbar
+            tab={tab}
+            setTab={setTab}
+            numSelected={selected.length}
+            valueSearch={valueSearch}
+            setValueSearch={setValueSearch}
+          />
           <TableContainer>
             <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
               <EnhancedTableHead
