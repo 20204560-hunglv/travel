@@ -27,6 +27,7 @@ module.exports = {
         111111: "#111111",
         ADADAD: "#ADADAD",
         "1976D2": "#1976D2",
+        F1F1F1: "#F1F1F1",
       },
     },
   },

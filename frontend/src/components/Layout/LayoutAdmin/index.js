@@ -1,6 +1,5 @@
 import SideBar from "./SideBar";
-import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
-import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import { AppBar, Box, Button, Toolbar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LogoWhite from "../../Icons/logoWhite";
@@ -18,10 +17,6 @@ const LayoutAdmin = ({ children }) => {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
-            {/*<AdminPanelSettingsIcon fontSize="large" sx={{ mr: 2 }} />*/}
-            {/*<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>*/}
-            {/*  Admin*/}
-            {/*</Typography>*/}
             <div className='w-10/12 mx-auto flex'>
               <Box sx={{ flexGrow: 1 }}>
                 <LogoWhite />
