@@ -1,9 +1,20 @@
 import { useState } from "react";
 import cites from "../../../utils/cites";
-import { Button, MenuItem, Select, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import dayjs from "dayjs";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ChooseGuideDialog from "../../Dialog/ChooseGuideDialog";
+import CloseIcon from "@mui/icons-material/Close";
 
 const CrudTourModal = ({
   handleSaveData,
@@ -25,17 +36,19 @@ const CrudTourModal = ({
   );
   const [addressTo, setAddressTo] = useState((data && data.addressTo) || "");
   const [describe, setDescribe] = useState((data && data.describe) || "");
-  const [tourGuide, setTourGuide] = useState((data && data.tourGuide) || "");
+  const [tourGuide, setTourGuide] = useState((data && data.tourGuide) || []);
   const [vehicle, setVehicle] = useState((data && data.vehicle) || "");
   const [visitLocation, setVisitLocation] = useState(
     (data && data.visitLocation) || ""
   );
   const [slotMax, setSlotMax] = useState((data && data.slotMax) || "");
+  const [openGuide, setOpenGuide] = useState(false);
 
   const handleSave = () => {
+    const guides = tourGuide.map((elem)=> elem._id);
     handleSaveData({
       name,
-      tourGuide,
+      tourGuide: guides,
       vehicle,
       visitLocation,
       slotMax,
@@ -61,14 +74,16 @@ const CrudTourModal = ({
         <div className="w-full max-w-sm container mx-auto py-10">
           <h2 className="text-2xl text-center text-gray-900 pb-5">{title}</h2>
           <div className="w-full mb-5">
-            <label
+            {/* <p
               className="block uppercase tracking-wide text-gray-700 text-xs
            font-bold mb-2"
             >
               Tên
-            </label>
+            </p> */}
             <TextField
               fullWidth
+              required
+              label='Tên'
               value={name}
               onChange={(event) => setName(event.target.value)}
               multiline
@@ -76,28 +91,34 @@ const CrudTourModal = ({
             />
           </div>
           <div className="w-full mb-5">
-            <label
+            {/* <p
               className="block uppercase tracking-wide text-gray-700 text-xs 
           font-bold mb-2"
             >
               Thời gian xuất phát
-            </label>
+            </p> */}
             <DateTimePicker
+              label='Thời gian xuất phát *'
+              sx={{
+                width: "100%",
+              }}
               fullWidth
               value={start_time}
               onChange={(newValue) => setStartTime(newValue)}
             />
           </div>
           <div className="w-full mb-5">
-            <p
+            {/* <p
               className="block uppercase tracking-wide text-gray-700 text-xs 
           font-bold mb-2"
             >
               Khoảng thời gian
-            </p>
+            </p> */}
             <TextField
               fullWidth
               type="number"
+              required
+              label='Khoảng thời gian'
               value={period}
               onChange={(event) => setPeriod(event.target.value)}
               InputProps={{
@@ -107,13 +128,16 @@ const CrudTourModal = ({
           </div>
           <div className="w-full mb-5 space-y-4">
             <div>
-              <p
+              {/* <p
                 className="block uppercase tracking-wide text-gray-700 text-xs 
           font-bold mb-2"
               >
                 Điểm đi
-              </p>
+              </p> */}
+              <InputLabel id="address-from-tour-modal">Điểm đi</InputLabel>
               <Select
+              label={<p>Điểm đi</p>}
+               id="address-from-tour-modal"
                 className="w-full"
                 value={addressFrom}
                 onChange={(event) => setAddressFrom(event.target.value)}
@@ -146,57 +170,71 @@ const CrudTourModal = ({
             </div>
           </div>
           <div className="w-full mb-5">
-            <label
+            <p
               className="block uppercase tracking-wide text-gray-700 text-xs 
           font-bold mb-2"
             >
               Link hình ảnh
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 
-            text-gray-700 leading-tight focus:outline-none focus:text-gray-600"
-              type="text"
+            </p>
+            <TextField
               value={main_image_url}
               onChange={(event) => setUrlImage(event.target.value)}
-            />
-          </div>
-          <div className="w-full mb-5">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-xs 
-          font-bold mb-2"
-            >
-              Giá
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 
-            text-gray-700 leading-tight focus:outline-none focus:text-gray-600"
-              type="number"
-              value={prices}
-              onChange={(event) => setPrices(event.target.value)}
-            />
-          </div>
-          <div className="w-full mb-5">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-xs 
-          font-bold mb-2"
-            >
-              Hướng dẫn viên
-            </label>
-            <TextField
-              value={tourGuide}
-              onChange={(event) => setTourGuide(event.target.value)}
               fullWidth
               type="text"
               multiline
             />
           </div>
           <div className="w-full mb-5">
-            <label
+            <p
+              className="block uppercase tracking-wide text-gray-700 text-xs 
+          font-bold mb-2"
+            >
+              Giá
+            </p>
+            <TextField
+              value={prices}
+              onChange={(event) => setPrices(event.target.value)}
+              fullWidth
+              type="number"
+            />
+          </div>
+          <div className="w-full mb-5">
+            <div className="flex items-center mb-2 ">
+              <p
+                className="block uppercase tracking-wide text-gray-700 text-xs 
+          font-bold "
+              >
+                Hướng dẫn viên
+              </p>
+              <Button onClick={() => setOpenGuide(true)}>Chọn</Button>
+            </div>
+            {/* <TextField
+              value={tourGuide}
+              onChange={(event) => setTourGuide(event.target.value)}
+              fullWidth
+              type="text"
+            /> */}
+            {tourGuide.map((elem) => {
+              return (
+                <Box key={elem._id} className="flex items-center px-5">
+                  <Typography
+                    key={elem._id}
+                    variant="body1"
+                  >{`${elem.fullName} - ${elem?.email}`}</Typography>
+                  <IconButton>
+                    <CloseIcon />
+                  </IconButton>
+                </Box>
+              );
+            })}
+          </div>
+          <div className="w-full mb-5">
+            <p
               className="block uppercase tracking-wide text-gray-700 text-xs 
           font-bold mb-2"
             >
               Phương tiện
-            </label>
+            </p>
             <TextField
               value={vehicle}
               onChange={(event) => setVehicle(event.target.value)}
@@ -206,12 +244,12 @@ const CrudTourModal = ({
             />
           </div>
           <div className="w-full mb-5">
-            <label
+            <p
               className="block uppercase tracking-wide text-gray-700 text-xs 
           font-bold mb-2"
             >
               Điểm tham quan
-            </label>
+            </p>
             <TextField
               value={visitLocation}
               onChange={(event) => setVisitLocation(event.target.value)}
@@ -221,27 +259,26 @@ const CrudTourModal = ({
             />
           </div>
           <div className="w-full mb-5">
-            <label
+            <p
               className="block uppercase tracking-wide text-gray-700 text-xs 
           font-bold mb-2"
             >
               Số lượng
-            </label>
+            </p>
             <TextField
               value={slotMax}
               onChange={(event) => setSlotMax(event.target.value)}
               fullWidth
-              type="text"
-              multiline
+              type="number"
             />
           </div>
           <div className="w-full mb-5">
-            <label
+            <p
               className="block uppercase tracking-wide text-gray-700 text-xs 
           font-bold mb-2"
             >
               Mô tả
-            </label>
+            </p>
             <TextField
               value={describe}
               onChange={(event) => setDescribe(event.target.value)}
@@ -263,6 +300,12 @@ const CrudTourModal = ({
           </div>
         </div>
       </div>
+      <ChooseGuideDialog
+        setOpen={setOpenGuide}
+        open={openGuide}
+        onClose={setTourGuide}
+        checkInput = {tourGuide}
+      />
     </>
   );
 };

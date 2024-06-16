@@ -3,6 +3,7 @@ const {
   createGuide,
   updateGuide,
   removeGuide,
+  getGuideById,
 } = require("../repositories/GuideRepository");
 
 /**
@@ -14,6 +15,16 @@ const {
 const get = async (req, res) => {
   try {
     const resp = await getGuides();
+    return res.json({ success: true, data: resp });
+  } catch (error) {
+    return res.status(404).json({ success: false });
+  }
+};
+
+const getById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const resp = await getGuideById(id);
     return res.json({ success: true, data: resp });
   } catch (error) {
     return res.status(404).json({ success: false });
@@ -65,4 +76,4 @@ const deleteGuide = async (req, res) => {
   }
 };
 
-module.exports = { get, create, update, deleteGuide };
+module.exports = { get, create, update, deleteGuide, getById };

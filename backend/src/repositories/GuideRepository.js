@@ -9,6 +9,14 @@ const getGuides = async () => {
 };
 
 /**
+ *
+ * @returns {Promise}
+ */
+const getGuideById = async (_id) => {
+  return await Guide.findOne({_id});
+};
+
+/**
  * 
  * @param {*} data 
  * @returns {Promise}
@@ -31,4 +39,4 @@ const removeGuide = async (id) => {
   await Guide.deleteOne({_id: id})
 }
 
-module.exports = { getGuides, createGuide, updateGuide, removeGuide };
+module.exports = { getGuides, createGuide, updateGuide, removeGuide, getGuideById };

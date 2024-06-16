@@ -8,6 +8,7 @@ import {
   deleteTour,
   getAll,
   update as EditTour,
+  getAllByAdmin,
 } from "../../../services/TourServices";
 import HeaderResult from "../../../components/Layout/LayoutAdmin/HeaderResult";
 import TableTour from "../../../components/Table/TableTour";
@@ -31,8 +32,8 @@ const CrudTour = () => {
 
   const fetchData = async () => {
     try {
-      const response = await getAll();
-      setData(response.tours);
+      const response = await getAllByAdmin();
+      setData(response);
     } catch (error) {
       console.error("Error fetching data:", error);
     }

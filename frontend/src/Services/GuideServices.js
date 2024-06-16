@@ -13,6 +13,15 @@ export const get = async () => {
   }
 };
 
+export const getById = async (id) => {
+  try {
+    const resp = await axios.get(`/api/v1/guide/${id}`);
+    return resp.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 /**
  *
  * @param {object} data

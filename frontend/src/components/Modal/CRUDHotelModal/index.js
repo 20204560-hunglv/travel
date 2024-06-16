@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Button, TextField } from "@mui/material";
+import {Button, MenuItem, Select, TextField} from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { PropTypes } from "prop-types";
+import cites from "../../../utils/cites";
 
 const CRUDHotelModal = ({
   handleSaveData,
@@ -85,11 +86,22 @@ const CRUDHotelModal = ({
             <p className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Thành phố
             </p>
-            <TextField
-              fullWidth
-              value={city}
-              onChange={(event) => setCity(event.target.value)}
-            />
+            {/*<TextField*/}
+            {/*  fullWidth*/}
+            {/*  value={city}*/}
+            {/*  onChange={(event) => setCity(event.target.value)}*/}
+            {/*/>*/}
+            <Select
+                className="w-full"
+                value={city}
+                onChange={(event) => setCity(event.target.value)}
+            >
+              {cites.map((city, index) => (
+                  <MenuItem key={index} value={city.value}>
+                    {city.label}
+                  </MenuItem>
+              ))}
+            </Select>
           </div>
           <div className="w-full mb-5">
             <p className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">

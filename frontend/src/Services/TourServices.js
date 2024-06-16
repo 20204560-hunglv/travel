@@ -1,4 +1,5 @@
 import axios from "../utils/axios";
+import * as GuideServices from "./GuideServices";
 
 export async function get(id) {
   try {
@@ -12,7 +13,50 @@ export async function get(id) {
 export async function getAll() {
   try {
     const response = await axios.get("/api/v1/tours");
-    return response.data;
+    const tours = response.data.tours;
+    const newTours = await Promise.all(
+      tours.map(async (tour) => {
+        const tourGuide = tour.tourGuide;
+        const guides = await Promise.all(
+          tourGuide.map(async (guideId) => {
+            const resp = (await GuideServices.getById(guideId)).data;
+            return resp;
+          })
+        );
+        return {
+          ...tour,
+          tourGuide: guides,
+        };
+      })
+    );
+
+    return newTours;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getAllByAdmin() {
+  try {
+    const response = await axios.get("/api/v1/tours?getAll=true");
+    const tours = response.data.tours;
+    const newTours = await Promise.all(
+      tours.map(async (tour) => {
+        const tourGuide = tour.tourGuide;
+        const guides = await Promise.all(
+          tourGuide.map(async (guideId) => {
+            const resp = (await GuideServices.getById(guideId)).data;
+            return resp;
+          })
+        );
+        return {
+          ...tour,
+          tourGuide: guides,
+        };
+      })
+    );
+
+    return newTours;
   } catch (error) {
     throw error;
   }

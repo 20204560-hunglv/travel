@@ -11,7 +11,7 @@ const Tour = new Schema({
   addressTo: String,
   describe: { type: String},
   slotStill: { type: Number},
-  // tourGuide: { type: Schema},
+  tourGuide: { type: Array},
   vehicle: { type: String},
   visitLocation: { type: String},
   slotMax: { type: Number},

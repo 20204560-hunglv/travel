@@ -7,6 +7,7 @@ const Discount = new Schema({
   startDate: { type: String },
   endDate: { type: String },
   isActive: { type: Boolean },
+  tours: { type: Array },
 });
 
 module.exports = mongoose.model("Discount", Discount);

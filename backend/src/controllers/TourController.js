@@ -68,27 +68,11 @@ const searchTour = async (req, res) => {
 
 const updateTour = async (req, res) => {
   const _id = req.params.id;
-  const {
-    name,
-    start_time,
-    period,
-    main_image_url,
-    prices,
-    addressFrom,
-    addressTo,
-  } = req.body;
+  const dataUpdate = req.body;
   try {
     await Tour.updateOne(
       { _id: _id },
-      {
-        name: name,
-        start_time: start_time,
-        period: period,
-        main_image_url: main_image_url,
-        prices: prices,
-        addressFrom,
-        addressTo,
-      }
+      dataUpdate
     );
     return res.status(200).json({
       message: "update ok",

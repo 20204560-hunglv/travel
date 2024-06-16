@@ -5,11 +5,14 @@ const get = async ({
   field = "createdAt",
   sort = "desc",
   page = 1,
+  getAll = false,
 }) => {
-  return await Tour.find({})
-    .sort({ [field]: sort })
-    .skip((page - 1) * limit)
-    .limit(limit * 1);
+  if (getAll) return Tour.find({}).sort({ [field]: sort });
+  else
+    return Tour.find({})
+      .sort({ [field]: sort })
+      .skip((page - 1) * limit)
+      .limit(limit * 1);
 };
 
 const getTotalPage = async ({
