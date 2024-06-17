@@ -30,8 +30,8 @@ export default function CrudDiscount() {
 
   const fetchData = async () => {
     try {
-      const response = await DiscountServices.get();
-      setData(response.data);
+      const response = await DiscountServices.getAllByAdmin();
+      setData(response);
     } catch (error) {
       console.error("Error fetching data:", error);
     }

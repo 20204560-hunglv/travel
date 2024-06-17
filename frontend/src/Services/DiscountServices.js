@@ -1,4 +1,5 @@
 import axios from "../utils/axios";
+import * as TourServices from '../services/TourServices'
 
 /**
  *
@@ -12,6 +13,32 @@ export const get = async () => {
     console.log(error);
   }
 };
+
+export async function getAllByAdmin() {
+  try {
+    const response = await axios.get("/api/v1/discounts");
+    const discounts = response.data.data;
+    const newDiscounts = await Promise.all(
+      discounts.map(async (elem) => {
+        const toursId = elem.tours;
+        const tours = await Promise.all(
+          toursId.map(async (elem) => {
+            const resp = (await TourServices.get(elem)).data;
+            return resp;
+          })
+        );
+        return {
+          ...elem,
+          tours,
+        };
+      })
+    );
+
+    return newDiscounts;
+  } catch (error) {
+    throw error;
+  }
+}
 
 /**
  *

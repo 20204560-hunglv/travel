@@ -9,9 +9,10 @@ import {
     Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { get as getAll } from "../../../services/GuideServices";
+import { getAllByAdmin } from "../../../services/TourServices";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Checkbox from "@mui/material/Checkbox";
+import { formatDate } from './../../../utils/resolveTime';
 
 const ChooseTourDialog = (props) => {
     const { onClose, open, setOpen, checkInput } = props;
@@ -39,8 +40,8 @@ const ChooseTourDialog = (props) => {
 
     const fetchData = async () => {
         try {
-            const response = await getAll();
-            setData(response.data);
+            const response = await getAllByAdmin();
+            setData(response);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -56,7 +57,7 @@ const ChooseTourDialog = (props) => {
             open={open}
         >
             <Box className="p-5">
-                <Typography variant="h6">Danh sách hướng dẫn viên</Typography>
+                <Typography variant="h6">Danh sách tour</Typography>
                 <List
                     sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
                 >
@@ -92,7 +93,7 @@ const ChooseTourDialog = (props) => {
                                     </ListItemIcon>
                                     <ListItemText
                                         id={labelId}
-                                        primary={`${elem.fullName} - ${elem?.email}`}
+                                        primary={`${elem.name} - ${formatDate(elem?.start_time)}`}
                                     />
                                 </ListItemButton>
                             </ListItem>
