@@ -4,7 +4,18 @@ import * as GuideServices from "./GuideServices";
 export async function get(id) {
   try {
     const response = await axios.get(`/api/v1/tours/${id}`);
-    return response;
+    const tour = response.data;
+    const tourGuide = tour.tourGuide;
+    const guides = await Promise.all(
+      tourGuide.map(async (guideId) => {
+        const resp = (await GuideServices.getById(guideId)).data;
+        return resp;
+      })
+    );
+    return {
+      ...tour,
+      tourGuide: guides,
+    };
   } catch (error) {
     throw error;
   }

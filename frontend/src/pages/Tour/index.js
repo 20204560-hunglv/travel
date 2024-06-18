@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import DefaultLayout from "../../components/Layout/DefaultLayout/index";
 import { useNavigate, useParams } from "react-router-dom";
 import currencyVnd from "../../utils/currencyVnd";
-import DialogCustom from "../../components/Dialog";
 import { getUserLocal } from "../../utils/LocalStorage";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../components/Notification/index";
@@ -74,7 +73,6 @@ const Tour = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [dialog, setDialog] = useState(false);
   const [data, setData] = useState({});
   const dataCanLike = [
     {
@@ -127,23 +125,10 @@ const Tour = () => {
     },
   ];
 
-  const areUSureOrder = (choose) => {
-    if (choose) {
-      bookTour(userData._id, data)
-        .then(() => {
-          handleNotify("success", "Hoàn tất", "Đặt tour thành công!");
-        })
-        .catch((err) => console.log(err));
-      setDialog(false);
-    } else {
-      setDialog(false);
-    }
-  };
-
   useEffect(() => {
     getTour(id)
       .then((res) => {
-        setData(res.data);
+        setData(res);
       })
       .catch((err) => console.log(err));
   }, [id]);
@@ -152,9 +137,10 @@ const Tour = () => {
     if (!userData) {
       navigate("/login");
     } else {
-      setDialog(true);
+      navigate(`/checkout/${id}`)
     }
   };
+  console.log(data);
   return (
     <DefaultLayout>
       <ReactNotifications />
@@ -175,7 +161,7 @@ const Tour = () => {
                 sx={{ paddingLeft: 1, fontSize: 18 }}
                 variant="subtitle1"
               >
-                {`Đã thích (${data.favourite})`}
+                {`Đã thích (${data.favourite || 0})`}
               </Typography>
             </div>
             <div className="my-7">
@@ -225,7 +211,7 @@ const Tour = () => {
                 gutterBottom
               >
                 <span className="font-normal">Số chỗ còn nhận: </span>
-                {`${data.slotStill}`}
+                {data.slotStill || data.slotMax}
               </Typography>
             </div>
             <div>
@@ -290,14 +276,16 @@ const Tour = () => {
           <Typography variant="h5" gutterBottom>
             Thông tin hướng dẫn viên
           </Typography>
-          <div className="px-4">
-            <Typography variant="h6" gutterBottom>
-              Lê Dương
-            </Typography>
-            <Typography variant="subtitle1" gutterBottom>
-              Thôn 5, xã Quỳnh Trang, thị xã Hoàng Mai, tỉnh Nghệ An
-            </Typography>
-          </div>
+          {data.tourGuide?.map((elem) => (
+            <div key={elem._id} className="px-4">
+              <Typography variant="h6" gutterBottom>
+                {`${elem.fullName} - ${elem.numberPhone}`}
+              </Typography>
+              <Typography variant="subtitle1" gutterBottom>
+                {elem.address}
+              </Typography>
+            </div>
+          ))}
         </div>
         <div className="py-10">
           <Typography
@@ -321,12 +309,6 @@ const Tour = () => {
           </Grid>
         </div>
       </div>
-      <DialogCustom
-        handleClickAgree={() => navigate(`/checkout/${id}`)}
-        openDialog={dialog}
-        handleCloseDialog={() => setDialog(false)}
-        message={"Bạn có chắc chắn đặt tour này không?"}
-      />
     </DefaultLayout>
   );
 };
