@@ -23,7 +23,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Button } from "@mui/material";
 import { getStatusOrder } from "../../../utils/statusOrder";
 import TableToolbar from "../../TableToolbar";
-import {useState} from 'react'
+import { useState } from "react";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -137,11 +137,7 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-export default function TableOrder({
-  data,
-  handleDeleteUser,
-  handleEditUser,
-}) {
+export default function TableOrder({ data, handleDeleteUser, handleEditUser }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("");
   const [selected, setSelected] = React.useState([]);
@@ -201,7 +197,7 @@ export default function TableOrder({
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
+        selected.slice(selectedIndex + 1)
       );
     }
     setSelected(newSelected);
@@ -224,7 +220,7 @@ export default function TableOrder({
 
   const searchTable = (data) => {
     return data.filter((elem) => {
-      if (elem.tour.name.includes(valueSearch)) return true;
+      if (elem.tour?.name.includes(valueSearch)) return true;
       if (elem.customer.fullName.includes(valueSearch)) return true;
       return !!getStatusOrder(elem.status).includes(valueSearch);
     });
@@ -233,8 +229,8 @@ export default function TableOrder({
   const visibleRows = React.useMemo(() => {
     const dataAfterSearch = searchTable(data);
     return stableSort(dataAfterSearch, getComparator(order, orderBy)).slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage,
+      page * rowsPerPage,
+      page * rowsPerPage + rowsPerPage
     );
   }, [order, orderBy, page, rowsPerPage, data, valueSearch]);
 
@@ -243,11 +239,11 @@ export default function TableOrder({
       <Box sx={{ width: "100%", marginTop: 4, paddingX: 3 }}>
         <Paper sx={{ width: "100%", mb: 2 }}>
           <TableToolbar
-              tab={tab}
-              setTab={setTab}
-              numSelected={selected.length}
-              valueSearch={valueSearch}
-              setValueSearch={setValueSearch}
+            tab={tab}
+            setTab={setTab}
+            numSelected={selected.length}
+            valueSearch={valueSearch}
+            setValueSearch={setValueSearch}
           />
           <TableContainer>
             <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
@@ -284,7 +280,7 @@ export default function TableOrder({
                           }}
                         />
                       </TableCell>
-                      <TableCell align="left">{row.tour.name}</TableCell>
+                      <TableCell align="left">{row.tour?.name}</TableCell>
                       <TableCell align="left">
                         {row.customer.fullName}
                       </TableCell>

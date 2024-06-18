@@ -22,7 +22,7 @@ export const get = async () => {
         return {
           ...order,
           customer: customer.data,
-          tour: tour.data,
+          tour: tour,
         };
       })
     );
@@ -38,7 +38,7 @@ export const get = async () => {
  */
 export const create = async (data) => {
   try {
-    await axios.post("/api/v1/discounts", data);
+    await axios.post("/api/v1/orders", data);
   } catch (error) {
     console.log(error);
   }
@@ -65,7 +65,7 @@ export const remove = async (id) => {
  */
 export const edit = async ({ id, data }) => {
   try {
-    await axios.put(`/api/v1/discount/${id}`, data);
+    await axios.put(`/api/v1/order/${id}`, data);
   } catch (error) {
     console.log(error);
   }

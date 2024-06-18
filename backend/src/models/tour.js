@@ -16,6 +16,9 @@ const Tour = new Schema({
   visitLocation: { type: String},
   slotMax: { type: Number},
   favourite: { type: Number},
+  adultPrice: {type: Number},
+  childrenPrice: {type: Number},
+  kidPrice: {type: Number},
 }, {timestamps: true});
 
 module.exports = mongoose.model("Tour", Tour);

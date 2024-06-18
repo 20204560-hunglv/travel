@@ -28,7 +28,19 @@ const CRUDOrderModal = ({ handleSaveData, handleBack, data, title = "" }) => {
   );
 
   const handleSave = async () => {
-    await handleSaveData({});
+    await handleSaveData({
+      email,
+      phone,
+      address,
+      status,
+      adultCount,
+      childrenCount,
+      sumPrice,
+      kidCount,
+      customerId,
+      tourId,
+      fullName,
+    });
   };
 
   return (

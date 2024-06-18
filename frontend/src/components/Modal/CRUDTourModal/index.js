@@ -42,10 +42,15 @@ const CrudTourModal = ({
     (data && data.visitLocation) || ""
   );
   const [slotMax, setSlotMax] = useState((data && data.slotMax) || "");
+  const [adultPrice, setAdultPrice] = useState((data && data.adultPrice) || "");
+  const [childrenPrice, setChildrenPrice] = useState(
+    (data && data.childrenPrice) || ""
+  );
+  const [kidPrice, setKidPrice] = useState((data && data.kidPrice) || "");
   const [openGuide, setOpenGuide] = useState(false);
 
   const handleSave = () => {
-    const guides = tourGuide.map((elem)=> elem._id);
+    const guides = tourGuide.map((elem) => elem._id);
     handleSaveData({
       name,
       tourGuide: guides,
@@ -59,6 +64,9 @@ const CrudTourModal = ({
       addressFrom,
       addressTo,
       describe,
+      adultPrice,
+      childrenPrice,
+      kidPrice,
     });
   };
 
@@ -83,7 +91,7 @@ const CrudTourModal = ({
             <TextField
               fullWidth
               required
-              label='Tên'
+              label="Tên"
               value={name}
               onChange={(event) => setName(event.target.value)}
               multiline
@@ -98,7 +106,7 @@ const CrudTourModal = ({
               Thời gian xuất phát
             </p> */}
             <DateTimePicker
-              label='Thời gian xuất phát *'
+              label="Thời gian xuất phát *"
               sx={{
                 width: "100%",
               }}
@@ -118,7 +126,7 @@ const CrudTourModal = ({
               fullWidth
               type="number"
               required
-              label='Khoảng thời gian'
+              label="Khoảng thời gian"
               value={period}
               onChange={(event) => setPeriod(event.target.value)}
               InputProps={{
@@ -136,8 +144,8 @@ const CrudTourModal = ({
               </p> */}
               <InputLabel id="address-from-tour-modal">Điểm đi</InputLabel>
               <Select
-              label={<p>Điểm đi</p>}
-               id="address-from-tour-modal"
+                label={<p>Điểm đi</p>}
+                id="address-from-tour-modal"
                 className="w-full"
                 value={addressFrom}
                 onChange={(event) => setAddressFrom(event.target.value)}
@@ -277,6 +285,48 @@ const CrudTourModal = ({
               className="block uppercase tracking-wide text-gray-700 text-xs 
           font-bold mb-2"
             >
+              Giá cho người lớn
+            </p>
+            <TextField
+              value={adultPrice}
+              onChange={(event) => setAdultPrice(event.target.value)}
+              fullWidth
+              type="number"
+            />
+          </div>
+          <div className="w-full mb-5">
+            <p
+              className="block uppercase tracking-wide text-gray-700 text-xs 
+          font-bold mb-2"
+            >
+              Giá cho trẻ em
+            </p>
+            <TextField
+              value={childrenPrice}
+              onChange={(event) => setChildrenPrice(event.target.value)}
+              fullWidth
+              type="number"
+            />
+          </div>
+          <div className="w-full mb-5">
+            <p
+              className="block uppercase tracking-wide text-gray-700 text-xs 
+          font-bold mb-2"
+            >
+              Giá cho em bé
+            </p>
+            <TextField
+              value={kidPrice}
+              onChange={(event) => setKidPrice(event.target.value)}
+              fullWidth
+              type="number"
+            />
+          </div>
+          <div className="w-full mb-5">
+            <p
+              className="block uppercase tracking-wide text-gray-700 text-xs 
+          font-bold mb-2"
+            >
               Mô tả
             </p>
             <TextField
@@ -304,7 +354,7 @@ const CrudTourModal = ({
         setOpen={setOpenGuide}
         open={openGuide}
         onClose={setTourGuide}
-        checkInput = {tourGuide}
+        checkInput={tourGuide}
       />
     </>
   );

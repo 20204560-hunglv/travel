@@ -86,14 +86,14 @@ export default function CrudOrder() {
       <LayoutAdmin>
         {isAdd && (
           <CRUDOrderModal
-            title="Thêm khuyến mãi"
+            title="Thêm order tour"
             handleSaveData={handleAddData}
             handleBack={handleBackFromAdd}
           />
         )}
         {isEdit && (
           <CRUDOrderModal
-            title="Thông tin khuyến mãi"
+            title="Thông tin order tour"
             handleSaveData={handleEditData}
             handleBack={handleBackFromEdit}
             data={userEdit}

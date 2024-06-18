@@ -51,35 +51,9 @@ const CrudTour = () => {
       console.log(error);
     }
   };
-  const handleAddData = async ({
-    name,
-    tourGuide,
-    vehicle,
-    visitLocation,
-    slotMax,
-    start_time,
-    period,
-    main_image_url,
-    prices,
-    addressFrom,
-    addressTo,
-    describe,
-  }) => {
+  const handleAddData = async (data) => {
     try {
-      await addTour({
-        name,
-        tourGuide,
-        vehicle,
-        visitLocation,
-        slotMax,
-        start_time,
-        period,
-        main_image_url,
-        prices,
-        addressFrom,
-        addressTo,
-        describe,
-      });
+      await addTour(data);
       handleChangeIsAdd(false);
       handleNotify("success", "", "Tạo tài tour thành công");
     } catch (error) {
@@ -87,35 +61,9 @@ const CrudTour = () => {
       handleNotify("warning", "", error);
     }
   };
-  const handleEditData = async ({
-    name,
-    tourGuide,
-    vehicle,
-    visitLocation,
-    slotMax,
-    start_time,
-    period,
-    main_image_url,
-    prices,
-    addressFrom,
-    addressTo,
-    describe,
-  }) => {
+  const handleEditData = async (data) => {
     try {
-      await EditTour(tourEdit._id, {
-        name,
-        tourGuide,
-        vehicle,
-        visitLocation,
-        slotMax,
-        start_time,
-        period,
-        main_image_url,
-        prices,
-        addressFrom,
-        addressTo,
-        describe,
-      });
+      await EditTour(tourEdit._id, data);
       handleNotify("success", " ", "Chỉnh sửa tài khoản thành công");
     } catch (error) {
       console.log(error);
