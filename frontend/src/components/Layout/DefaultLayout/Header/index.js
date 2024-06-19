@@ -12,13 +12,18 @@ const Header = () => {
           <LogoBlue />
           <ul className="list-none h-full flex items-center pl-0">
             <li
-              className={`float-left text-sm font-bold h-full flex items-center
+              className={`float-left space-x-5 text-sm font-bold h-full flex items-center
               relative w-max mx-2 hover:bg-white transition-colors 
               duration-500 header-nav`}
             >
               <Link to="/">
                 <p className="text-center text-666666 cursor-pointer">
                   Trang chủ
+                </p>
+              </Link>
+              <Link to="/discount">
+                <p className="text-center text-666666 cursor-pointer">
+                  Khuyến mãi
                 </p>
               </Link>
             </li>

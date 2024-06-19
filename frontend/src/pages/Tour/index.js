@@ -166,7 +166,7 @@ const Tour = () => {
             </div>
             <div className="my-7">
               <p className="font-bold text-3xl leading-7 text-red-500 ">
-                {currencyVnd(data.prices)}
+                {currencyVnd(data.adultPrice)}
                 <span className="font-normal text-base text-black">
                   / khách
                 </span>

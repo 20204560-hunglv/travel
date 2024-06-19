@@ -23,7 +23,7 @@ export async function getAllByAdmin() {
         const toursId = elem.tours;
         const tours = await Promise.all(
           toursId.map(async (elem) => {
-            const resp = (await TourServices.get(elem)).data;
+            const resp = (await TourServices.get(elem));
             return resp;
           })
         );
