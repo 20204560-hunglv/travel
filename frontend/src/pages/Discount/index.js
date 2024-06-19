@@ -19,8 +19,6 @@ const Discount = () => {
     fetchData();
   }, []);
 
-  console.log(data);
-
   return (
     <DefaultLayout>
       <Paper>

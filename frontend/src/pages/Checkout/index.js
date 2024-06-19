@@ -15,6 +15,7 @@ import * as OrderServices from "../../services/OrderServices";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../components/Notification/index";
 import checkoutValidate from "../../validators/CheckoutValidate";
+import ChooseHotelDialog from "../../components/Dialog/ChooseHotelDialog";
 
 export default function Checkout() {
   const { tourId } = useParams();
@@ -28,7 +29,8 @@ export default function Checkout() {
   const [childrenCount, setChildrenCount] = useState(0);
   const [kidCount, setKidCount] = useState(0);
   const [address, setAddress] = useState("");
-  const [sumPrice, setSumPrice] = useState(1000000);
+  const [sumPrice, setSumPrice] = useState(0);
+  const [openHotel, setOpenHotel] = useState(false);
 
   useEffect(() => {
     getTour(tourId)
@@ -43,9 +45,9 @@ export default function Checkout() {
       adultCount * data.adultPrice +
       childrenCount * data.childrenPrice +
       kidCount * data.kidPrice;
-    console.log(total);
-    setSumPrice(total);
-  }, [adultCount, childrenCount, kidCount]);
+    console.log({ data, total });
+    setSumPrice(total || 0);
+  }, [adultCount, childrenCount, kidCount, data]);
 
   const handleOrderTour = async () => {
     try {
@@ -69,7 +71,6 @@ export default function Checkout() {
       handleNotify("warning", "", error.message);
     }
   };
-  // console.log(data);
 
   return (
     <DefaultLayout>
@@ -191,7 +192,7 @@ export default function Checkout() {
                 <IconButton
                   onClick={() =>
                     setAdultCount((pre) => {
-                      if (pre == 0) return pre;
+                      if (pre === 0) return pre;
                       return pre - 1;
                     })
                   }
@@ -215,7 +216,7 @@ export default function Checkout() {
                 <IconButton
                   onClick={() =>
                     setChildrenCount((pre) => {
-                      if (pre == 0) return pre;
+                      if (pre === 0) return pre;
                       return pre - 1;
                     })
                   }
@@ -239,7 +240,7 @@ export default function Checkout() {
                 <IconButton
                   onClick={() =>
                     setKidCount((pre) => {
-                      if (pre == 0) return pre;
+                      if (pre === 0) return pre;
                       return pre - 1;
                     })
                   }
@@ -252,6 +253,17 @@ export default function Checkout() {
                 </IconButton>
               </div>
             </div>
+          </div>
+        </div>
+        <div className="mt-10">
+          <div className="flex space-x-4 items-center">
+            <Typography sx={{ fontWeight: 700 }} variant="h5" gutterBottom>
+              Chọn khách sạn
+            </Typography>
+            <Button onClick={() => setOpenHotel(true)}>Chọn</Button>
+          </div>
+          <div className="px-16">
+            <Typography variant="body1">Không chọn</Typography>
           </div>
         </div>
         <div className="mt-10">
@@ -298,6 +310,7 @@ export default function Checkout() {
         handleCloseDialog={() => setDialog(false)}
         message={"Bạn có chắc chắn đặt tour này không?"}
       />
+      <ChooseHotelDialog open={openHotel} setOpen={setOpenHotel} />
     </DefaultLayout>
   );
 }

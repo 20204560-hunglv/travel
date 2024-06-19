@@ -6,7 +6,6 @@ import CrudTourModal from "../../../components/Modal/CRUDTourModal";
 import {
   add as addTour,
   deleteTour,
-  getAll,
   update as EditTour,
   getAllByAdmin,
 } from "../../../services/TourServices";

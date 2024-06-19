@@ -3,10 +3,8 @@ import DefaultLayout from "../../components/Layout/DefaultLayout/index";
 import { useNavigate, useParams } from "react-router-dom";
 import currencyVnd from "../../utils/currencyVnd";
 import { getUserLocal } from "../../utils/LocalStorage";
-import { ReactNotifications } from "react-notifications-component";
-import { handleNotify } from "../../components/Notification/index";
 import { selectNameCity } from "../../utils/cites";
-import { bookTour, get as getTour } from "../../services/TourServices";
+import { get as getTour } from "../../services/TourServices";
 import {
   Button,
   Card,
@@ -143,7 +141,6 @@ const Tour = () => {
   console.log(data);
   return (
     <DefaultLayout>
-      <ReactNotifications />
       <div className="w-11/12 mx-auto py-10">
         <div className="grid grid-cols-7">
           <img
