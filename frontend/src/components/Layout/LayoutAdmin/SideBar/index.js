@@ -22,11 +22,11 @@ const SideBar = () => {
 
   const handleListItemClick = (event, pathName) => {
     setSelectedNav(pathName);
-    navigate(pathName)
+    navigate(pathName);
   };
-  
+
   return (
-    <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+    <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
       <List component="nav" aria-label="nav admin">
         <ListItemButton
           selected={selectedNav === "/admin/crud-user"}
@@ -66,7 +66,9 @@ const SideBar = () => {
         </ListItemButton>
         <ListItemButton
           selected={selectedNav === "/admin/crud-discount"}
-          onClick={(event) => handleListItemClick(event, "/admin/crud-discount")}
+          onClick={(event) =>
+            handleListItemClick(event, "/admin/crud-discount")
+          }
         >
           <ListItemIcon>
             <DiscountIcon />

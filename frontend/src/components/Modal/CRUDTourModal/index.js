@@ -25,26 +25,26 @@ const CrudTourModal = ({
   const [period, setPeriod] = useState((data && data.period) || "");
   const [name, setName] = useState((data && data.name) || "");
   const [start_time, setStartTime] = useState(
-    (data && data.start_time && dayjs(data.start_time)) || null
+    (data && data.start_time && dayjs(data.start_time)) || null,
   );
   const [main_image_url, setUrlImage] = useState(
-    (data && data.main_image_url) || ""
+    (data && data.main_image_url) || "",
   );
   const [prices, setPrices] = useState((data && data.prices) || "");
   const [addressFrom, setAddressFrom] = useState(
-    (data && data.addressFrom) || ""
+    (data && data.addressFrom) || "",
   );
   const [addressTo, setAddressTo] = useState((data && data.addressTo) || "");
   const [describe, setDescribe] = useState((data && data.describe) || "");
   const [tourGuide, setTourGuide] = useState((data && data.tourGuide) || []);
   const [vehicle, setVehicle] = useState((data && data.vehicle) || "");
   const [visitLocation, setVisitLocation] = useState(
-    (data && data.visitLocation) || ""
+    (data && data.visitLocation) || "",
   );
   const [slotMax, setSlotMax] = useState((data && data.slotMax) || "");
   const [adultPrice, setAdultPrice] = useState((data && data.adultPrice) || "");
   const [childrenPrice, setChildrenPrice] = useState(
-    (data && data.childrenPrice) || ""
+    (data && data.childrenPrice) || "",
   );
   const [kidPrice, setKidPrice] = useState((data && data.kidPrice) || "");
   const [openGuide, setOpenGuide] = useState(false);

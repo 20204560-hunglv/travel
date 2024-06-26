@@ -17,14 +17,14 @@ const LayoutAdmin = ({ children }) => {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
-            <div className='w-10/12 mx-auto flex'>
+            <div className="w-10/12 mx-auto flex">
               <Box sx={{ flexGrow: 1 }}>
                 <LogoWhite />
               </Box>
               <Button
-                  startIcon={<LogoutIcon />}
-                  onClick={() => handleLogout()}
-                  color="inherit"
+                startIcon={<LogoutIcon />}
+                onClick={() => handleLogout()}
+                color="inherit"
               >
                 Đăng xuất
               </Button>

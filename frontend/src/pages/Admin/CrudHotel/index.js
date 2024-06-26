@@ -106,7 +106,10 @@ export default function CrudHotel() {
         )}
         {!isAdd && !isEdit && (
           <>
-            <HeaderResult title="Danh sách khách sạn" handleClickAdd={() => handleChangeIsAdd(true)} />
+            <HeaderResult
+              title="Danh sách khách sạn"
+              handleClickAdd={() => handleChangeIsAdd(true)}
+            />
             <TableHotel
               data={data}
               handleDeleteUser={handleDeleteUser}

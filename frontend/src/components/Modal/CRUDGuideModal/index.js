@@ -24,7 +24,7 @@ const CRUDGuideModal = ({
   const [gender, setGender] = useState(data?.gender || "");
   const [CCCD, setCCCD] = useState(data?.CCCD || "");
   const [birthday, setBirthday] = useState(
-    (data?.birthday && dayjs(data.birthday)) || null
+    (data?.birthday && dayjs(data.birthday)) || null,
   );
 
   const handleFullName = (event) => {

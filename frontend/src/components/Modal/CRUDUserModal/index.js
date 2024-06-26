@@ -21,12 +21,12 @@ const CrudUserModal = ({
   const [password, setPassword] = useState((data && data.password) || "");
   const [email, setEmail] = useState((data && data.email) || "");
   const [numberPhone, setNumberPhone] = useState(
-    (data && data.numberPhone) || ""
+    (data && data.numberPhone) || "",
   );
   const [address, setAddress] = useState((data && data.address) || "");
   const [gender, setGender] = useState((data && data.gender) || "");
   const [birthDate, setBirthDate] = useState(
-    (data && data.birthDate && dayjs(data.birthDate)) || null
+    (data && data.birthDate && dayjs(data.birthDate)) || null,
   );
 
   const handleFullName = (event) => {
@@ -210,10 +210,9 @@ const CrudUserModal = ({
             </p>
             <div className="content-center h-10 text-404040 w-full">
               <DatePicker
-              sx={{
-                width: '100%'
-              }
-              }
+                sx={{
+                  width: "100%",
+                }}
                 format="DD/MM/YYYY"
                 value={birthDate}
                 onChange={(newDate) => setBirthDate(newDate)}

@@ -1,4 +1,4 @@
-import { Store } from "react-notifications-component";
+import {Store} from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 
 /**

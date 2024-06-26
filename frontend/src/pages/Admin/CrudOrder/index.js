@@ -101,7 +101,10 @@ export default function CrudOrder() {
         )}
         {!isAdd && !isEdit && (
           <>
-            <HeaderResult title="Danh sách đặt tour" handleClickAdd={() => handleChangeIsAdd(true)} />
+            <HeaderResult
+              title="Danh sách đặt tour"
+              handleClickAdd={() => handleChangeIsAdd(true)}
+            />
             <TableOrder
               data={data}
               handleDeleteUser={handleDeleteUser}

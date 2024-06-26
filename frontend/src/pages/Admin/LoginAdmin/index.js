@@ -3,17 +3,8 @@ import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../../components/Notification/index";
 import { useEffect, useState } from "react";
 import { loginAdmin } from "../../../services/AuthServices";
-import {
-  AppBar,
-  Box,
-  Button,
-  TextField,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import { AppBar, Box, Button, TextField, Toolbar } from "@mui/material";
 import LogoWhite from "../../../components/Icons/logoWhite";
-import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
-import LogoutIcon from "@mui/icons-material/Logout";
 
 const LoginAdmin = () => {
   const navigate = useNavigate();

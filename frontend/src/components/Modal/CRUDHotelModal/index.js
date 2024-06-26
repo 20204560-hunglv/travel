@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {Button, MenuItem, Select, TextField} from "@mui/material";
+import { Button, MenuItem, Select, TextField } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { PropTypes } from "prop-types";
 import cites from "../../../utils/cites";
@@ -21,14 +21,14 @@ const CRUDHotelModal = ({
       roomsAvailable: 0,
       totalRooms: 0,
       price: 0,
-    }
+    },
   );
   const [doubleRoom, setDoubleRoom] = useState(
     data?.doubleRoom || {
       roomsAvailable: 0,
       totalRooms: 0,
       price: 0,
-    }
+    },
   );
 
   const handleSave = async () => {
@@ -40,7 +40,7 @@ const CRUDHotelModal = ({
       email,
       phoneNumber,
       singleRoom,
-      doubleRoom
+      doubleRoom,
     });
   };
 
@@ -92,14 +92,14 @@ const CRUDHotelModal = ({
             {/*  onChange={(event) => setCity(event.target.value)}*/}
             {/*/>*/}
             <Select
-                className="w-full"
-                value={city}
-                onChange={(event) => setCity(event.target.value)}
+              className="w-full"
+              value={city}
+              onChange={(event) => setCity(event.target.value)}
             >
               {cites.map((city, index) => (
-                  <MenuItem key={index} value={city.value}>
-                    {city.label}
-                  </MenuItem>
+                <MenuItem key={index} value={city.value}>
+                  {city.label}
+                </MenuItem>
               ))}
             </Select>
           </div>

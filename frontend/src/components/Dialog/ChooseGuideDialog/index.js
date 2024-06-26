@@ -34,7 +34,7 @@ const ChooseGuideDialog = (props) => {
   };
 
   const handleClose = () => {
-    setOpen(false)
+    setOpen(false);
   };
 
   const fetchData = async () => {
@@ -51,10 +51,7 @@ const ChooseGuideDialog = (props) => {
   }, []);
 
   return (
-    <Dialog
-      onClose={handleClose}
-      open={open}
-    >
+    <Dialog onClose={handleClose} open={open}>
       <Box className="p-5">
         <Typography variant="h6">Danh sách hướng dẫn viên</Typography>
         <List
@@ -103,7 +100,7 @@ const ChooseGuideDialog = (props) => {
           <Button
             onClick={() => {
               onClose(checked);
-              setOpen(false)
+              setOpen(false);
             }}
           >
             Thêm

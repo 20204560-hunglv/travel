@@ -102,7 +102,10 @@ export default function CrudDiscount() {
         )}
         {!isAdd && !isEdit && (
           <>
-            <HeaderResult title="Danh sách khuyến mãi" handleClickAdd={() => handleChangeIsAdd(true)} />
+            <HeaderResult
+              title="Danh sách khuyến mãi"
+              handleClickAdd={() => handleChangeIsAdd(true)}
+            />
             <TableDiscount
               data={data}
               handleDeleteUser={handleDeleteUser}

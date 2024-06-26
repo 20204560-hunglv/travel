@@ -24,7 +24,7 @@ const CRUDOrderModal = ({ handleSaveData, handleBack, data, title = "" }) => {
   const [tourId, setTourId] = useState(data?.tourId || "");
   const [fullName, setFullName] = useState(data?.fullName || "");
   const [createdDate, setCreatedDate] = useState(
-    (data?.createdDate && dayjs(data.createdDate)) || null
+    (data?.createdDate && dayjs(data.createdDate)) || null,
   );
 
   const handleSave = async () => {

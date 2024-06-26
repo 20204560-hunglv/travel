@@ -4,15 +4,15 @@ import Favorite from "./Favorite";
 import TopTour from "./TopTour";
 
 const Home = () => {
-    return (
-        <DefaultLayout>
-            <div>
-                <Banner/>
-                <TopTour/>
-                <Favorite/>
-            </div>
-        </DefaultLayout>
-    );
+  return (
+    <DefaultLayout>
+      <div>
+        <Banner />
+        <TopTour />
+        <Favorite />
+      </div>
+    </DefaultLayout>
+  );
 };
 
 export default Home;

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -29,7 +30,6 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Button, Tab, Tabs } from "@mui/material";
 import { truncateString } from "../../../utils/shortenString";
-import { useState } from "react";
 import Search from "../../Search/Search";
 import SearchIcon from "@mui/icons-material/Search";
 

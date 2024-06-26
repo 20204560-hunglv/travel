@@ -250,7 +250,11 @@ const Profile = () => {
           </div>
         )}
         {isOpenEmailVerification && (
-          <EmailVerification handleVerify={handleVerify} email={email} handleBack={setIsOpenEmailVerification} />
+          <EmailVerification
+            handleVerify={handleVerify}
+            email={email}
+            handleBack={setIsOpenEmailVerification}
+          />
         )}
       </DefaultLayout>
     </div>

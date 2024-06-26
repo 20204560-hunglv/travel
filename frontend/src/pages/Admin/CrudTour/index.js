@@ -6,8 +6,8 @@ import CrudTourModal from "../../../components/Modal/CRUDTourModal";
 import {
   add as addTour,
   deleteTour,
-  update as EditTour,
   getAllByAdmin,
+  update as EditTour,
 } from "../../../services/TourServices";
 import HeaderResult from "../../../components/Layout/LayoutAdmin/HeaderResult";
 import TableTour from "../../../components/Table/TableTour";
@@ -99,7 +99,10 @@ const CrudTour = () => {
         )}
         {!isAdd && !isEdit && (
           <>
-            <HeaderResult title="Danh sách tour" handleClickAdd={() => handleChangeIsAdd(true)} />
+            <HeaderResult
+              title="Danh sách tour"
+              handleClickAdd={() => handleChangeIsAdd(true)}
+            />
             <TableTour
               data={data}
               handleDeleteTour={handleDeleteTour}
