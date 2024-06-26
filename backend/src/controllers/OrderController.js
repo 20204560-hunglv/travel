@@ -16,6 +16,23 @@ const get = async (req, res) => {
   }
 };
 
+const getByUserId = async (req, res) => {
+  try {
+    const {userId} = req.params;
+    const response = await OrderRepository.getByUserId(userId);
+    return res.json({
+      success: true,
+      data: response,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(404).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
 const create = async (req, res) => {
   try {
     const data = req.body;
@@ -65,4 +82,4 @@ const edit = async (req, res) => {
   }
 };
 
-module.exports = { get, create, remove, edit };
+module.exports = { get, create, remove, edit, getByUserId };

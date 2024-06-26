@@ -8,6 +8,10 @@ const get = async () => {
   return await Order.find({});
 };
 
+const getByUserId = async (customerId) => {
+  return await Order.find({ customerId });
+};
+
 /**
  * @param {object} data
  * @returns
@@ -32,4 +36,4 @@ const edit = async ({ _id, data }) => {
   await Order.updateOne({ _id }, data);
 };
 
-module.exports = { get, create, remove, edit };
+module.exports = { get, create, remove, edit, getByUserId };

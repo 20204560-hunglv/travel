@@ -1,6 +1,6 @@
 import axios from "../utils/axios";
-import { get as getTour } from "./TourServices";
-import { get as getCustomer } from "./ProfileServices";
+import {get as getTour} from "./TourServices";
+import {get as getCustomer} from "./ProfileServices";
 
 /**
  *
@@ -27,6 +27,35 @@ export const get = async () => {
       })
     );
     return newOrders;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/**
+ * 
+ * @param {string} customerId 
+ * @returns 
+ */
+export const getByCustomer = async (customerId) => {
+  try {
+    const resp = await axios.get(`/api/v1/order/${customerId}`);
+
+    const orders = resp.data.data;
+    return await Promise.all(
+      orders.map(async (order) => {
+        const tourId = order.tourId;
+        const [customer, tour] = await Promise.all([
+          getCustomer(customerId),
+          getTour(tourId),
+        ]);
+        return {
+          ...order,
+          customer: customer.data,
+          tour: tour,
+        };
+      }),
+    );
   } catch (error) {
     console.log(error);
   }

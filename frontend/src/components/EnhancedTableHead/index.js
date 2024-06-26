@@ -4,7 +4,7 @@ import TableCell from "@mui/material/TableCell";
 import Checkbox from "@mui/material/Checkbox";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import Box from "@mui/material/Box";
-import {visuallyHidden} from "@mui/utils";
+import { visuallyHidden } from "@mui/utils";
 import PropTypes from "prop-types";
 import * as React from "react";
 

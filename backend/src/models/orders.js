@@ -14,6 +14,7 @@ const Order = new Schema(
     createdDate: { type: String },
     adultCount: { type: Number },
     customerId: { type: String },
+    hotel: { type: Object },
     tourId: { type: String },
   },
   { timestamps: true }

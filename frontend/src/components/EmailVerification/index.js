@@ -15,11 +15,10 @@ const EmailVerification = ({ email, handleVerify, handleBack }) => {
   };
   return (
     <div className="bg-gray-50">
-      <div className='px-20'>
+      <div className="px-20">
         <Button
-            startIcon={<ArrowBackIosIcon fontSize="small" />}
-            onClick={() => handleBack(false)}
-
+          startIcon={<ArrowBackIosIcon fontSize="small" />}
+          onClick={() => handleBack(false)}
         >
           Quay lại
         </Button>

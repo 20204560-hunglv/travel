@@ -1,18 +1,18 @@
 import {
-    Box,
-    Button,
-    Dialog,
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemText,
-    Typography,
+  Box,
+  Button,
+  Dialog,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getAllByAdmin } from "../../../services/TourServices";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Checkbox from "@mui/material/Checkbox";
-import { formatDate } from './../../../utils/resolveTime';
+import { formatDate } from "./../../../utils/resolveTime";
 
 const ChooseTourDialog = (props) => {
     const { onClose, open, setOpen, checkInput } = props;

@@ -26,6 +26,11 @@ const Header = () => {
                   Khuyến mãi
                 </p>
               </Link>
+              <Link to="/history-booking">
+                <p className="text-center text-666666 cursor-pointer">
+                  Lịch sử đặt
+                </p>
+              </Link>
             </li>
           </ul>
         </nav>

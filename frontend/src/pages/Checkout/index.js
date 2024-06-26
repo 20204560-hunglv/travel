@@ -55,14 +55,13 @@ export default function Checkout() {
 
   useEffect(() => {
     let total =
-      0 +
       adultCount * data.adultPrice +
       childrenCount * data.childrenPrice +
       kidCount * data.kidPrice;
     if (singleRoomCount > 0)
-      total += singleRoomCount * hotel[0].singleRoom.price;
+      total += singleRoomCount * hotel[0]?.singleRoom.price;
     if (doubleRoomCount > 0)
-      total += doubleRoomCount * hotel[0].doubleRoom.price;
+      total += doubleRoomCount * hotel[0]?.doubleRoom.price;
     console.log(total);
     setSumPrice(total || 0);
   }, [
@@ -88,6 +87,15 @@ export default function Checkout() {
         tourId: tourId,
         customerId: userData._id,
         status: "Pending",
+        hotel: hotel[0]
+          ? {
+              id: hotel[0]._id,
+              singleRoomCount,
+              doubleRoomCount,
+              singleRoomPrice: hotel[0].singleRoom.price,
+              doubleRoomPrice: hotel[0].doubleRoom.price,
+            }
+          : {},
       });
       handleNotify("success", "", "Thành công");
     } catch (error) {
@@ -490,10 +498,10 @@ export default function Checkout() {
                   <Typography>{`Em bé: ${kidCount} x ${currencyVnd(data?.childrenPrice)}`}</Typography>
                 )}
                 {singleRoomCount > 0 && (
-                  <Typography>{`Phòng đơn: ${singleRoomCount} x ${currencyVnd(hotel[0].singleRoom.price)}`}</Typography>
+                  <Typography>{`Phòng đơn: ${singleRoomCount} x ${currencyVnd(hotel[0]?.singleRoom.price)}`}</Typography>
                 )}
                 {doubleRoomCount > 0 && (
-                  <Typography>{`Phòng đôi: ${doubleRoomCount} x ${currencyVnd(hotel[0].doubleRoom.price)}`}</Typography>
+                  <Typography>{`Phòng đôi: ${doubleRoomCount} x ${currencyVnd(hotel[0]?.doubleRoom.price)}`}</Typography>
                 )}
                 <Typography variant="h6">
                   Tổng tiền:{" "}
