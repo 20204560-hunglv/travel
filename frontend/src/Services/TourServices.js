@@ -10,7 +10,7 @@ export async function get(id) {
       tourGuide.map(async (guideId) => {
         const resp = (await GuideServices.getById(guideId)).data;
         return resp;
-      })
+      }),
     );
     return {
       ...tour,

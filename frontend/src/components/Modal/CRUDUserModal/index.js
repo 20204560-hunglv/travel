@@ -190,7 +190,6 @@ const CrudUserModal = ({
           <div className="w-full mb-5">
             <p
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="location"
             >
               Địa chỉ
             </p>
