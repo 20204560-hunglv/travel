@@ -9,6 +9,11 @@ export const get = async () => {
   }
 };
 
+export const getOne = async (id) => {
+    const response = await axios.get(`/api/v1/hotel/${id}`);
+    return response.data.data;
+};
+
 /**
  *
  * @param {object} data

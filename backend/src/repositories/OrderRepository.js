@@ -5,7 +5,7 @@ const Order = require("../models/orders");
  * @returns
  */
 const get = async () => {
-  return await Order.find({});
+  return await Order.find({}).sort({ updatedAt: -1 });
 };
 
 const getByUserId = async (customerId) => {

@@ -20,7 +20,7 @@ import { getUserLocal } from "../../utils/LocalStorage";
 import * as OrderServices from "../../services/OrderServices";
 import { ReactNotifications } from "react-notifications-component";
 import { handleNotify } from "../../components/Notification/index";
-import checkoutValidate from "../../validators/CheckoutValidate";
+import checkoutValidate from "../../utils/validators/CheckoutValidate";
 import ChooseHotelDialog from "../../components/Dialog/ChooseHotelDialog";
 import * as AuthServices from "../../services/AuthServices";
 import EmailVerification from "../../components/EmailVerification";

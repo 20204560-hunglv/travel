@@ -15,6 +15,22 @@ async function get(req, res) {
   }
 }
 
+const getById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const tour = await HotelRepository.getOne({ _id: id });
+    return res.status(200).json({
+      success: true,
+      data: tour,
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(404).json({
+      success: false,
+    });
+  }
+};
+
 /**
  *
  * @param {*} req
@@ -79,4 +95,4 @@ const remove = async (req, res) => {
   }
 };
 
-module.exports = { get, create, update, remove };
+module.exports = { get, create, update, remove, getById };

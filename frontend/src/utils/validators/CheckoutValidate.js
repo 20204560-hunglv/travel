@@ -1,4 +1,4 @@
-import {required} from "./../utils/Required";
+import {required} from "./Required";
 
 /**
  * @description Validate login input

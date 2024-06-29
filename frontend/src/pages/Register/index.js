@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { handleNotify } from "../../components/Notification/index";
 import { ReactNotifications } from "react-notifications-component";
 import { signUp } from "../../services/AuthServices";
-import { RegisterValidate } from "../../validators/RegisterValidate";
+import { RegisterValidate } from "../../utils/validators/RegisterValidate";
 import { Button, TextField } from "@mui/material";
 
 const LoginInputArea = ({ title, change, value }) => {

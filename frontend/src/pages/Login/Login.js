@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { login } from "../../services/AuthServices";
 import { Button, TextField } from "@mui/material";
-import LoginValidate from "./../../validators/LoginValidate";
+import LoginValidate from "../../utils/validators/LoginValidate";
 import { setLocalStorage } from "../../utils/LocalStorage";
 
 const Login = () => {
