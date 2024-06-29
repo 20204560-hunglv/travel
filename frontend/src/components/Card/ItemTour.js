@@ -4,11 +4,9 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  IconButton,
   Typography,
 } from "@mui/material";
 import { truncateString } from "../../utils/shortenString";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import currencyVnd from "../../utils/currencyVnd";
 import { formatDate } from "../../utils/resolveTime";
 

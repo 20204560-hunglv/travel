@@ -2,18 +2,12 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import DefaultLayout from "../../components/Layout/DefaultLayout";
 import cites from "../../utils/cites";
 import { useEffect, useState } from "react";
-import currencyVnd from "../../utils/currencyVnd";
 import { get as getTours } from "../../services/SearchServices";
 import Button from "@mui/material/Button";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import TextField from "@mui/material/TextField";
 import {
   Box,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  IconButton,
   InputLabel,
   MenuItem,
   Pagination,
@@ -23,8 +17,6 @@ import {
 } from "@mui/material";
 import dayjs from "dayjs";
 import Grid from "@mui/material/Unstable_Grid2";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { truncateString } from "../../utils/shortenString";
 import ItemTour from './../../components/Card/ItemTour';
 
 const Choose = (props) => {

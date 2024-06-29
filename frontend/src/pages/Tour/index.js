@@ -9,10 +9,6 @@ import * as DiscountServices from "../../services/DiscountServices";
 import * as FavoriteServices from "../../services/FavoriteServices";
 import {
   Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
   IconButton,
   Typography,
 } from "@mui/material";
@@ -21,8 +17,6 @@ import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import MapIcon from "@mui/icons-material/Map";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import Grid from "@mui/material/Unstable_Grid2";
-import dayjs from "dayjs";
-import { truncateString } from "../../utils/shortenString";
 import { formatDate } from "../../utils/resolveTime";
 import ItemTour from './../../components/Card/ItemTour';
 

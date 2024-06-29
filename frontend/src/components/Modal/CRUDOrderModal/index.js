@@ -21,6 +21,12 @@ import ChooseHotelDialog from "./../../Dialog/ChooseHotelDialog/index";
 import checkOrderCrud from "../../../services/validates/CheckOrderCrud";
 import { handleNotify } from "./../../Notification/index";
 import * as HotelServices from "../../../services/HotelServices";
+import {
+  STATUS_CONFIRM,
+  STATUS_DONE,
+  STATUS_PENDING,
+  STATUS_CANCEL,
+} from "../../../const/StatusOrder";
 
 const CRUDOrderModal = ({ handleSaveData, handleBack, data, title = "" }) => {
   const [email, setEmail] = useState(data?.email || "");
@@ -134,6 +140,7 @@ const CRUDOrderModal = ({ handleSaveData, handleBack, data, title = "" }) => {
     hotels,
     singleRoomCount,
     doubleRoomCount,
+    tours,
   ]);
   useEffect(() => {
     if (data?.hotel) {
@@ -372,17 +379,22 @@ const CRUDOrderModal = ({ handleSaveData, handleBack, data, title = "" }) => {
                             onChange={(event) => setStatus(event.target.value)}
                           >
                             <FormControlLabel
-                              value="Confirmed"
+                              value={STATUS_CONFIRM}
                               control={<Radio />}
                               label="Xác nhận"
                             />
                             <FormControlLabel
-                              value="Pending"
+                              value={STATUS_PENDING}
                               control={<Radio />}
                               label="Chờ xác nhận"
                             />
                             <FormControlLabel
-                              value="Cancelled"
+                              value={STATUS_DONE}
+                              control={<Radio />}
+                              label="Hoàn thành"
+                            />
+                            <FormControlLabel
+                              value={STATUS_CANCEL}
                               control={<Radio />}
                               label="Hủy"
                             />

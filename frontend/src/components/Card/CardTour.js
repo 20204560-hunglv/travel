@@ -9,7 +9,7 @@ export default function CardTour({
   adultPrice,
   discountValue,
   id,
-  image
+  image,
 }) {
   const navigate = useNavigate();
   return (
@@ -18,7 +18,7 @@ export default function CardTour({
         <img
           className="w-full max-h-[400px] object-cover md:w-52"
           src={image}
-          alt="Image"
+          alt="travel"
         />
         <div className="w-full">
           <div className="p-5 pb-10">
@@ -41,7 +41,7 @@ export default function CardTour({
               <div>
                 <div className="my-1">
                   <p className="font-bold text-3xl leading-7 text-red-500 ">
-                    {currencyVnd((adultPrice * discountValue) / 100)}
+                    {currencyVnd((adultPrice * (100 - discountValue)) / 100)}
                     <span className="font-normal text-base text-black">
                       / khách
                     </span>

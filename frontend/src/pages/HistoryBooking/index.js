@@ -4,6 +4,7 @@ import { getUserLocal } from "../../utils/LocalStorage";
 import * as OrderServices from "../../services/OrderServices";
 import { Box, Tab, Tabs } from "@mui/material";
 import ListOrder from "./ListOrder";
+import { STATUS_DONE } from "../../const/StatusOrder";
 
 const HistoryBooking = () => {
   const userData = getUserLocal();
@@ -57,6 +58,13 @@ const HistoryBooking = () => {
             <ListOrder
               status={"Pending"}
               data={handleChangeData("Pending")}
+              fetchData={fetchData}
+            />
+          )}
+          {value === "3" && (
+            <ListOrder
+              status={STATUS_DONE}
+              data={handleChangeData(STATUS_DONE)}
               fetchData={fetchData}
             />
           )}

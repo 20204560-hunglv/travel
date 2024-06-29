@@ -16,6 +16,7 @@ const Order = new Schema(
     customerId: { type: String },
     hotel: { type: Object },
     tourId: { type: String },
+    rating: Object,
   },
   { timestamps: true }
 );

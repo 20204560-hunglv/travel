@@ -82,6 +82,7 @@ export default function Checkout() {
     singleRoomCount,
     doubleRoomCount,
     discount,
+    hotel
   ]);
 
   const handleOrderTour = async () => {
