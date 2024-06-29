@@ -9,6 +9,7 @@ export default function CardTour({
   adultPrice,
   discountValue,
   id,
+  image
 }) {
   const navigate = useNavigate();
   return (
@@ -16,8 +17,8 @@ export default function CardTour({
       <article className=" border shadow-666666 flex flex-wrap md:flex-nowrap shadow-lg mx-auto max-w-3xl group transform duration-500 hover:-translate-y-1">
         <img
           className="w-full max-h-[400px] object-cover md:w-52"
-          src="https://media.travel.com.vn/LastMinute/lm_240612052135_532551_shutterstock.jpg"
-          alt=""
+          src={image}
+          alt="Image"
         />
         <div className="w-full">
           <div className="p-5 pb-10">

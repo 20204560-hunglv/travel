@@ -24,6 +24,7 @@ import checkoutValidate from "../../utils/validators/CheckoutValidate";
 import ChooseHotelDialog from "../../components/Dialog/ChooseHotelDialog";
 import * as AuthServices from "../../services/AuthServices";
 import EmailVerification from "../../components/EmailVerification";
+import * as DiscountServices from "../../services/DiscountServices";
 
 export default function Checkout() {
   const { tourId } = useParams();
@@ -44,6 +45,7 @@ export default function Checkout() {
   const [doubleRoomCount, setDoubleRoomCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isOpenEmailVerification, setIsOpenEmailVerification] = useState(false);
+  const [discount, setDiscount] = useState();
 
   useEffect(() => {
     getTour(tourId)
@@ -52,17 +54,25 @@ export default function Checkout() {
       })
       .catch((err) => console.log(err));
   }, [tourId]);
+  useEffect(() => {
+    if (data?.discountId) {
+      DiscountServices.getOne(data?.discountId)
+        .then((discount) => setDiscount(discount))
+        .catch((e) => console.log(e));
+    }
+  }, [data]);
 
   useEffect(() => {
     let total =
       adultCount * data.adultPrice +
       childrenCount * data.childrenPrice +
       kidCount * data.kidPrice;
+    if (discount) total = (total * (100 - discount.discountValue)) / 100;
     if (singleRoomCount > 0)
       total += singleRoomCount * hotel[0]?.singleRoom.price;
     if (doubleRoomCount > 0)
       total += doubleRoomCount * hotel[0]?.doubleRoom.price;
-    console.log(total);
+
     setSumPrice(total || 0);
   }, [
     adultCount,
@@ -71,6 +81,7 @@ export default function Checkout() {
     data,
     singleRoomCount,
     doubleRoomCount,
+    discount,
   ]);
 
   const handleOrderTour = async () => {
@@ -502,6 +513,12 @@ export default function Checkout() {
                 )}
                 {doubleRoomCount > 0 && (
                   <Typography>{`Phòng đôi: ${doubleRoomCount} x ${currencyVnd(hotel[0]?.doubleRoom.price)}`}</Typography>
+                )}
+                {sumPrice > 0 && discount && (
+                  <Typography
+                    variant="subtitle1"
+                    sx={{ fontStyle: "italic", fontWeight: 500 }}
+                  >{`Giảm giá tour: ${discount.discountValue}%`}</Typography>
                 )}
                 <Typography variant="h6">
                   Tổng tiền:{" "}

@@ -5,6 +5,7 @@ import currencyVnd from "../../utils/currencyVnd";
 import { getUserLocal } from "../../utils/LocalStorage";
 import { selectNameCity } from "../../utils/cites";
 import { get as getTour } from "../../services/TourServices";
+import * as DiscountServices from "../../services/DiscountServices";
 import {
   Button,
   Card,
@@ -72,6 +73,7 @@ const Tour = () => {
   const navigate = useNavigate();
 
   const [data, setData] = useState({});
+  const [discount, setDiscount] = useState();
   const dataCanLike = [
     {
       _id: "66189b8e206156a0ecf81368",
@@ -130,15 +132,22 @@ const Tour = () => {
       })
       .catch((err) => console.log(err));
   }, [id]);
+  useEffect(() => {
+    if (data?.discountId) {
+      DiscountServices.getOne(data?.discountId)
+        .then((discount) => setDiscount(discount))
+        .catch((e) => console.log(e));
+    }
+  }, [data]);
 
   const handleBookTour = () => {
     if (!userData) {
       navigate("/login");
     } else {
-      navigate(`/checkout/${id}`)
+      navigate(`/checkout/${id}`);
     }
   };
-  console.log(data);
+  console.log(discount);
   return (
     <DefaultLayout>
       <div className="w-11/12 mx-auto py-10">
@@ -158,16 +167,38 @@ const Tour = () => {
                 sx={{ paddingLeft: 1, fontSize: 18 }}
                 variant="subtitle1"
               >
-                {`Đã thích (${data.favourite || 0})`}
+                {`Đã thích (${data.favorites || 0})`}
               </Typography>
             </div>
             <div className="my-7">
-              <p className="font-bold text-3xl leading-7 text-red-500 ">
-                {currencyVnd(data.adultPrice)}
-                <span className="font-normal text-base text-black">
-                  / khách
-                </span>
-              </p>
+              {discount ? (
+                <div>
+                  <Typography
+                    className="line-through"
+                    variant="subtitle1"
+                  >
+                    {currencyVnd(data.adultPrice)}
+                    <span className="font-normal text-base text-black">
+                      / khách
+                    </span>
+                  </Typography>
+                  <p className="font-bold text-3xl leading-7 text-red-500 ">
+                    {currencyVnd(
+                      data.adultPrice * (1 - discount.discountValue / 100)
+                    )}
+                    <span className="font-normal text-base text-black">
+                      / khách
+                    </span>
+                  </p>
+                </div>
+              ) : (
+                <p className="font-bold text-3xl leading-7 text-red-500 ">
+                  {currencyVnd(data.adultPrice)}
+                  <span className="font-normal text-base text-black">
+                    / khách
+                  </span>
+                </p>
+              )}
             </div>
             <div className="my-7">
               <Typography

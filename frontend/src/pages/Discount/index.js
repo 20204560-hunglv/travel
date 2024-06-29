@@ -18,6 +18,7 @@ const Discount = () => {
   useEffect(() => {
     fetchData();
   }, []);
+  console.log({data})
 
   return (
     <DefaultLayout>
@@ -35,6 +36,7 @@ const Discount = () => {
               </Typography>
               {elem.tours.map((tour) => (
                 <CardTour
+                  image={tour.main_image_url}
                   key={tour._id}
                   name={tour.name}
                   start_time={tour.start_time}

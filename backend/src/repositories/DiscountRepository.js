@@ -8,6 +8,10 @@ const get = async () => {
   return await Discount.find({});
 };
 
+async function getOne(field) {
+  return await Discount.findOne(field);
+}
+
 /**
  * @param {object} data
  * @returns
@@ -32,4 +36,4 @@ const edit = async ({ _id, data }) => {
   await Discount.updateOne({ _id }, data);
 };
 
-module.exports = { get, create, remove, edit };
+module.exports = { get, create, remove, edit, getOne };

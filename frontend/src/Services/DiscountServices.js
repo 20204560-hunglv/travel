@@ -14,6 +14,11 @@ export const get = async () => {
   }
 };
 
+export const getOne = async (id) => {
+  const response = await axios.get(`/api/v1/discount/${id}`);
+  return response.data.data;
+};
+
 export async function getAllByAdmin() {
   try {
     const response = await axios.get("/api/v1/discounts");

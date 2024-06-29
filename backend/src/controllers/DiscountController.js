@@ -16,6 +16,22 @@ const get = async (req, res) => {
   }
 };
 
+const getById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const tour = await DiscountRepository.getOne({ _id: id });
+    return res.status(200).json({
+      success: true,
+      data: tour,
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(404).json({
+      success: false,
+    });
+  }
+};
+
 const create = async (req, res) => {
   try {
     const data = req.body;
@@ -65,4 +81,4 @@ const edit = async (req, res) => {
   }
 };
 
-module.exports = { get, create, remove, edit };
+module.exports = { get, create, remove, edit, getById };

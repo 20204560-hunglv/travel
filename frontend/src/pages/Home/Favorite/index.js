@@ -28,9 +28,9 @@ const Favorite = () => {
     const linkImgs = [
         {
             link: "https://media.travel.com.vn/destination/dg_200827_HA%20LONG_322052888.jpg",
-            title: "Hạ Long",
+            title: "Quảng Ninh",
             visitor: 10000,
-            to: 'halong'
+            to: 'quangninh'
         },
         {
             link: "https://media.travel.com.vn/destination/dg_230628_cau-rong-ve-dem.webp",
