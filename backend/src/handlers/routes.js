@@ -6,6 +6,7 @@ const HotelRouter = require("../routes/HotelRouter");
 const DiscountRouter = require("../routes/DiscountRouter");
 const OrderRouter = require("../routes/OrderRouter");
 const AuthRouter = require("../routes/AuthRouter");
+const FavoriteRouter = require("../routes/FavoriteRouter");
 
 const routes = (app) => {
   app.use("/api/v1", UserRouter);
@@ -16,5 +17,6 @@ const routes = (app) => {
   app.use("/api/v1", DiscountRouter);
   app.use("/api/v1", OrderRouter);
   app.use("/api/v1", AuthRouter);
+  app.use("/api/v1", FavoriteRouter);
 };
 module.exports = routes;

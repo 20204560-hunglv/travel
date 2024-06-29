@@ -6,6 +6,7 @@ import { getUserLocal } from "../../utils/LocalStorage";
 import { selectNameCity } from "../../utils/cites";
 import { get as getTour } from "../../services/TourServices";
 import * as DiscountServices from "../../services/DiscountServices";
+import * as FavoriteServices from "../../services/FavoriteServices";
 import {
   Button,
   Card,
@@ -23,49 +24,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import dayjs from "dayjs";
 import { truncateString } from "../../utils/shortenString";
 import { formatDate } from "../../utils/resolveTime";
-
-const SearchItem = ({ item }) => {
-  const navigate = useNavigate();
-
-  const handleToBooking = () => {
-    navigate(`/tour/${item._id}`);
-  };
-
-  const convertDay = (day) => {
-    return dayjs(day).format("DD/MM/YYYY");
-  };
-
-  return (
-    <Card className="h-96 flex flex-col">
-      <CardMedia
-        component="img"
-        sx={{
-          height: "50%",
-        }}
-        image={item.main_image_url}
-        alt={item.main_image_url}
-      />
-      <div onClick={() => handleToBooking()} className="cursor-pointer">
-        <CardContent>
-          <Typography variant="h6" component="div">
-            {truncateString(item.name)}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {convertDay(item.start_time)}
-          </Typography>
-        </CardContent>
-      </div>
-      <CardActions className="flex justify-between">
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <Typography className="text-red-500" variant="h6" component="p">
-          {currencyVnd(item.prices)}
-        </Typography>
-      </CardActions>
-    </Card>
-  );
-};
+import ItemTour from './../../components/Card/ItemTour';
 
 const Tour = () => {
   const userData = getUserLocal();
@@ -74,6 +33,7 @@ const Tour = () => {
 
   const [data, setData] = useState({});
   const [discount, setDiscount] = useState();
+  const [favorite, setFavorite] = useState();
   const dataCanLike = [
     {
       _id: "66189b8e206156a0ecf81368",
@@ -124,13 +84,36 @@ const Tour = () => {
       __v: 0,
     },
   ];
+  const fetchData = async () => {
+    try {
+      const resp = await getTour(id);
+      setData(resp);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const fetchFavorite = async () => {
+    try {
+      const resp = await FavoriteServices.get(id, userData._id);
+      setFavorite(resp);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleFavorite = async () => {
+    try {
+      if (favorite) {
+        await FavoriteServices.remove(favorite._id);
+      } else await FavoriteServices.create(id, userData._id);
+      fetchData();
+      fetchFavorite();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    getTour(id)
-      .then((res) => {
-        setData(res);
-      })
-      .catch((err) => console.log(err));
+    fetchData();
   }, [id]);
   useEffect(() => {
     if (data?.discountId) {
@@ -139,6 +122,9 @@ const Tour = () => {
         .catch((e) => console.log(e));
     }
   }, [data]);
+  useEffect(() => {
+    fetchFavorite();
+  }, []);
 
   const handleBookTour = () => {
     if (!userData) {
@@ -147,7 +133,7 @@ const Tour = () => {
       navigate(`/checkout/${id}`);
     }
   };
-  console.log(discount);
+
   return (
     <DefaultLayout>
       <div className="w-11/12 mx-auto py-10">
@@ -162,21 +148,20 @@ const Tour = () => {
               {data.name}
             </Typography>
             <div className="flex items-center">
-              <FavoriteIcon color="error" />
+              <IconButton onClick={() => handleFavorite()}>
+                <FavoriteIcon color={favorite ? "error" : "disabled"} />
+              </IconButton>
               <Typography
                 sx={{ paddingLeft: 1, fontSize: 18 }}
                 variant="subtitle1"
               >
-                {`Đã thích (${data.favorites || 0})`}
+                {`${favorite ? "Đã thích" : "Yêu thích"} (${data.favorites || 0})`}
               </Typography>
             </div>
             <div className="my-7">
               {discount ? (
                 <div>
-                  <Typography
-                    className="line-through"
-                    variant="subtitle1"
-                  >
+                  <Typography className="line-through" variant="subtitle1">
                     {currencyVnd(data.adultPrice)}
                     <span className="font-normal text-base text-black">
                       / khách
@@ -331,7 +316,7 @@ const Tour = () => {
           >
             {dataCanLike.map((item) => (
               <Grid xs={2} sm={4} md={4} key={item._id}>
-                <SearchItem item={item} />
+                <ItemTour item={item} />
               </Grid>
             ))}
           </Grid>

@@ -24,4 +24,12 @@ const getTotalPage = async ({
   return parseInt(tours.length / limit) + 1;
 };
 
-module.exports = { get, getTotalPage };
+const updateFavorite = async (tourId, value) => {
+  await Tour.findByIdAndUpdate(
+    tourId,
+    { $inc: { favorites: value } },
+    { new: true }
+  );
+};
+
+module.exports = { get, getTotalPage, updateFavorite };

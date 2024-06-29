@@ -25,6 +25,7 @@ import dayjs from "dayjs";
 import Grid from "@mui/material/Unstable_Grid2";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { truncateString } from "../../utils/shortenString";
+import ItemTour from './../../components/Card/ItemTour';
 
 const Choose = (props) => {
   return (
@@ -39,53 +40,6 @@ const Choose = (props) => {
         ))}
       </Select>
     </div>
-  );
-};
-
-const SearchItem = ({ item }) => {
-  const navigate = useNavigate();
-
-  const handleToBooking = () => {
-    navigate(`/tour/${item._id}`);
-  };
-
-  const convertDay = (day) => {
-    return dayjs(day).format("DD/MM/YYYY");
-  };
-
-  return (
-    <Card className="h-96 flex flex-col">
-      <div>
-        <CardMedia
-          component="img"
-          sx={{
-            height: 200,
-          }}
-          image={item.main_image_url}
-          alt={item.main_image_url}
-        />
-      </div>
-      <div className="flex flex-col justify-between h-full">
-        <div onClick={handleToBooking} className="cursor-pointer">
-          <CardContent>
-            <Typography variant="h6" component="div">
-              {truncateString(item.name)}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {convertDay(item.start_time)}
-            </Typography>
-          </CardContent>
-        </div>
-        <CardActions className="flex justify-between">
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-          <Typography className="text-red-500" variant="h6" component="p">
-            {currencyVnd(item.adultPrice)}
-          </Typography>
-        </CardActions>
-      </div>
-    </Card>
   );
 };
 
@@ -259,7 +213,7 @@ const Search = () => {
             >
               {dataSearch.map((item, index) => (
                 <Grid xs={2} sm={4} md={1} key={index}>
-                  <SearchItem item={item} />
+                  <ItemTour item={item} />
                 </Grid>
               ))}
             </Grid>
