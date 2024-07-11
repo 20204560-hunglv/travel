@@ -1,6 +1,6 @@
 import axios from "../utils/axios";
-import {get as getTour} from "./TourServices";
-import {get as getCustomer} from "./ProfileServices";
+import { get as getTour } from "./TourServices";
+import { get as getCustomer } from "./ProfileServices";
 
 /**
  *
@@ -33,9 +33,9 @@ export const get = async () => {
 };
 
 /**
- * 
- * @param {string} customerId 
- * @returns 
+ *
+ * @param {string} customerId
+ * @returns
  */
 export const getByCustomer = async (customerId) => {
   try {
@@ -54,7 +54,7 @@ export const getByCustomer = async (customerId) => {
           customer: customer.data,
           tour: tour,
         };
-      }),
+      })
     );
   } catch (error) {
     console.log(error);
@@ -98,4 +98,8 @@ export const edit = async ({ id, data }) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const updateSlotStill = async ({ field, value, tourId }) => {
+  await axios.post(`/api/v1/slot-still`, { field, value, tourId });
 };

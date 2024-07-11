@@ -58,24 +58,6 @@ export default function DropMenuAuth() {
               {({ active }) => (
                 <button
                   onClick={() => {
-                    navigate("/history-booking");
-                  }}
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block w-full px-4 py-2 text-left text-sm"
-                  )}
-                >
-                  <div className="flex items-center">
-                    <Icons.HistorySVG />
-                    <p className="ml-2">Lịch sử đặt</p>
-                  </div>
-                </button>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  onClick={() => {
                     navigate("/change-pass");
                   }}
                   className={classNames(

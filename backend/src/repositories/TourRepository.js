@@ -32,4 +32,29 @@ const updateFavorite = async (tourId, value) => {
   );
 };
 
-module.exports = { get, getTotalPage, updateFavorite };
+/**
+ *
+ * @param {String} field
+ * @param {String} tourId
+ * @param {Number} value
+ */
+const updateIncrement = async ({ field, tourId, value }) => {
+  console.log(`updateIncrement`, { field }, { tourId }, { value });
+  await Tour.findByIdAndUpdate(
+    tourId,
+    { $inc: { [field]: value } },
+    { new: true }
+  );
+};
+
+const getTourById = async (_id) => {
+  return await Tour.findOne({ _id });
+};
+
+module.exports = {
+  get,
+  getTotalPage,
+  updateFavorite,
+  updateIncrement,
+  getTourById,
+};

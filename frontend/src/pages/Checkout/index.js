@@ -47,13 +47,17 @@ export default function Checkout() {
   const [isOpenEmailVerification, setIsOpenEmailVerification] = useState(false);
   const [discount, setDiscount] = useState();
 
+  const fetchData = async () => {
+    try {
+      const res = await getTour(tourId);
+      setData(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    getTour(tourId)
-      .then((res) => {
-        setData(res);
-      })
-      .catch((err) => console.log(err));
-  }, [tourId]);
+    fetchData();
+  }, []);
   useEffect(() => {
     if (data?.discountId) {
       DiscountServices.getOne(data?.discountId)
@@ -82,7 +86,7 @@ export default function Checkout() {
     singleRoomCount,
     doubleRoomCount,
     discount,
-    hotel
+    hotel,
   ]);
 
   const handleOrderTour = async () => {
@@ -99,6 +103,7 @@ export default function Checkout() {
         tourId: tourId,
         customerId: userData._id,
         status: "Pending",
+        createdDate: new Date().toISOString(),
         hotel: hotel[0]
           ? {
               id: hotel[0]._id,
@@ -118,7 +123,12 @@ export default function Checkout() {
 
   const handleVerify = async () => {
     try {
-      checkoutValidate({ fullName, email, phone });
+      checkoutValidate({
+        fullName,
+        email,
+        phone,
+        slotStill: data.slotStill ?? data.slotMax,
+      });
       setIsLoading(true);
       await AuthServices.requestVerify(userData._id, email);
       setIsLoading(false);
@@ -135,6 +145,7 @@ export default function Checkout() {
       if (!response.data.isAuthenticated) return;
       setIsLoading(true);
       await handleOrderTour();
+      await fetchData();
       setIsLoading(false);
       setIsOpenEmailVerification(false);
     } catch (error) {
@@ -211,7 +222,7 @@ export default function Checkout() {
                     gutterBottom
                   >
                     <span className="font-normal">Số chỗ còn nhận: </span>
-                    {`${data.slotStill || data.slotMax}`}
+                    {`${data.slotStill ?? data.slotMax}`}
                   </Typography>
                 </div>
               </div>

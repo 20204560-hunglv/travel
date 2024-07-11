@@ -92,7 +92,7 @@ const headCells = [
     label: "Nơi đến",
   },
   {
-    id: "prices",
+    id: "adultPrice",
     numeric: true,
     disablePadding: false,
     label: "Giá",
@@ -175,7 +175,7 @@ function EnhancedTableToolbar(props) {
           bgcolor: (theme) =>
             alpha(
               theme.palette.primary.main,
-              theme.palette.action.activatedOpacity,
+              theme.palette.action.activatedOpacity
             ),
         }),
       }}
@@ -199,7 +199,7 @@ function EnhancedTableToolbar(props) {
           <Tab sx={{ fontSize: 12 }} label="Tất cả" />
         </Tabs>
       )}
-      
+
       {isSearch ? (
         <Search
           value={valueSearch}
@@ -281,7 +281,7 @@ export default function TableTour({ data, handleDeleteTour, handleEditTour }) {
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
+        selected.slice(selectedIndex + 1)
       );
     }
     setSelected(newSelected);
@@ -316,7 +316,7 @@ export default function TableTour({ data, handleDeleteTour, handleEditTour }) {
     const dataAfterSearch = searchTable(data);
     return stableSort(dataAfterSearch, getComparator(order, orderBy)).slice(
       page * rowsPerPage,
-      page * rowsPerPage + rowsPerPage,
+      page * rowsPerPage + rowsPerPage
     );
   }, [order, orderBy, page, rowsPerPage, data, valueSearch]);
 
@@ -385,7 +385,7 @@ export default function TableTour({ data, handleDeleteTour, handleEditTour }) {
                         {selectNameCity(row.addressTo)}
                       </TableCell>
                       <TableCell align="right">
-                        {currencyVnd(row.prices)}
+                        {currencyVnd(row.adultPrice)}
                       </TableCell>
                       <TableCell>
                         <IconButton

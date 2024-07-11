@@ -8,5 +8,6 @@ router.post("/tour/search", TourController.searchTour);
 router.put("/tour/:id", TourController.updateTour);
 router.delete("/tours/:id", TourController.deleteTour);
 router.post("/tours", TourController.createTour);
+router.post("/slot-still", TourController.updateSlot);
 
 module.exports = router;

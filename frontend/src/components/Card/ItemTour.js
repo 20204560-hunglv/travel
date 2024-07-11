@@ -40,7 +40,7 @@ export default function ItemTour({ item }) {
       <CardActions className="flex justify-between">
         <Typography>{`${item.favorites || 0} lượt thích`}</Typography>
         <Typography className="text-red-500" variant="h6" component="p">
-          {currencyVnd(item.prices)}
+          {`${currencyVnd(item.adultPrice)}/ khách`}
         </Typography>
       </CardActions>
     </Card>

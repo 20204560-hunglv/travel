@@ -22,9 +22,9 @@ const getAllTours = async (req, res) => {
     const query = req.query;
     const [tours, totalPage] = await Promise.all([
       TourRepository.get({ ...query }),
-      TourRepository.getTotalPage({})
+      TourRepository.getTotalPage({}),
     ]);
-    return res.status(200).json({tours, totalPage});
+    return res.status(200).json({ tours, totalPage });
   } catch (err) {
     console.error(err);
     return res.status(404).json({
@@ -70,10 +70,7 @@ const updateTour = async (req, res) => {
   const _id = req.params.id;
   const dataUpdate = req.body;
   try {
-    await Tour.updateOne(
-      { _id: _id },
-      dataUpdate
-    );
+    await Tour.updateOne({ _id: _id }, dataUpdate);
     return res.status(200).json({
       message: "update ok",
     });
@@ -98,6 +95,21 @@ const createTour = async (req, res) => {
   }
 };
 
+const updateSlot = async (req, res) => {
+  try {
+    const { field, value, tourId } = req.body;
+    await TourRepository.updateIncrement({ field, tourId, value });
+    return res.status(200).json({
+      message: "ok",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json({
+      message: "error",
+    });
+  }
+};
+
 module.exports = {
   getAllTours,
   getTour,
@@ -105,4 +117,5 @@ module.exports = {
   updateTour,
   deleteTour,
   createTour,
+  updateSlot,
 };

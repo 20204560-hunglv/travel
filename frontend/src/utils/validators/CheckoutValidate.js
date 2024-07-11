@@ -1,4 +1,4 @@
-import {required} from "./Required";
+import { required } from "./Required";
 
 /**
  * @description Validate login input
@@ -6,7 +6,13 @@ import {required} from "./Required";
  * @param {string} pass
  * @return {*}
  */
-export default function checkoutValidate({ fullName, email, phone }) {
+export default function checkoutValidate({
+  fullName,
+  email,
+  phone,
+  slotStill,
+}) {
+  if (slotStill <= 0) throw new Error("Tour đã hết chỗ!");
   required(fullName);
   required(email);
   required(phone);

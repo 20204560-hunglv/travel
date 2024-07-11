@@ -8,6 +8,10 @@ const get = async () => {
   return await Order.find({}).sort({ updatedAt: -1 });
 };
 
+const getById = async (_id) => {
+  return await Order.findOne({ _id });
+};
+
 const getByUserId = async (customerId) => {
   return await Order.find({ customerId });
 };
@@ -36,4 +40,4 @@ const edit = async ({ _id, data }) => {
   await Order.updateOne({ _id }, data);
 };
 
-module.exports = { get, create, remove, edit, getByUserId };
+module.exports = { get, create, remove, edit, getByUserId, getById };

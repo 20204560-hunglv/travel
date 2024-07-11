@@ -23,12 +23,19 @@ export default function ItemOrder({
 
   const handleDelete = async () => {
     try {
-      await OrderServices.edit({
-        id: orderId,
-        data: {
-          status: "Cancelled",
-        },
-      });
+      await Promise.all([
+        OrderServices.edit({
+          id: orderId,
+          data: {
+            status: "Cancelled",
+          },
+        }),
+        OrderServices.updateSlotStill({
+          field: "slotStill",
+          value: 1,
+          tourId: item.tour?._id,
+        }),
+      ]);
       fetchData();
       handleNotify("success", "Thành công", "Hủy tour thành công");
     } catch (error) {

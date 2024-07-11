@@ -7,18 +7,14 @@ import { selectNameCity } from "../../utils/cites";
 import { get as getTour } from "../../services/TourServices";
 import * as DiscountServices from "../../services/DiscountServices";
 import * as FavoriteServices from "../../services/FavoriteServices";
-import {
-  Button,
-  IconButton,
-  Typography,
-} from "@mui/material";
+import { Button, IconButton, Typography } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import MapIcon from "@mui/icons-material/Map";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import Grid from "@mui/material/Unstable_Grid2";
 import { formatDate } from "../../utils/resolveTime";
-import ItemTour from './../../components/Card/ItemTour';
+import ItemTour from "./../../components/Card/ItemTour";
 
 const Tour = () => {
   const userData = getUserLocal();
@@ -30,6 +26,7 @@ const Tour = () => {
   const [favorite, setFavorite] = useState();
   const dataCanLike = [
     {
+      adultPrice: 1000000,
       _id: "66189b8e206156a0ecf81368",
       name: "Combo 2N1D Vịnh Lan Hạ - Du thuyền 5* Stellar Of The Sea ",
       start_time: "Sat Apr 27 2024 16:19:46 GMT+0700 (Giờ Đông Dương)",
@@ -50,6 +47,7 @@ const Tour = () => {
       slotMax: 0,
     },
     {
+      adultPrice: 1000000,
       _id: "661b96140d47bee52e5e01dd",
       name: "Hà Nội - Nghĩa Lộ - Tú Lệ - Mù Cang Chải",
       start_time: "Wed Apr 24 2024 16:19:46 GMT+0700 (Indochina Time)",
@@ -64,6 +62,7 @@ const Tour = () => {
       __v: 0,
     },
     {
+      adultPrice: 1000000,
       _id: "661b96690d47bee52e5e01e1",
       name: "Cần Thơ - Hà Nội",
       start_time: "Mon Apr 15 2024 16:19:46 GMT+0700 (Indochina Time)",
@@ -293,6 +292,9 @@ const Tour = () => {
               </Typography>
             </div>
           ))}
+          {data.tourGuide?.length === 0 && (
+            <Typography>Chưa cập nhật</Typography>
+          )}
         </div>
         <div className="py-10">
           <Typography

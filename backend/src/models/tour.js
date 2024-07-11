@@ -7,7 +7,6 @@ const Tour = new Schema(
     start_time: String,
     period: String,
     main_image_url: String,
-    prices: String,
     addressFrom: String,
     addressTo: String,
     describe: { type: String },

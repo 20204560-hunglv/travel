@@ -1,4 +1,8 @@
 const OrderRepository = require("../repositories/OrderRepository");
+const {
+  updateIncrement,
+  getTourById,
+} = require("../repositories/TourRepository");
 
 const get = async (req, res) => {
   try {
@@ -18,7 +22,7 @@ const get = async (req, res) => {
 
 const getByUserId = async (req, res) => {
   try {
-    const {userId} = req.params;
+    const { userId } = req.params;
     const response = await OrderRepository.getByUserId(userId);
     return res.json({
       success: true,
@@ -36,7 +40,11 @@ const getByUserId = async (req, res) => {
 const create = async (req, res) => {
   try {
     const data = req.body;
-    await OrderRepository.create(data);
+    const { tourId } = data;
+    await Promise.all([
+      OrderRepository.create(data),
+      updateIncrement({ field: "slotStill", tourId, value: -1 }),
+    ]);
     return res.status(201).json({
       success: true,
     });
@@ -52,7 +60,17 @@ const create = async (req, res) => {
 const remove = async (req, res) => {
   try {
     const { _id } = req.params;
-    await OrderRepository.remove(_id);
+    const order = await OrderRepository.getById(_id);
+    const tour = await getTourById(order.tourId);
+    console.log({ order });
+    const promises = [OrderRepository.remove(_id)];
+    if (order.status !== "Cancelled") {
+      promises.push(
+        updateIncrement({ field: "slotStill", tourId: tour._id, value: 1 })
+      );
+    }
+
+    await Promise.all(promises);
     return res.json({
       success: true,
     });
