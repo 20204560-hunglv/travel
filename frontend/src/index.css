@@ -65,3 +65,7 @@
 .min-h-400 {
   min-height: 400px;
 }
+::-ms-reveal {
+  /* hide icon eye when use Edge */
+  display: none;
+}

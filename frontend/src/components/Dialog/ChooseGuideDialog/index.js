@@ -8,15 +8,21 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { get as getAll } from "../../../services/GuideServices";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Checkbox from "@mui/material/Checkbox";
+import SearchModal from "../../Search/SearchModal";
 
 const ChooseGuideDialog = (props) => {
   const { onClose, open, setOpen, checkInput } = props;
   const [data, setData] = useState([]);
   const [checked, setChecked] = useState(checkInput);
+  const [search, setSearch] = useState("");
+
+  const handleChangeSearch = (event) => {
+    setSearch(event.target.value);
+  };
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.findIndex((elem) => {
@@ -50,14 +56,25 @@ const ChooseGuideDialog = (props) => {
     fetchData();
   }, []);
 
+  const visibleData = useMemo(() => {
+    const dataSearch = data.filter((item) => {
+      const content = `${item.fullName} - ${item?.email}`;
+      return content.includes(search);
+    });
+    return dataSearch;
+  });
+
   return (
     <Dialog onClose={handleClose} open={open}>
       <Box className="p-5">
         <Typography variant="h6">Danh sách hướng dẫn viên</Typography>
+        <div className="flex justify-end">
+          <SearchModal onChange={handleChangeSearch} value={search} />
+        </div>
         <List
           sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
         >
-          {data.map((elem, index) => {
+          {visibleData.map((elem, index) => {
             const labelId = `checkbox-list-label-${index}`;
             const currentIndex = checked.findIndex((value) => {
               return elem._id === value._id;

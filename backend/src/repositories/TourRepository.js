@@ -1,13 +1,14 @@
 const Tour = require("../models/tour");
 
 const get = async ({
-  limit = 6,
+  limit = 12,
   field = "createdAt",
   sort = "desc",
   page = 1,
   getAll = false,
+  find = {}
 }) => {
-  if (getAll) return Tour.find({}).sort({ [field]: sort });
+  if (getAll) return Tour.find(find).sort({ [field]: sort });
   else
     return Tour.find({})
       .sort({ [field]: sort })
@@ -17,11 +18,11 @@ const get = async ({
 
 const getTotalPage = async ({
   field = "createdAt",
-  limit = 6,
+  limit = 12,
   sort = "desc",
 }) => {
   const tours = await Tour.find({}).sort({ [field]: sort });
-  return parseInt(tours.length / limit) + 1;
+  return Math.ceil(tours.length / limit);
 };
 
 const updateFavorite = async (tourId, value) => {

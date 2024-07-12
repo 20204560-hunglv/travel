@@ -1,5 +1,5 @@
 import SideBar from "./SideBar";
-import { AppBar, Box, Button, Toolbar } from "@mui/material";
+import { AppBar, Box, Button, Paper, Toolbar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LogoWhite from "../../Icons/logoWhite";
@@ -33,9 +33,9 @@ const LayoutAdmin = ({ children }) => {
         </AppBar>
       </Box>
       <div className="grid grid-cols-6">
-        <div className="h-screen col-span-1">
+        <Paper className="calc-64 col-span-1">
           <SideBar />
-        </div>
+        </Paper>
         <div className={`w-full col-span-5`}>
           <div className="mx-5">
             <div>{children}</div>

@@ -7,16 +7,22 @@ import {
   ListItemButton,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { get as getAll } from "../../../services/HotelServices";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Checkbox from "@mui/material/Checkbox";
 import CardHotel from "../../Card/CardHotel";
+import SearchModal from "../../Search/SearchModal";
 
 const ChooseHotelDialog = (props) => {
   const { onClose, open, setOpen, checkInput } = props;
   const [data, setData] = useState([]);
   const [checked, setChecked] = useState(checkInput);
+  const [search, setSearch] = useState("");
+
+  const handleChangeSearch = (event) => {
+    setSearch(event.target.value);
+  };
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.findIndex((elem) => {
@@ -50,16 +56,22 @@ const ChooseHotelDialog = (props) => {
     fetchData();
   }, []);
 
+  const visibleData = useMemo(() => {
+    const dataSearch = data.filter((item) => {
+      const content = `${item.name}`;
+      return content.includes(search);
+    });
+    return dataSearch;
+  });
+
   return (
     <div className="flex justify-center items-center">
-      <Dialog
-        fullWidth
-        maxWidth="md"
-        onClose={handleClose}
-        open={open}
-      >
+      <Dialog fullWidth maxWidth="md" onClose={handleClose} open={open}>
         <Box className="p-5">
           <Typography variant="h6">Danh sách khách sạn</Typography>
+          <div className="flex justify-end">
+            <SearchModal onChange={handleChangeSearch} value={search} />
+          </div>
           <List
             sx={{
               width: "100%",
@@ -67,7 +79,7 @@ const ChooseHotelDialog = (props) => {
               bgcolor: "background.paper",
             }}
           >
-            {data.map((elem, index) => {
+            {visibleData.map((elem, index) => {
               const labelId = `checkbox-list-label-${index}`;
               const currentIndex = checked.findIndex((value) => {
                 return elem._id === value._id;

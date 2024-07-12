@@ -53,7 +53,7 @@ const CrudTour = () => {
   const handleAddData = async (data) => {
     try {
       await addTour(data);
-      handleChangeIsAdd(false);
+      // handleChangeIsAdd(false);
       handleNotify("success", "", "Tạo tài tour thành công");
     } catch (error) {
       console.log(error);

@@ -1,7 +1,7 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import DefaultLayout from "../../components/Layout/DefaultLayout";
 import cites from "../../utils/cites";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { get as getTours } from "../../services/SearchServices";
 import Button from "@mui/material/Button";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -93,7 +93,7 @@ const Search = () => {
     const search = data.filter((item) => {
       return compareItem(item);
     });
-    setTotalPage(parseInt(search.length / 6) + 1);
+    setTotalPage(Math.ceil(search.length / 12));
     setDataSearch(search);
   };
   const handleSort = (value) => {
@@ -105,6 +105,11 @@ const Search = () => {
     if (value === "price-desc")
       dataSearch.sort((a, b) => b.adultPrice - a.adultPrice);
   };
+
+  const visibleData = useMemo(()=>{
+    
+  }, [])
+
 
   return (
     <DefaultLayout>
