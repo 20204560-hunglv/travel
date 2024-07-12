@@ -17,7 +17,8 @@ import {
 } from "@mui/material";
 import dayjs from "dayjs";
 import Grid from "@mui/material/Unstable_Grid2";
-import ItemTour from './../../components/Card/ItemTour';
+import ItemTour from "./../../components/Card/ItemTour";
+import NotFound from "./../../components/NotFound/NotFound";
 
 const Choose = (props) => {
   return (
@@ -67,10 +68,10 @@ const Search = () => {
 
   useEffect(() => {
     fetchData();
-  }, [page]);
+  }, []);
   const fetchData = async () => {
     try {
-      const tours = await getTours(page);
+      const tours = await getTours();
       setData(tours.data.tours);
       setDataSearch(tours.data.tours);
       setTotalPage(tours.data.totalPage);
@@ -94,22 +95,27 @@ const Search = () => {
       return compareItem(item);
     });
     setTotalPage(Math.ceil(search.length / 12));
+    setPage(1);
     setDataSearch(search);
   };
   const handleSort = (value) => {
     console.log(value);
     setSort(value);
-    if (value === "") dataSearch.sort((a, b) => b.adultPrice - a.adultPrice);
+    const dataSort = [...dataSearch];
+    if (value === "") dataSort.sort((a, b) => b.adultPrice - a.adultPrice);
     if (value === "price-asc")
-      dataSearch.sort((a, b) => a.adultPrice - b.adultPrice);
+      dataSort.sort((a, b) => a.adultPrice - b.adultPrice);
     if (value === "price-desc")
-      dataSearch.sort((a, b) => b.adultPrice - a.adultPrice);
+      dataSort.sort((a, b) => b.adultPrice - a.adultPrice);
+    setDataSearch(dataSort);
+    setPage(1);
   };
 
-  const visibleData = useMemo(()=>{
-    
-  }, [])
-
+  const visibleData = useMemo(() => {
+    const startIndex = (page - 1) * 12;
+    const endIndex = startIndex + 12;
+    return dataSearch.slice(startIndex, endIndex);
+  }, [page, dataSearch]);
 
   return (
     <DefaultLayout>
@@ -148,23 +154,27 @@ const Search = () => {
             <div className="font-semibold text-sm w-full mt-4">
               <div className="flex items-center justify-between">
                 <h5 className="min-w-fit">Giá</h5>
-                <TextField
-                  type="number"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  inputProps={{
-                    min: 0,
-                  }}
-                  sx={{
-                    width: "50%",
-                  }}
-                  size="small"
-                  value={adultPrice}
-                  onChange={(event) => setAdultPrice(event.target.value)}
-                >
-                  Hello
-                </TextField>
+                <div className="flex items-center justify-end space-x-3">
+                  <Typography>0</Typography>
+                  <Typography>-</Typography>
+                  <TextField
+                    type="number"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    inputProps={{
+                      min: 0,
+                    }}
+                    sx={{
+                      width: "50%",
+                    }}
+                    size="small"
+                    value={adultPrice}
+                    onChange={(event) => setAdultPrice(event.target.value)}
+                  >
+                    Hello
+                  </TextField>
+                </div>
               </div>
               <Slider
                 value={adultPrice}
@@ -208,23 +218,30 @@ const Search = () => {
               spacing={{ xs: 2, md: 3 }}
               columns={{ xs: 4, sm: 8, md: 3 }}
             >
-              {dataSearch.map((item, index) => (
+              {visibleData.map((item, index) => (
                 <Grid xs={2} sm={4} md={1} key={index}>
                   <ItemTour item={item} />
                 </Grid>
               ))}
+              {visibleData.length === 0 && (
+                <div className="w-full h-64">
+                  <NotFound />
+                </div>
+              )}
             </Grid>
           </Box>
           <div className="flex justify-center">
-            <Pagination
-              count={totalPage}
-              color="primary"
-              page={page}
-              onChange={(event, value) => {
-                setPage(value);
-                navigate(`/search/page/${value}`);
-              }}
-            />
+            {visibleData.length > 0 && (
+              <Pagination
+                count={totalPage}
+                color="primary"
+                page={page}
+                onChange={(event, value) => {
+                  setPage(value);
+                  navigate(`/search/page/${value}`);
+                }}
+              />
+            )}
           </div>
         </div>
       </div>

@@ -49,7 +49,7 @@ export async function getAll() {
 
 export async function getAllByAdmin() {
   try {
-    const response = await axios.get("/api/v1/tours?getAll=true");
+    const response = await axios.get("/api/v1/tours?getAll='true'");
     const tours = response.data.tours;
     const newTours = await Promise.all(
       tours.map(async (tour) => {
