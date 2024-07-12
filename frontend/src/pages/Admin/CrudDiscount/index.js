@@ -6,6 +6,7 @@ import HeaderResult from "./../../../components/Layout/LayoutAdmin/HeaderResult/
 import * as DiscountServices from "../../../services/DiscountServices";
 import TableDiscount from "./../../../components/Table/TableDiscount/index";
 import CRUDDiscountModal from "../../../components/Modal/CRUDDiscountModal";
+import { update } from "../../../services/TourServices";
 
 export default function CrudDiscount() {
   const [data, setData] = useState([]);
@@ -53,7 +54,18 @@ export default function CrudDiscount() {
 
   const handleAddData = async (data) => {
     try {
-      await DiscountServices.create(data);
+      const resp = await DiscountServices.create(data);
+      const { isActive, tours } = data;
+      switch (isActive) {
+        case 'true': {
+          tours.forEach(async (tourId) => {
+            await update(tourId, { discountId: resp.data?._id });
+          });
+          break;
+        }
+        case false:
+          break;
+      }
       handleChangeIsAdd(false);
       handleNotify("success", "", "Tạo thành công");
     } catch (error) {
@@ -64,7 +76,28 @@ export default function CrudDiscount() {
 
   const handleEditData = async (data) => {
     try {
-      await DiscountServices.edit({ id: userEdit._id, data });
+      const resp = await DiscountServices.edit({ id: userEdit._id, data });
+      const { isActive, tours } = data;
+      console.log({ isActive, tours });
+      switch (isActive) {
+        case 'true': {
+          await Promise.all(
+            tours.map((tourId) => {
+              update(tourId, { discountId: userEdit._id });
+            })
+          );
+          break;
+        }
+        case 'false': {
+          await Promise.all(
+            tours.forEach((tourId) => {
+              update(tourId, { discountId: "false" });
+            })
+          );
+
+          break;
+        }
+      }
       handleNotify("success", " ", "Chỉnh sửa thành công");
     } catch (error) {
       console.log(error);

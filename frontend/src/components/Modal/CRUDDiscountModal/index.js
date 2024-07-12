@@ -32,7 +32,7 @@ const CRUDDiscountModal = ({
   );
   const [tours, setTours] = useState(data?.tours || []);
   const [discountValue, setDiscountValue] = useState(data?.discountValue || "");
-  const [isActive, setIsActive] = useState(data?.isActive || null);
+  const [isActive, setIsActive] = useState(data?.isActive || false);
   const [openTour, setOpenTour] = useState(false);
 
   const handleSave = async () => {

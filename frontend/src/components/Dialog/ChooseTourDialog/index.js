@@ -58,12 +58,13 @@ const ChooseTourDialog = (props) => {
   }, []);
 
   const visibleData = useMemo(() => {
+    if (search === "") return data;
     const dataSearch = data.filter((item) => {
       const content = `${item.name} - ${formatDate(item?.start_time)}`;
       return content.includes(search);
     });
     return dataSearch;
-  }, [search]);
+  }, [search, data]);
 
   return (
     <Dialog onClose={handleClose} open={open} maxWidth="md">

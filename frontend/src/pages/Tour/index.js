@@ -109,7 +109,7 @@ const Tour = () => {
     fetchData();
   }, [id]);
   useEffect(() => {
-    if (data?.discountId) {
+    if (data?.discountId !== "false") {
       DiscountServices.getOne(data?.discountId)
         .then((discount) => setDiscount(discount))
         .catch((e) => console.log(e));

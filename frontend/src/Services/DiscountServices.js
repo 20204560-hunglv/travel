@@ -1,5 +1,5 @@
 import axios from "../utils/axios";
-import * as TourServices from '../services/TourServices'
+import * as TourServices from "../services/TourServices";
 
 /**
  *
@@ -28,7 +28,7 @@ export async function getAllByAdmin() {
         const toursId = elem.tours;
         const tours = await Promise.all(
           toursId.map(async (elem) => {
-            const resp = (await TourServices.get(elem));
+            const resp = await TourServices.get(elem);
             return resp;
           })
         );
@@ -51,7 +51,8 @@ export async function getAllByAdmin() {
  */
 export const create = async (data) => {
   try {
-    await axios.post("/api/v1/discounts", data);
+    const resp = await axios.post("/api/v1/discounts", data);
+    return resp.data;
   } catch (error) {
     console.log(error);
   }

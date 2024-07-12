@@ -18,7 +18,7 @@ const Discount = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  console.log({data})
+  console.log({ data });
 
   return (
     <DefaultLayout>
@@ -30,7 +30,10 @@ const Discount = () => {
             </Typography>
           </div>
           {data.map((elem) => (
-            <div key={elem._id}>
+            <div
+              className={`${elem.isActive ? "block" : "hidden"}`}
+              key={elem._id}
+            >
               <Typography align="center" variant="h4">
                 {elem.name}
               </Typography>
