@@ -35,9 +35,10 @@ const getById = async (req, res) => {
 const create = async (req, res) => {
   try {
     const data = req.body;
-    await DiscountRepository.create(data);
+    const dataCreate = await DiscountRepository.create(data);
     return res.status(201).json({
       success: true,
+      data: dataCreate,
     });
   } catch (error) {
     console.log(error);
@@ -71,6 +72,7 @@ const edit = async (req, res) => {
     await DiscountRepository.edit({ _id, data });
     return res.json({
       success: true,
+      data: { _id, ...data },
     });
   } catch (error) {
     console.log(error);

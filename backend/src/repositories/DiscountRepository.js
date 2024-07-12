@@ -17,7 +17,7 @@ async function getOne(field) {
  * @returns
  */
 const create = async (data) => {
-  await Discount.create(data);
+  return await Discount.create(data);
 };
 
 /**
@@ -33,7 +33,7 @@ const remove = async (_id) => {
  * @param {string} id
  */
 const edit = async ({ _id, data }) => {
-  await Discount.updateOne({ _id }, data);
+  return await Discount.updateOne({ _id }, data);
 };
 
 module.exports = { get, create, remove, edit, getOne };
