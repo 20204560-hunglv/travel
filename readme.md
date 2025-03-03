@@ -45,8 +45,6 @@ npm start
 - Đặt tour
 - Đánh giá tour
 - ...
-## Hình ảnh
-![Booking App](images/home.png)
 
 <!-- # Dot Env -->
 <!-- MAIL_MAILER=smtp
