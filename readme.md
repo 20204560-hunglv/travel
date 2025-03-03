@@ -48,12 +48,12 @@ npm start
 ## Hình ảnh
 ![Booking App](images/home.png)
 
-# Dot Env
-MAIL_MAILER=smtp
+<!-- # Dot Env -->
+<!-- MAIL_MAILER=smtp
 MAIL_HOST=smtp.gmail.com
 MAIL_PORT=587
 MAIL_USERNAME=apptravelAT@gmail.com
 MAIL_PASSWORD=otikssbyewdxcnbv
 MAIL_ENCRYPTION=
 MAIL_FROM_ADDRESS=
-MAIL_FROM_NAME=
+MAIL_FROM_NAME= -->
